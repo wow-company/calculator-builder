@@ -25,7 +25,7 @@ class WP_Plugin_Public {
 		$this->rating = $info['rating'];
 		// Display on the site
 		add_shortcode( $this->plugin['shortcode'], array( $this, 'shortcode' ) );
-//		add_action( 'wp_enqueue_scripts', array( $this, 'shortcode_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'shortcode_scripts' ) );
 
 	}
 
