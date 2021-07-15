@@ -56,7 +56,7 @@ function calculate(event) {
   let y = [];
 ";
 
-$script .= $formula;
+$script .= wp_specialchars_decode($formula);
 
 $script .= "
 for (let i = 1; i < y.length; i++) {
