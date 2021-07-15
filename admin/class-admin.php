@@ -156,7 +156,7 @@ class WP_Plugin_Admin {
 		wp_enqueue_style( $slug . '-custom', $url_assets . 'css/customize.css', false, $version );
 
 
-		wp_enqueue_style( $slug . '-form', $url_assets . 'css/form-style.css', false, $version );
+		wp_enqueue_style( $slug . '-form', $url_assets . 'css/form-style.min.css', false, $version );
 
 		$url_navigation = $url_assets . 'js/navigation' . $pre_suffix . '.js';
 		wp_enqueue_script( $slug . '-navigation', $url_navigation, array( 'jquery' ), $version, true );
