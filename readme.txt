@@ -16,6 +16,12 @@ A simple tool to create an online calculator. You can create simple calculators 
 
 All calculators on the site [CalcHub](https://calchub.xyz/) are created using this plugin.
 
+= Quick Start video =
+
+How to use and create a new popup with Popup Box plugin for WordPress.
+
+https://youtu.be/EGjO6k3JGU0
+
 = Calculator Elements: =
 * Number
 * Dropdown
