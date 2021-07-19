@@ -152,20 +152,19 @@ class WP_Plugin_Admin {
 		$url_assets = plugin_dir_url( __FILE__ ) . 'assets/';
 		$pre_suffix = '';
 
+		$url_navigation = $url_assets . 'js/navigation' . $pre_suffix . '.js';
+		wp_enqueue_script( $slug . '-navigation', $url_navigation, array( 'jquery' ), $version, true );
+
 		wp_enqueue_style( $slug . '-admin', $url_assets . 'css/main' . $pre_suffix . '.css', false, $version );
 		wp_enqueue_style( $slug . '-custom', $url_assets . 'css/customize.css', false, $version );
 
-
-		wp_enqueue_style( $slug . '-form', $url_assets . 'css/form-style.min.css', false, $version );
-
-		$url_navigation = $url_assets . 'js/navigation' . $pre_suffix . '.js';
-		wp_enqueue_script( $slug . '-navigation', $url_navigation, array( 'jquery' ), $version, true );
 
 		if ( isset( $_GET['tab'] ) && $_GET['tab'] !== 'settings' ) {
 			return false;
 		}
 
 
+		wp_enqueue_style( $slug . '-form', $url_assets . 'css/form-style.min.css', false, $version );
 		// include sortable
 		wp_enqueue_script( 'jquery-ui-sortable' );
 
