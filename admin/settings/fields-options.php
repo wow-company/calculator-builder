@@ -30,6 +30,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="column type-number">
+                    <div class="field">
+                        <label class="label">Required</label>
+                        <div class="control">
+                            <div class="select is-link">
+                                <select name="required">
+                                    <option value="1">Yes</option>
+                                    <option value="2">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
             <div class="columns">
@@ -41,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="column type-number">
+                <div class="column type-number type-result">
                     <div class="field">
                         <label class="label">Addon</label>
                         <div class="field has-addons">
@@ -74,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column type-number">
                     <div class="field has-addons">
                         <div class="control">
                             <span class="button is-size-6 is-link">step</span>

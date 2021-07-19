@@ -18,7 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="columns">
 	<div class="column">
-        <div class="operators mt-5">
+        <div class="operators">
+            <div class="operators-line is-hidden variables-bottom">
+                <h4>Variables:</h4>
+                <div id="variables-bottom"></div>
+            </div>
 
             <div class="operators-line tags">
                 <span class="operator tag">=</span>

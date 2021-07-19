@@ -243,6 +243,7 @@ class WP_Plugin_Admin {
 				'max'      => true,
 				'checked'  => true,
 				'readonly' => true,
+				'has-required' => true,
 			),
 			'button'   => array(
 				'type'  => true,
@@ -283,7 +284,7 @@ class WP_Plugin_Admin {
 					absint( $_POST['tool_id'] ),
 					sanitize_text_field( $_POST['title'] ),
 					$this->sanitize_form( $_POST['form'], false ),
-					sanitize_textarea_field( $_POST['formula'] )
+					sanitize_textarea_field( wp_unslash($_POST['formula'] ) )
 				) );
 
 		} elseif ( $add === 2 ) {
@@ -292,7 +293,7 @@ class WP_Plugin_Admin {
 					$wpdb->prepare( " UPDATE  {$table} SET title = %s, form = %s, formula = %s    WHERE id= %d;",
 						sanitize_text_field( $_POST['title'] ),
 						$this->sanitize_form( $_POST['form'], false ),
-						sanitize_textarea_field( $_POST['formula'] ),
+						sanitize_textarea_field( wp_unslash($_POST['formula'] )),
 						absint( $_POST['tool_id'] )
 					) );
 		}

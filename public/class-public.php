@@ -42,24 +42,23 @@ class WP_Plugin_Public {
 			$form = preg_replace( '#<div class="action-elements">(.*?)</div>#s', ' ', $form );
 			$form = str_replace( ' ui-sortable-handle', '', $form );
 			$form = str_replace( 'has-result', 'has-result is-hidden', $form );
+			$form = str_replace( 'has-required', 'required', $form );
 
-			$content = '<form action="" name="formbox" class="formbox" id="calculator">';
-			$content .=  $form;
-			$content .=  '</form>';
-			$content .=  '<script>';
-			$content .=  $this->script($result->formula);
-			$content .=  '</script>';
+			$content = '<form action="' . esc_url( get_permalink() ) . '" name="formbox" class="formbox" id="calculator">';
+			$content .= $form;
+			$content .= '</form>';
+			$content .= '<script>';
+			$content .= $this->script( $result->formula );
+			$content .= '</script>';
 
 			return $content;
-
-
 		}
 
 	}
 
 	function shortcode_scripts() {
 		global $post;
-		if( has_shortcode( $post->post_content, $this->plugin['shortcode']) ) {
+		if ( has_shortcode( $post->post_content, $this->plugin['shortcode'] ) ) {
 
 			$slug    = $this->plugin['slug'];
 			$version = $this->plugin['version'];
@@ -69,9 +68,10 @@ class WP_Plugin_Public {
 		}
 	}
 
-	function script($formula) {
+	function script( $formula ) {
 		$script = '';
 		require plugin_dir_path( __FILE__ ) . 'generate-script.php';
+
 		return $script;
 	}
 

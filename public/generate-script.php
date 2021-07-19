@@ -24,18 +24,23 @@ calc.forEach((form) => {
   btn_calc.addEventListener('click', {handleEvent: calculate, form: form});
   form.addEventListener('reset', calcReset);
   form.addEventListener('change', {handleEvent: calculate, form: form});
-  form.addEventListener('submit', submitForm);
 });
 
-function submitForm(event) {
-  event.preventDefault();
-  console.log(this);
-}
 
 function calculate(event) {
   event.preventDefault();
 
   const fields = this.form.querySelectorAll('[name^=\"formbox-field-\"]');
+  
+  for (let i = 0; i < fields.length; i++) {
+    if (fields[i].hasAttribute('required')) {
+      if (fields[i].value == '') {
+        fields[i].focus({preventScroll: false});
+        return false;
+      }
+    }
+  }
+  
   let x = [];
 
   for (let i = 0; i < fields.length; i++) {
@@ -56,7 +61,7 @@ function calculate(event) {
   let y = [];
 ";
 
-$script .= wp_specialchars_decode($formula);
+$script .= wp_specialchars_decode($formula, ENT_QUOTES);
 
 $script .= "
 for (let i = 1; i < y.length; i++) {

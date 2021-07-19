@@ -4,12 +4,12 @@ const Calc_Builder = function() {
 
       jQuery('#calculator').sortable({
         appendTo: document.body,
-        cursor: "move",
-        update: function( event, ui ) {
+        cursor: 'move',
+        update: function(event, ui) {
           createVariables();
           setFieldsAttributes();
           removeTagStyle();
-        }
+        },
       });
 
       function removeTagStyle() {
@@ -19,14 +19,17 @@ const Calc_Builder = function() {
         });
       }
 
-
       const $formType = document.querySelector('#form-params [name="type"]');
       const $typeNumber = document.querySelectorAll('.type-number');
+      const $typeResult = document.querySelectorAll('.type-result');
       const $typeTextarea = document.querySelectorAll('.type-textarea');
       const $typeButtons = document.querySelectorAll('.type-buttons');
       const $formParam = document.getElementById('form-params');
       const $actionLightbox = document.querySelector('.btn-add-new-field');
       const $lightboxTitle = document.querySelector('#field-number .lightbox-title');
+      const $lightboxClose = document.querySelector('#field-number .lightbox-close');
+
+
 
       $actionLightbox.addEventListener('click', () => {
         $formParam.classList.remove('is-field-update');
@@ -76,7 +79,6 @@ const Calc_Builder = function() {
 
         $lightboxTitle.innerText = 'Update Field';
 
-
         if (container.classList.contains('has-result')) {
           type = '7';
         } else if (container.querySelector('.has-group')) {
@@ -108,6 +110,15 @@ const Calc_Builder = function() {
 
         let max = container.querySelector('.formbox__field input[type="number"]');
         max = (max) ? max.getAttribute('max') : '';
+
+        let required = container.querySelector('.formbox__field input[type="number"]');
+        required = (required) ? required.getAttribute('required') : '';
+
+        if(required == '') {
+          $formParam.querySelector('[name="required"]').value = '1';
+        } else {
+          $formParam.querySelector('[name="required"]').value = '2';
+        }
 
         let calc = container.querySelector('.formbox__btn-calc');
         calc = (calc) ? calc.innerText : '';
@@ -186,7 +197,6 @@ const Calc_Builder = function() {
 
         let content = '';
 
-
         content += `<div class="formbox__title">${param.title}</div>`;
         content += `<div class="formbox__body${class_group}">`;
 
@@ -223,8 +233,6 @@ const Calc_Builder = function() {
                     <a href="#field-number" class="edit">&#9998;</a>
                     </div>`;
 
-
-
         let dataVal = $formParam.getAttribute('data-field-index');
         if (dataVal === '') {
           let out = `<fieldset class="formbox__container${class_result}">${content}</fieldset>`;
@@ -236,9 +244,9 @@ const Calc_Builder = function() {
             allContainer[dataVal].classList.add(class_result.trim());
           }
           allContainer[dataVal].innerHTML = content;
+          $lightboxClose.click();
 
         }
-
 
         setFieldsAttributes();
         createVariables();
@@ -259,12 +267,14 @@ const Calc_Builder = function() {
         }
 
         document.getElementById('variables').innerHTML = variables;
-
+        document.getElementById('variables-bottom').innerHTML = variables;
+        document.querySelector('.variables-bottom').classList.remove('is-hidden');
         variableHover();
+        variableHoverBottom();
       }
 
       function variableHover() {
-        let variables = document.querySelectorAll('.variable');
+        let variables = document.querySelectorAll('#variables .variable');
         let fields = document.querySelectorAll('.formbox__field');
         variables.forEach((el, index) => {
           el.addEventListener('mouseover', () => {
@@ -280,7 +290,23 @@ const Calc_Builder = function() {
 
         variables.forEach(el => {
           el.addEventListener('click', () => {
+          });
+        });
 
+      }
+
+      function variableHoverBottom() {
+        let variables = document.querySelectorAll('#variables-bottom .variable');
+        let fields = document.querySelectorAll('.formbox__field');
+        variables.forEach((el, index) => {
+          el.addEventListener('mouseover', () => {
+            fields[index].style.boxShadow = '0 0 10px 5px red';
+          });
+        });
+
+        variables.forEach((el, index) => {
+          el.addEventListener('mouseout', () => {
+            fields[index].style.boxShadow = 'none';
           });
         });
 
@@ -322,9 +348,10 @@ const Calc_Builder = function() {
 
       function numberField(param) {
         const step = (param.step != '') ? ' step="' + param.step + '"' : '';
-        const min = (param.step != '') ? ' min="' + param.min + '"' : '';
-        const max = (param.step != '') ? ' max="' + param.max + '"' : '';
-        const option = `value="${param.value}"${step}${min}${max}`;
+        const min = (param.min != '') ? ' min="' + param.min + '"' : '';
+        const max = (param.max != '') ? ' max="' + param.max + '"' : '';
+        const required = (param.required == '1') ? ' has-required' : '';
+        const option = `value="${param.value}"${step}${min}${max}${required}`;
 
         const has_addon = (param.addon !== '') ? ' has-addon is-' + param.addon_pos : '';
 
@@ -419,9 +446,14 @@ const Calc_Builder = function() {
       }
 
       function resultField(param) {
-        let content = '<div class="formbox__field is-result">';
+        const has_addon = (param.addon !== '') ? ' has-addon is-' + param.addon_pos : '';
+
+        let content = `<div class="formbox__field is-result${has_addon}">`;
+        if (param.addon !== '') {
+          content += `<span class="formbox__field-addon">${param.addon}</span>`;
+        }
         content += `<label class="formbox__field-lable">${param.title}</label>`;
-        content += '<input type="text" class="formbox__field-result" readonly>';
+        content += `<input type="text" class="formbox__field-result" readonly>`;
         content += '</div>';
         return content;
       }
@@ -476,6 +508,7 @@ const Calc_Builder = function() {
             toogleNumber('hide');
             toogleTextarea('hide');
             toogleButtons('hide');
+            toogleResult('show');
             break;
 
         }
@@ -490,6 +523,21 @@ const Calc_Builder = function() {
 
         } else {
           $typeNumber.forEach(el => {
+            el.classList.add('is-hidden');
+          });
+        }
+      }
+
+
+
+      function toogleResult(action) {
+        if (action === 'show') {
+          $typeResult.forEach(el => {
+            el.classList.remove('is-hidden');
+          });
+
+        } else {
+          $typeResult.forEach(el => {
             el.classList.add('is-hidden');
           });
         }
