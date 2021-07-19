@@ -222,7 +222,7 @@ class Wow_List_Table extends WP_List_Table {
 					'ID'    => $value->id,
 					'title' => '<a href="admin.php?page=' . esc_attr( $slug ) . '&tab=settings&act=update&id=' . absint( $value->id )
 					           . '">' . esc_attr( $title ) . '</a>',
-					'code'  => '[' . esc_attr( $shortcode ) . ' id="' . absint( $value->id ) . '"]',
+					'code'  => '<input type="text" value="[' . esc_attr( $shortcode ) . ' id=\'' . absint( $value->id ) . '\']" readonly>',
 
 
 				);
