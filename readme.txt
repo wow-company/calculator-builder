@@ -9,12 +9,14 @@ Stable tag: 0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A simple way to create online calculator
+A simple way to create an online calculator
 
 == Description ==
 A simple tool to create an online calculator. You can create simple calculators for any kind of calculation.
 
-Calculator Elements:
+All calculators on the site [CalcHub](https://calchub.xyz/) are created using this plugin.
+
+= Calculator Elements: =
 * Number
 * Dropdown
 * Radio Button
@@ -27,9 +29,52 @@ Calculator Elements:
 * Vanilla JS: without using jQuery library;
 
 
+The calculator has variables for calculating and results:
+
+* x[] - uses for calculate
+* y[] - uses for results
+
+= Equation / Formula Format For Calculated =
+
+`
+y[1] = x[1] + x[2];
+
+y[1] = x[1] - x[2];
+
+y[1] = x[1] * x[2];
+
+y[1] = x[1] / x[2];
+`
+
+Also you can round the result uses the function roundVal(val, decimal), where:
+
+* val = value or expression;
+* decimal = a number of simbols after comma/dot
+
+For Example, rounding expression to 2 decimal places
+`
+y[1] = roundVal( x[1] / x[2], 2);
+`
+
+You can use complex structures to calculate the results.
+
+`
+if( x[1] < 100 ) {
+	y[1] = x[2] * 2;
+} else if ( x[1] < 200 ) {
+	y[1] = x[2] * 3;
+} else {
+	y[1] = x[2] * 4;
+}
+`
+
+To improve the plugin's functions and add new functions, write to us on the support [forum](https://wordpress.org/support/plugin/calculator-builder/) or send requests on the [github](https://github.com/wow-company/calculator-builder/issues).
+
+Project on GitHub [https://github.com/wow-company/calculator-builder/](https://github.com/wow-company/calculator-builder/issues)
+
 
 = Support =
-Search for answers and ask your questions at [support center](https://wordpress.org/support/plugin/counter-box)
+Search for answers and ask your questions at [forum](https://wordpress.org/support/plugin/calculator-builder/) or send requests on the [github](https://github.com/wow-company/calculator-builder/issues)
 
 
 == Installation ==
