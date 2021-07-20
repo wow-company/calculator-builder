@@ -5,7 +5,7 @@ Tags: calculator, calculator builder, online calculator, calculator maker, calcu
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 0.1
+Stable tag: 0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,19 +28,29 @@ https://youtu.be/EGjO6k3JGU0
 * Radio Button
 * Checkbox
 
-
 = Main features =
 * Unlimited items: no limited to the number of calculators;
 * Live builder;
 * Vanilla JS: without using jQuery library;
 
 
-The calculator has variables for calculating and results:
+= Type of the Fields =
 
-* x[] - uses for calculate
-* y[] - uses for results
+* Number - a control for entering a number. Displays a spinner and adds default validation when supported. Displays a numeric keypad in some devices with dynamic keypads.
+* Select - element represents a control that provides a menu of options
+* Radio - a radio button, allowing a single value to be selected out of multiple choices with the same name value.
+* Checkbox - a check box allowing single values to be selected/deselected.
+* Number & Select - inserts two fields Number and Select
+* Buttons - set the buttons for Calculate and Reset data in the calculator form
+* Result - set the field with result. This field readonly.
 
-= Equation / Formula Format For Calculated =
+
+= EQUATION / FORMULA =
+
+To calculate the result, you must use the variables in the Formula field
+
+* Variable x[] - the variable is used for the field that takes part in the calculation
+* Variable y[] - variable for displaying the result
 
 `
 y[1] = x[1] + x[2];
@@ -52,25 +62,38 @@ y[1] = x[1] * x[2];
 y[1] = x[1] / x[2];
 `
 
-Also you can round the result uses the function roundVal(val, decimal), where:
+= Formula with additional variables =
+You can use the additional variables in the formula field for to facilitate writing the formula and displaying the result.
 
-* val = value or expression;
-* decimal = a number of simbols after comma/dot
+For Example, Formula Monthly payment for Loan:
 
-For Example, rounding expression to 2 decimal places
 `
-y[1] = roundVal( x[1] / x[2], 2);
+let r = x[2] / 1200;
+let A = x[1];
+let N = x[3];
+
+let result = ( r * A ) / ( 1 - Math.pow((1+r), -N));
+y[1] = roundVal(result, 2);
 `
 
+roundVal(val, decimals) - function for rounding a number. The first parameter (val) is the number to be rounded, the second parameter (decimals) is the number of numbers after the decimal point.
+
+= Сonditional formula =
 You can use complex structures to calculate the results.
+the ability to use the following comparison operators:
+* <  less
+* >  more
+* ==  equal
+
+For Example:
 
 `
 if( x[1] < 100 ) {
-	y[1] = x[2] * 2;
+    y[1] = x[2] * 2;
 } else if ( x[1] < 200 ) {
-	y[1] = x[2] * 3;
+    y[1] = x[2] * 3;
 } else {
-	y[1] = x[2] * 4;
+    y[1] = x[2] * 4;
 }
 `
 
@@ -97,5 +120,10 @@ Search for answers and ask your questions at [forum](https://wordpress.org/suppo
 
 
 == Changelog ==
+
+= 0.2 =
+* Updated: file for translate .po
+* Added: link to Documantation
+
 = 0.1 =
 * Initial release
