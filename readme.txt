@@ -117,6 +117,11 @@ Search for answers and ask your questions at [forum](https://wordpress.org/suppo
 * Copy and paste the shortcode, such as [Calculator id=1] to where you want the countdown to appear.
 * If you want it to appear everywhere on your site, you can insert it for example in your `header.php`, like this: `<?php echo do_shortcode('[CCalculator id=1]');?>`
 
+== Screenshots ==
+1. Loan Monthly payment Calculator
+2. Set the field into the calculator form
+3. Visual calculator builder in dashboard
+4. Formula field
 
 
 == Changelog ==
