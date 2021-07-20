@@ -33,7 +33,8 @@ $tabs_arr = array(
 	'list'     => esc_attr__( 'List', 'calculator-builder' ),
 	'settings' => esc_attr__( 'Add new', 'calculator-builder' ),
 	'support'  => esc_attr__( 'Support', 'calculator-builder' ),
-	'document'  => esc_attr__( 'Documentation', 'calculator-builder' ),
+	'document' => esc_attr__( 'Documentation', 'calculator-builder' ),
+	'demo'     => esc_attr__( 'Calculators examples', 'calculator-builder' ),
 );
 
 $tabs = apply_filters( $this->plugin['slug'] . '_tab_menu', $tabs_arr );
@@ -48,7 +49,7 @@ $rating = $this->rating['wp_url'];
         <a href="?page=<?php echo esc_attr( $this->plugin['slug'] ); ?>&tab=settings" class="page-title-action">
 			<?php esc_html_e( 'Add New', 'calculator-builder' ); ?></a>
         <hr class="wp-header-end">
-	    <?php if ( get_option( 'wow_' . $this->plugin['prefix'] . '_message' ) != 'read' ) : ?>
+		<?php if ( get_option( 'wow_' . $this->plugin['prefix'] . '_message' ) != 'read' ) : ?>
             <div class="notice notice-info is-dismissible wow-plugin-message">
                 <p class="ideas">
                     <i class="dashicons dashicons-megaphone has-text-danger is-r-margin"></i>We are constantly trying to
@@ -59,7 +60,7 @@ $rating = $this->rating['wp_url'];
                     WordPress.org.<br/>
 
             </div>
-	    <?php endif; ?>
+		<?php endif; ?>
 
         <div id="wow-message"></div>
 
@@ -77,9 +78,12 @@ $rating = $this->rating['wp_url'];
 					echo '<a class="nav-tab' . esc_attr( $class ) . '" href="?page=' . esc_attr( $this->plugin['slug'] ) . '&tab='
 					     . esc_attr( $tab ) . '">' . esc_attr( $name ) . '</a>';
 				}
-			}  elseif($tab == 'document') {
+			} elseif ( $tab == 'document' ) {
 				echo '<a class="nav-tab' . esc_attr( $class ) . '" href="https://calchub.xyz/documentation/" target="_blank">' . esc_attr( $name ) . '</a>';
-            }
+			}
+            elseif ( $tab == 'demo' ) {
+				echo '<a class="nav-tab' . esc_attr( $class ) . '" href="https://calchub.xyz/" target="_blank">' . esc_attr( $name ) . '</a>';
+			}
 			else {
 				echo '<a class="nav-tab' . esc_attr( $class ) . '" href="?page=' . $this->plugin['slug'] . '&tab='
 				     . esc_attr( $tab ) . '">' . esc_attr( $name ) . '</a>';
