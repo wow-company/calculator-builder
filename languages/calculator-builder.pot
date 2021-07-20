@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Calculator Builder\n"
-"POT-Creation-Date: 2021-07-12 16:31+0300\n"
+"POT-Creation-Date: 2021-07-20 13:39+0300\n"
 "PO-Revision-Date: 2021-07-12 16:30+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,8 +16,8 @@ msgstr ""
 "X-Poedit-WPHeader: calculator-builder.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
@@ -32,7 +32,7 @@ msgid ""
 "href=\"%3$s\" target=\"_blank\">rate us on %4$s</a>"
 msgstr ""
 
-#: admin/class-admin.php:272 admin/page-main.php:21
+#: admin/class-admin.php:302 admin/page-main.php:21
 msgid "Item Updated"
 msgstr ""
 
@@ -52,7 +52,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: admin/class-list-table.php:160
+#: admin/class-list-table.php:160 admin/settings/fields-options.php:52
 msgid "Title"
 msgstr ""
 
@@ -88,11 +88,15 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
-#: admin/page-main.php:48
+#: admin/page-main.php:36
+msgid "Documentation"
+msgstr ""
+
+#: admin/page-main.php:49
 msgid "Add New"
 msgstr ""
 
-#: admin/page-main.php:73 admin/settings/database.php:34
+#: admin/page-main.php:74 admin/settings/database.php:34
 msgid "Update"
 msgstr ""
 
@@ -139,6 +143,116 @@ msgstr ""
 
 #: admin/settings/database.php:20
 msgid "Save"
+msgstr ""
+
+#: admin/settings/fields-options.php:12 admin/settings/fields-options.php:171
+msgid "Add Field"
+msgstr ""
+
+#: admin/settings/fields-options.php:17
+msgid "Field type"
+msgstr ""
+
+#: admin/settings/fields-options.php:21
+msgid "Number"
+msgstr ""
+
+#: admin/settings/fields-options.php:22
+msgid "Select"
+msgstr ""
+
+#: admin/settings/fields-options.php:23
+msgid "Radio"
+msgstr ""
+
+#: admin/settings/fields-options.php:24
+msgid "Checkbox"
+msgstr ""
+
+#: admin/settings/fields-options.php:25
+msgid "Number + Select"
+msgstr ""
+
+#: admin/settings/fields-options.php:26
+msgid "Buttons"
+msgstr ""
+
+#: admin/settings/fields-options.php:27
+msgid "Result"
+msgstr ""
+
+#: admin/settings/fields-options.php:35
+msgid "Required"
+msgstr ""
+
+#: admin/settings/fields-options.php:39
+msgid "ReYesquired"
+msgstr ""
+
+#: admin/settings/fields-options.php:40
+msgid "No"
+msgstr ""
+
+#: admin/settings/fields-options.php:61
+msgid "Addon"
+msgstr ""
+
+#: admin/settings/fields-options.php:71
+msgid "right"
+msgstr ""
+
+#: admin/settings/fields-options.php:72
+msgid "left"
+msgstr ""
+
+#: admin/settings/fields-options.php:85
+msgid "value"
+msgstr ""
+
+#: admin/settings/fields-options.php:89 admin/settings/fields-options.php:101
+#: admin/settings/fields-options.php:116
+#: admin/settings/fields-options.php:128
+msgid "Enter max or left empty"
+msgstr ""
+
+#: admin/settings/fields-options.php:97
+msgid "step"
+msgstr ""
+
+#: admin/settings/fields-options.php:112
+msgid "min"
+msgstr ""
+
+#: admin/settings/fields-options.php:124
+msgid "max"
+msgstr ""
+
+#: admin/settings/fields-options.php:138
+msgid "Options"
+msgstr ""
+
+#: admin/settings/fields-options.php:141
+msgid "name = value"
+msgstr ""
+
+#: admin/settings/fields-options.php:150
+msgid "Button Calculate"
+msgstr ""
+
+#: admin/settings/fields-options.php:153
+msgid "Calculate"
+msgstr ""
+
+#: admin/settings/fields-options.php:159
+msgid "Button Reset"
+msgstr ""
+
+#: admin/settings/fields-options.php:162
+msgid "Reset"
+msgstr ""
+
+#: admin/settings/fields-options.php:173
+msgid "Update Field"
 msgstr ""
 
 #: admin/settings/tabs.php:14
