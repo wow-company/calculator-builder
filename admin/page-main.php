@@ -33,6 +33,7 @@ $tabs_arr = array(
 	'list'     => esc_attr__( 'List', 'calculator-builder' ),
 	'settings' => esc_attr__( 'Add new', 'calculator-builder' ),
 	'support'  => esc_attr__( 'Support', 'calculator-builder' ),
+	'document'  => esc_attr__( 'Documentation', 'calculator-builder' ),
 );
 
 $tabs = apply_filters( $this->plugin['slug'] . '_tab_menu', $tabs_arr );
@@ -76,7 +77,10 @@ $rating = $this->rating['wp_url'];
 					echo '<a class="nav-tab' . esc_attr( $class ) . '" href="?page=' . esc_attr( $this->plugin['slug'] ) . '&tab='
 					     . esc_attr( $tab ) . '">' . esc_attr( $name ) . '</a>';
 				}
-			}   else {
+			}  elseif($tab == 'document') {
+				echo '<a class="nav-tab' . esc_attr( $class ) . '" href="https://calchub.xyz/documentation/" target="_blank">' . esc_attr( $name ) . '</a>';
+            }
+			else {
 				echo '<a class="nav-tab' . esc_attr( $class ) . '" href="?page=' . $this->plugin['slug'] . '&tab='
 				     . esc_attr( $tab ) . '">' . esc_attr( $name ) . '</a>';
 			}
