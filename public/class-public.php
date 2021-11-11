@@ -63,7 +63,7 @@ class WP_Plugin_Public {
 			$slug    = $this->plugin['slug'];
 			$version = $this->plugin['version'];
 
-			$url_style = plugin_dir_url( __FILE__ ) . 'assets/css/style.min.css';
+			$url_style = plugin_dir_url( __FILE__ ) . 'assets/css/style-min.css';
 			wp_enqueue_style( $slug, $url_style, null, $version );
 		}
 	}

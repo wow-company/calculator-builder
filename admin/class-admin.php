@@ -46,6 +46,8 @@ class WP_Plugin_Admin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) ); // add admin script
 		add_action( 'wp_ajax_' . $this->plugin['prefix'] . '_item_save', array( $this, 'item_save' ) ); // save element
 		add_action( 'wp_ajax_wow_plugin_message', array( $this, 'ad_message_deactivate' ) ); // deactivate Ad message
+		add_action( 'admin_init', [ $this, 'export_data' ] );
+		add_action( 'admin_init', [ $this, 'import_data' ] );
 	}
 
 
@@ -164,7 +166,7 @@ class WP_Plugin_Admin {
 		}
 
 
-		wp_enqueue_style( $slug . '-form', $url_assets . 'css/form-style.min.css', false, $version );
+		wp_enqueue_style( $slug . '-form', $url_assets . 'css/form-style-min.css', false, $version );
 		// include sortable
 		wp_enqueue_script( 'jquery-ui-sortable' );
 
@@ -172,6 +174,9 @@ class WP_Plugin_Admin {
 		wp_enqueue_style( 'code-editor' );
 		wp_enqueue_script( 'jshint' );
 
+		// include the color picker
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_script( 'wp-color-picker' );
 
 		// include the plugin admin script
 		$url_script = $url_assets . 'js/script' . $pre_suffix . '.js';
@@ -232,21 +237,24 @@ class WP_Plugin_Admin {
 				'selected' => true,
 			),
 			'input'    => array(
-				'type'     => true,
-				'name'     => true,
-				'id'       => true,
-				'class'    => true,
-				'value'    => true,
-				'step'     => true,
-				'min'      => true,
-				'max'      => true,
-				'checked'  => true,
-				'readonly' => true,
+				'type'         => true,
+				'name'         => true,
+				'id'           => true,
+				'class'        => true,
+				'value'        => true,
+				'step'         => true,
+				'min'          => true,
+				'max'          => true,
+				'checked'      => true,
+				'readonly'     => true,
 				'has-required' => true,
 			),
 			'button'   => array(
 				'type'  => true,
 				'class' => true,
+			),
+			'hr'   => array(
+				'style' => true,
 			),
 
 		);
@@ -283,7 +291,7 @@ class WP_Plugin_Admin {
 					absint( $_POST['tool_id'] ),
 					sanitize_text_field( $_POST['title'] ),
 					$this->sanitize_form( $_POST['form'], false ),
-					sanitize_textarea_field( wp_unslash($_POST['formula'] ) )
+					sanitize_textarea_field( wp_unslash( $_POST['formula'] ) )
 				) );
 
 		} elseif ( $add === 2 ) {
@@ -292,7 +300,7 @@ class WP_Plugin_Admin {
 					$wpdb->prepare( " UPDATE  {$table} SET title = %s, form = %s, formula = %s    WHERE id= %d;",
 						sanitize_text_field( $_POST['title'] ),
 						$this->sanitize_form( $_POST['form'], false ),
-						sanitize_textarea_field( wp_unslash($_POST['formula'] )),
+						wp_kses_post( wp_unslash( htmlspecialchars( $_POST['formula'] ) ) ),
 						absint( $_POST['tool_id'] )
 					) );
 		}
@@ -317,6 +325,149 @@ class WP_Plugin_Admin {
 		}
 		wp_send_json( $response );
 		wp_die();
+	}
+
+	public function import_data() {
+
+		if ( empty( $_POST[ $this->plugin['slug'] . '_import_nonce' ] ) ) {
+			return;
+		}
+
+
+		if ( ! wp_verify_nonce( $_POST[ $this->plugin['slug'] . '_import_nonce' ], $this->plugin['slug'] . '_import_nonce' ) ) {
+			return;
+		}
+
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		if ( $this->get_file_extension( $_FILES['import_file']['name'] ) != 'json' ) {
+			wp_die( esc_attr__( 'Please upload a valid .json file', $this->plugin['text'] ), __( 'Error', $this->plugin['text'] ), array( 'response' => 400 ) );
+		}
+
+		$import_file = $_FILES['import_file']['tmp_name'];
+
+		if ( empty( $import_file ) ) {
+			wp_die( esc_attr__( 'Please upload a file to import', $this->plugin['text'] ), __( 'Error', $this->plugin['text'] ), array( 'response' => 400 ) );
+		}
+
+		// Retrieve the settings from the file and convert the json object to an array
+		$settings = json_decode( file_get_contents( $import_file ) );
+
+		$update = ! empty( $_POST['wow_import_update'] ) ? '1' : '';
+
+		global $wpdb;
+		$table = $wpdb->prefix . $this->plugin['prefix'];
+
+		foreach ( $settings as $key => $val ) {
+			$id      = $val->id;
+			$title   = $val->title;
+			$param   = $val->param;
+			$form    = $val->form;
+			$formula = $val->formula;
+
+			$check_row = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", $id ) );
+
+			if ( ! empty( $update ) && ! empty( $check_row ) ) {
+				$wpdb->query(
+					$wpdb->prepare( " UPDATE  {$table} SET title = %s, param = %s, form = %s, formula = %s  WHERE id= %d;",
+						$title,
+						$param,
+						$form,
+						$formula,
+						$id
+					) );
+
+			} elseif ( ! empty( $check_row ) ) {
+				$wpdb->query(
+					$wpdb->prepare( " INSERT INTO {$table} ( title, param, form, formula ) VALUES (  %s, %s, %s, %s )",
+						$title,
+						$param,
+						$form,
+						$formula
+					) );
+			} else {
+				$wpdb->query(
+					$wpdb->prepare( " INSERT INTO {$table} ( id, title, param, form, formula ) VALUES ( %d, %s, %s, %s, %s )",
+						$id,
+						$title,
+						$param,
+						$form,
+						$formula
+					) );
+			}
+
+		}
+
+		wp_safe_redirect( admin_url( 'admin.php?page=' . esc_attr( $this->plugin['slug'] ) ) );
+		exit;
+
+
+	}
+
+	public function export_data() {
+
+		if ( empty( $_REQUEST[ $this->plugin['slug'] . '_export_nonce' ] ) ) {
+			return;
+		}
+
+		if ( ! wp_verify_nonce( $_REQUEST[ $this->plugin['slug'] . '_export_nonce' ], $this->plugin['slug'] . '_export_nonce' ) ) {
+			return;
+		}
+
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		$file_name = $this->plugin['shortcode'] . '-database-' . date( 'm-d-Y' ) . '.json';
+
+		global $wpdb;
+		$table  = $wpdb->prefix . $this->plugin['prefix'];
+		$result = $wpdb->get_results( "SELECT * FROM " . $table . " order by id asc" );
+
+		if ( $_GET['id'] ) {
+			$query  = $wpdb->prepare( "SELECT * FROM $table WHERE id=%d", absint( $_GET['id'] ) );
+			$result = $wpdb->get_results( $query );
+			if($result[0]->title) {
+				$name = trim($result[0]->title);
+				$name = str_replace( ' ', '-', $name);
+				$file_name = $name . '-database-' . date( 'm-d-Y' ) . '.json';
+			} else{
+				$file_name = 'Untitle-database-' . date( 'm-d-Y' ) . '.json';
+			}
+		}
+
+		$settings = array();
+		if ( count( $result ) > 0 ) {
+			foreach ( $result as $key => $val ) {
+				$settings[] = array(
+					'id'      => $val->id,
+					'title'   => $val->title,
+					'param'   => $val->param,
+					'form'    => $val->form,
+					'formula' => $val->formula,
+				);
+			}
+		}
+		ignore_user_abort( true );
+		nocache_headers();
+		header( 'Content-Type: application/json; charset=utf-8' );
+		header( 'Content-Disposition: attachment; filename=' . $file_name );
+		header( "Expires: 0" );
+
+		echo json_encode( $settings );
+		exit;
+
+
+	}
+
+	function get_file_extension( $str ) {
+		$parts = explode( '.', $str );
+
+		return end( $parts );
 	}
 
 }

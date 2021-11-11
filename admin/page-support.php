@@ -26,7 +26,7 @@ $license = get_option( 'wow_license_key_' . $this->plugin['prefix'], 'no' );
 
                 <p>To get your support related question answered in the fastest timing, please send a message via the
                     form below
-                    or write to us on email <a href="mailto:support@wow-company.com">support@wow-company.com</a>.</p>
+                    or write to us on email <a href="mailto:helper@wow-company.com">helper@wow-company.com</a>.</p>
 
                 <p>Also, you can send us your ideas and suggestions for improving the plugin.</p>
 				<?php $error = array();
@@ -80,13 +80,13 @@ $license = get_option( 'wow_license_key_' . $this->plugin['prefix'], 'no' );
 								</body>
 								</html>';
 							$subject = $type . ': ' . $subject;
-							wp_mail( 'support@wow-company.com', $subject, $message, $headers );
+							wp_mail( 'helper@wow-company.com', $subject, $message, $headers );
 							echo '<div class="notice notice-success is-dismissible"><p>'
 							     . esc_attr__( 'Your Message sent to the Support.', 'calculator-builder' ) . '</p></div>';
 						}
 					} else {
 						echo '<div class="notice notice-warning is-dismissible"><p>'
-						     . esc_attr__( 'Sorry, but message did not send. Please, contact us support@wow-company.com',
+						     . esc_attr__( 'Sorry, but message did not send. Please, contact us helper@wow-company.com',
 								'calculator-builder' ) . ' </p></div>';
 					}
 				}

@@ -138,3 +138,20 @@ Start video for create a calculator for Loan monthly payment
 To improve the plugin's functions and add new functions, write to us on the support [forum](https://wordpress.org/support/plugin/calculator-builder/) or send requests on the [github](https://github.com/wow-company/calculator-builder/issues).
 
 Project on github [https://github.com/wow-company/calculator-builder/](https://github.com/wow-company/calculator-builder/issues)
+
+
+### Changelog
+#### = 0.3 =
+* Added: Export/Import function
+* Fixed: Delete the calculators
+* Fixed: Search calculators in list
+* Fixed: added the comparison operators
+* Fixed: minor bugs
+
+
+#### = 0.2 =
+* Updated: file for translate .po
+* Added: link to Documantation
+
+#### = 0.1 =
+* Initial release

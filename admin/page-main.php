@@ -30,11 +30,12 @@ if ( $info === 'saved' ) {
 $current_tab = ( isset( $_REQUEST["tab"] ) ) ? sanitize_text_field( $_REQUEST["tab"] ) : 'list';
 
 $tabs_arr = array(
-	'list'     => esc_attr__( 'List', 'calculator-builder' ),
-	'settings' => esc_attr__( 'Add new', 'calculator-builder' ),
-	'support'  => esc_attr__( 'Support', 'calculator-builder' ),
-	'document' => esc_attr__( 'Documentation', 'calculator-builder' ),
-	'demo'     => esc_attr__( 'Calculators examples', 'calculator-builder' ),
+	'list'      => esc_attr__( 'List', 'calculator-builder' ),
+	'settings'  => esc_attr__( 'Add new', 'calculator-builder' ),
+	'tools'     => esc_attr__( 'Import/Export', 'calculator-builder' ),
+	'support'   => esc_attr__( 'Support', 'calculator-builder' ),
+	'docs'      => esc_attr__( 'Documentation', 'calculator-builder' ),
+	'changelog' => esc_attr__( 'Changelog', 'calculator-builder' ),
 );
 
 $tabs = apply_filters( $this->plugin['slug'] . '_tab_menu', $tabs_arr );
@@ -80,11 +81,9 @@ $rating = $this->rating['wp_url'];
 				}
 			} elseif ( $tab == 'document' ) {
 				echo '<a class="nav-tab' . esc_attr( $class ) . '" href="https://calchub.xyz/documentation/" target="_blank">' . esc_attr( $name ) . '</a>';
-			}
-            elseif ( $tab == 'demo' ) {
+			} elseif ( $tab == 'demo' ) {
 				echo '<a class="nav-tab' . esc_attr( $class ) . '" href="https://calchub.xyz/" target="_blank">' . esc_attr( $name ) . '</a>';
-			}
-			else {
+			} else {
 				echo '<a class="nav-tab' . esc_attr( $class ) . '" href="?page=' . $this->plugin['slug'] . '&tab='
 				     . esc_attr( $tab ) . '">' . esc_attr( $name ) . '</a>';
 			}
@@ -92,17 +91,9 @@ $rating = $this->rating['wp_url'];
 		}
 		echo '</h2>';
 
-		switch ( $current_tab ) {
-			case 'settings':
-				include_once( 'page-settings.php' );
-				break;
-			case 'support':
-				include_once( 'page-support.php' );
-				break;
-			default:
-				include_once( 'page-list.php' );
-				break;
-		}
+		$current_tab = array_key_exists( $current_tab, $tabs_arr ) ? 'page-' . $current_tab : $current_tab;
+		$file        = apply_filters( $this->plugin['slug'] . '_menu_file', $current_tab );
+		include_once( $file . '.php' );
 		?>
     </div><input type="hidden" id="wow-navigation" value="<?php echo esc_attr( $this->plugin['slug'] ); ?>">
 <?php

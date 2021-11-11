@@ -12,6 +12,8 @@ const Calc_Builder = function() {
         },
       });
 
+      jQuery('.wp-color-picker-field').wpColorPicker();
+
       function removeTagStyle() {
         const containers = document.querySelectorAll('.formbox__container');
         containers.forEach(container => {
@@ -20,6 +22,10 @@ const Calc_Builder = function() {
       }
 
       const $formType = document.querySelector('#form-params [name="type"]');
+      const $fieldTitle = document.querySelectorAll('.field-title');
+      const $typeTitle = document.querySelectorAll('.type-title');
+      const $typeSeparator = document.querySelectorAll('.type-separator');
+      const $typeSpace = document.querySelectorAll('.type-spacer');
       const $typeNumber = document.querySelectorAll('.type-number');
       const $typeResult = document.querySelectorAll('.type-result');
       const $typeTextarea = document.querySelectorAll('.type-textarea');
@@ -28,8 +34,6 @@ const Calc_Builder = function() {
       const $actionLightbox = document.querySelector('.btn-add-new-field');
       const $lightboxTitle = document.querySelector('#field-number .lightbox-title');
       const $lightboxClose = document.querySelector('#field-number .lightbox-close');
-
-
 
       $actionLightbox.addEventListener('click', () => {
         $formParam.classList.remove('is-field-update');
@@ -49,7 +53,7 @@ const Calc_Builder = function() {
         } else if (e.target && e.target.classList.contains('variable') ||
             e.target.classList.contains('variable', 'is-result') ||
             e.target.classList.contains('operator')) {
-          insertTextAtCursor(e.target.innerHTML);
+          insertTextAtCursor(e.target.innerText);
         }
       });
 
@@ -78,7 +82,7 @@ const Calc_Builder = function() {
         $formParam.classList.add('is-field-update');
 
         $lightboxTitle.innerText = 'Update Field';
-
+        // console.log(container);
         if (container.classList.contains('has-result')) {
           type = '7';
         } else if (container.querySelector('.has-group')) {
@@ -91,6 +95,12 @@ const Calc_Builder = function() {
           type = '4';
         } else if (container.querySelector('.formbox__field-radio')) {
           type = '3';
+        } else if (container.querySelector('.is-title-only')) {
+          type = '8';
+        } else if (container.querySelector('hr')) {
+          type = '9';
+        } else if (container.querySelector('.is-spaсe')) {
+          type = '10';
         } else {
           type = '6';
         }
@@ -114,7 +124,7 @@ const Calc_Builder = function() {
         let required = container.querySelector('.formbox__field input[type="number"]');
         required = (required) ? required.getAttribute('required') : '';
 
-        if(required == '') {
+        if (required == '') {
           $formParam.querySelector('[name="required"]').value = '1';
         } else {
           $formParam.querySelector('[name="required"]').value = '2';
@@ -197,36 +207,45 @@ const Calc_Builder = function() {
 
         let content = '';
 
-        content += `<div class="formbox__title">${param.title}</div>`;
-        content += `<div class="formbox__body${class_group}">`;
+        if (param.type === '8') {
+          content += titleField(param);
+        } else if (param.type === '9') {
+          content += separatorField(param);
+        } else if (param.type === '10') {
+          content += spacerField(param);
+        } else {
 
-        switch (param.type) {
-          case '1':
-            content += numberField(param);
-            break;
-          case '2':
-            content += selectField(param);
-            break;
-          case '3':
-            content += radioField(param);
-            break;
-          case '4':
-            content += checkboxField(param);
-            break;
-          case '5':
-            content += numberField(param);
-            content += selectField(param);
-            break;
-          case '6':
-            content += buttonField(param);
-            break;
-          case '7':
-            content += resultField(param);
-            break;
+          content += `<div class="formbox__title">${param.title}</div>`;
+          content += `<div class="formbox__body${class_group}">`;
 
+          switch (param.type) {
+            case '1':
+              content += numberField(param);
+              break;
+            case '2':
+              content += selectField(param);
+              break;
+            case '3':
+              content += radioField(param);
+              break;
+            case '4':
+              content += checkboxField(param);
+              break;
+            case '5':
+              content += numberField(param);
+              content += selectField(param);
+              break;
+            case '6':
+              content += buttonField(param);
+              break;
+            case '7':
+              content += resultField(param);
+              break;
+
+          }
+
+          content += '</div>';
         }
-
-        content += '</div>';
 
         content += `<div class="action-elements">
                     <span class="delete">&times;</span>
@@ -344,6 +363,24 @@ const Calc_Builder = function() {
 
         });
 
+      }
+
+      function titleField(param) {
+        let content = '';
+        const size = (param.titleSize != '') ? 'font-size:' + param.titleSize + 'px;' : '';
+        const weight = (param.titleWeight != '') ? 'font-weight:' + param.titleWeight + ';' : '';
+        content += `<div class="formbox__title is-title-only" style="${size}${weight}">${param.title}</div>`;
+        return content;
+      }
+
+      function separatorField() {
+        return '<hr/>';
+      }
+
+      function spacerField(param) {
+        const height = (param.spacerHeight != '') ? 'height:' + param.spacerHeight + 'px;' : '';
+        const content = `<div class="formbox__title is-spaсe" style="${height}"></div>`;
+        return content;
       }
 
       function numberField(param) {
@@ -486,6 +523,10 @@ const Calc_Builder = function() {
             toogleNumber('show');
             toogleTextarea('hide');
             toogleButtons('hide');
+            toogleFieldTitle('show');
+            toogleTypeTitle('hide');
+            toogleTypeSeparator('hide');
+            toogleTypeSpace('hide');
             break;
           case '2':
           case '3':
@@ -493,26 +534,127 @@ const Calc_Builder = function() {
             toogleNumber('hide');
             toogleTextarea('show');
             toogleButtons('hide');
+            toogleFieldTitle('show');
+            toogleTypeTitle('hide');
+            toogleTypeSeparator('hide');
+            toogleTypeSpace('hide');
             break;
           case '5':
             toogleNumber('show');
             toogleTextarea('show');
             toogleButtons('hide');
+            toogleFieldTitle('show');
+            toogleTypeTitle('hide');
+            toogleTypeSeparator('hide');
+            toogleTypeSpace('hide');
             break;
           case '6':
             toogleNumber('hide');
             toogleTextarea('hide');
             toogleButtons('show');
+            toogleFieldTitle('show');
+            toogleTypeTitle('hide');
+            toogleTypeSeparator('hide');
+            toogleTypeSpace('hide');
             break;
           case '7':
             toogleNumber('hide');
             toogleTextarea('hide');
             toogleButtons('hide');
             toogleResult('show');
+            toogleFieldTitle('show');
+            toogleTypeTitle('hide');
+            toogleTypeSeparator('hide');
+            toogleTypeSpace('hide');
+            break;
+          case '8':
+            toogleNumber('hide');
+            toogleTextarea('hide');
+            toogleButtons('hide');
+            toogleResult('hide');
+            toogleFieldTitle('show');
+            toogleTypeTitle('show');
+            toogleTypeTitle('show');
+            toogleTypeSeparator('hide');
+            toogleTypeSpace('hide');
+            break;
+          case '9':
+            toogleNumber('hide');
+            toogleTextarea('hide');
+            toogleButtons('hide');
+            toogleResult('hide');
+            toogleFieldTitle('hide');
+            toogleTypeTitle('hide');
+            toogleTypeTitle('hide');
+            toogleTypeSeparator('show');
+            toogleTypeSpace('hide');
+            break;
+          case '10':
+            toogleNumber('hide');
+            toogleTextarea('hide');
+            toogleButtons('hide');
+            toogleResult('hide');
+            toogleFieldTitle('hide');
+            toogleTypeTitle('hide');
+            toogleTypeTitle('hide');
+            toogleTypeSeparator('hide');
+            toogleTypeSpace('show');
             break;
 
         }
 
+      }
+
+      function toogleTypeTitle(action) {
+        if (action === 'show') {
+          $typeTitle.forEach(el => {
+            el.classList.remove('is-hidden');
+          });
+
+        } else {
+          $typeTitle.forEach(el => {
+            el.classList.add('is-hidden');
+          });
+        }
+      }
+
+      function toogleTypeSeparator(action) {
+        if (action === 'show') {
+          $typeSeparator.forEach(el => {
+            el.classList.remove('is-hidden');
+          });
+
+        } else {
+          $typeSeparator.forEach(el => {
+            el.classList.add('is-hidden');
+          });
+        }
+      }
+
+      function toogleTypeSpace(action) {
+        if (action === 'show') {
+          $typeSpace.forEach(el => {
+            el.classList.remove('is-hidden');
+          });
+
+        } else {
+          $typeSpace.forEach(el => {
+            el.classList.add('is-hidden');
+          });
+        }
+      }
+
+      function toogleFieldTitle(action) {
+        if (action === 'show') {
+          $fieldTitle.forEach(el => {
+            el.classList.remove('is-hidden');
+          });
+
+        } else {
+          $fieldTitle.forEach(el => {
+            el.classList.add('is-hidden');
+          });
+        }
       }
 
       function toogleNumber(action) {
@@ -527,8 +669,6 @@ const Calc_Builder = function() {
           });
         }
       }
-
-
 
       function toogleResult(action) {
         if (action === 'show') {

@@ -126,6 +126,14 @@ Search for answers and ask your questions at [forum](https://wordpress.org/suppo
 
 == Changelog ==
 
+= 0.3 =
+Added: New fields: Title, Separator
+Added: function for Export/Import calculators
+Added: Documentation page
+Added: Changelog page
+Fixed: saving calculators with conditional symbols
+
+
 = 0.2 =
 * Updated: file for translate .po
 * Added: link to Documantation

@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Calculator Builder\n"
-"POT-Creation-Date: 2021-07-20 13:39+0300\n"
+"POT-Creation-Date: 2021-11-11 14:35+0200\n"
 "PO-Revision-Date: 2021-07-12 16:30+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 3.0\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: calculator-builder.php\n"
@@ -21,46 +21,63 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: admin/class-admin.php:65
+#: admin/class-admin.php:67
 msgid "Settings"
 msgstr ""
 
-#: admin/class-admin.php:84
+#: admin/class-admin.php:86
 #, php-format
 msgid ""
 "Thank you for using <a href=\"%1$s\" target=\"_blank\">%2$s</a>! Please <a "
 "href=\"%3$s\" target=\"_blank\">rate us on %4$s</a>"
 msgstr ""
 
-#: admin/class-admin.php:302 admin/page-main.php:21
+#: admin/class-admin.php:310 admin/page-main.php:21
 msgid "Item Updated"
 msgstr ""
 
-#: admin/class-list-table.php:110 admin/class-list-table.php:220
+#: admin/class-admin.php:347
+msgid "Please upload a valid .json file"
+msgstr ""
+
+#: admin/class-admin.php:347 admin/class-admin.php:353
+msgid "Error"
+msgstr ""
+
+#: admin/class-admin.php:353
+msgid "Please upload a file to import"
+msgstr ""
+
+#: admin/class-list-table.php:105 admin/class-list-table.php:222
 msgid "Untitle"
 msgstr ""
 
-#: admin/class-list-table.php:117
+#: admin/class-list-table.php:114
 msgid "Edit"
 msgstr ""
 
-#: admin/class-list-table.php:118
+#: admin/class-list-table.php:115
 msgid "Duplicate"
 msgstr ""
 
-#: admin/class-list-table.php:120
+#: admin/class-list-table.php:117
 msgid "Delete"
 msgstr ""
 
-#: admin/class-list-table.php:160 admin/settings/fields-options.php:52
+#: admin/class-list-table.php:118 admin/page-tools.php:30
+msgid "Export"
+msgstr ""
+
+#: admin/class-list-table.php:158 admin/settings/fields-options.php:28
+#: admin/settings/fields-options.php:55
 msgid "Title"
 msgstr ""
 
-#: admin/class-list-table.php:161
+#: admin/class-list-table.php:159
 msgid "Shortcode"
 msgstr ""
 
-#: admin/class-list-table.php:289
+#: admin/class-list-table.php:291
 msgid "Delate"
 msgstr ""
 
@@ -85,18 +102,26 @@ msgid "Add new"
 msgstr ""
 
 #: admin/page-main.php:35
-msgid "Support"
+msgid "Import/Export"
 msgstr ""
 
 #: admin/page-main.php:36
+msgid "Support"
+msgstr ""
+
+#: admin/page-main.php:37
 msgid "Documentation"
 msgstr ""
 
-#: admin/page-main.php:49
+#: admin/page-main.php:38
+msgid "Changelog"
+msgstr ""
+
+#: admin/page-main.php:51
 msgid "Add New"
 msgstr ""
 
-#: admin/page-main.php:74 admin/settings/database.php:34
+#: admin/page-main.php:76 admin/settings/database.php:34
 msgid "Update"
 msgstr ""
 
@@ -141,11 +166,41 @@ msgstr ""
 msgid "Idea"
 msgstr ""
 
+#: admin/page-tools.php:23
+msgid "Export Settings"
+msgstr ""
+
+#: admin/page-tools.php:26
+#, php-format
+msgid ""
+"Export the  settings for %s as a .json file. This allows you to easily "
+"import the configuration into another site."
+msgstr ""
+
+#: admin/page-tools.php:38
+msgid "Import Settings"
+msgstr ""
+
+#: admin/page-tools.php:41
+#, php-format
+msgid ""
+"Import the %s settings from a .json file. This file can be obtained by "
+"exporting the settings on another site using the form above."
+msgstr ""
+
+#: admin/page-tools.php:49
+msgid "Update item if item already exists."
+msgstr ""
+
+#: admin/page-tools.php:57
+msgid "Import"
+msgstr ""
+
 #: admin/settings/database.php:20
 msgid "Save"
 msgstr ""
 
-#: admin/settings/fields-options.php:12 admin/settings/fields-options.php:171
+#: admin/settings/fields-options.php:12 admin/settings/fields-options.php:228
 msgid "Add Field"
 msgstr ""
 
@@ -181,78 +236,144 @@ msgstr ""
 msgid "Result"
 msgstr ""
 
-#: admin/settings/fields-options.php:35
+#: admin/settings/fields-options.php:29
+msgid "Separator"
+msgstr ""
+
+#: admin/settings/fields-options.php:30
+msgid "Spacer"
+msgstr ""
+
+#: admin/settings/fields-options.php:38
 msgid "Required"
 msgstr ""
 
-#: admin/settings/fields-options.php:39
-msgid "ReYesquired"
+#: admin/settings/fields-options.php:42
+msgid "Yes"
 msgstr ""
 
-#: admin/settings/fields-options.php:40
+#: admin/settings/fields-options.php:43
 msgid "No"
 msgstr ""
 
-#: admin/settings/fields-options.php:61
+#: admin/settings/fields-options.php:64
 msgid "Addon"
 msgstr ""
 
-#: admin/settings/fields-options.php:71
+#: admin/settings/fields-options.php:74
 msgid "right"
 msgstr ""
 
-#: admin/settings/fields-options.php:72
+#: admin/settings/fields-options.php:75
 msgid "left"
 msgstr ""
 
-#: admin/settings/fields-options.php:85
+#: admin/settings/fields-options.php:88
 msgid "value"
 msgstr ""
 
-#: admin/settings/fields-options.php:89 admin/settings/fields-options.php:101
-#: admin/settings/fields-options.php:116
-#: admin/settings/fields-options.php:128
+#: admin/settings/fields-options.php:92 admin/settings/fields-options.php:104
+#: admin/settings/fields-options.php:119
+#: admin/settings/fields-options.php:131
 msgid "Enter max or left empty"
 msgstr ""
 
-#: admin/settings/fields-options.php:97
+#: admin/settings/fields-options.php:100
 msgid "step"
 msgstr ""
 
-#: admin/settings/fields-options.php:112
+#: admin/settings/fields-options.php:115
 msgid "min"
 msgstr ""
 
-#: admin/settings/fields-options.php:124
+#: admin/settings/fields-options.php:127
 msgid "max"
 msgstr ""
 
-#: admin/settings/fields-options.php:138
+#: admin/settings/fields-options.php:141
 msgid "Options"
 msgstr ""
 
-#: admin/settings/fields-options.php:141
+#: admin/settings/fields-options.php:144
 msgid "name = value"
 msgstr ""
 
-#: admin/settings/fields-options.php:150
+#: admin/settings/fields-options.php:153
 msgid "Button Calculate"
 msgstr ""
 
-#: admin/settings/fields-options.php:153
+#: admin/settings/fields-options.php:156
 msgid "Calculate"
 msgstr ""
 
-#: admin/settings/fields-options.php:159
+#: admin/settings/fields-options.php:162
 msgid "Button Reset"
 msgstr ""
 
-#: admin/settings/fields-options.php:162
+#: admin/settings/fields-options.php:165
 msgid "Reset"
 msgstr ""
 
-#: admin/settings/fields-options.php:173
+#: admin/settings/fields-options.php:174
+msgid "Font Size"
+msgstr ""
+
+#: admin/settings/fields-options.php:181
+#: admin/settings/fields-options.php:217
+msgid "px"
+msgstr ""
+
+#: admin/settings/fields-options.php:189
+msgid "Font Weight"
+msgstr ""
+
+#: admin/settings/fields-options.php:193
+msgid "Bold"
+msgstr ""
+
+#: admin/settings/fields-options.php:194
+msgid "Normal"
+msgstr ""
+
+#: admin/settings/fields-options.php:195
+msgid "Lighter"
+msgstr ""
+
+#: admin/settings/fields-options.php:196
+msgid "Bolder"
+msgstr ""
+
+#: admin/settings/fields-options.php:210
+msgid "Height"
+msgstr ""
+
+#: admin/settings/fields-options.php:230
 msgid "Update Field"
+msgstr ""
+
+#: admin/settings/formula.php:38
+msgid "Comparison and Conditions"
+msgstr ""
+
+#: admin/settings/formula.php:51 admin/settings/formula.php:76
+#: admin/settings/formula.php:109
+msgid "Read more about"
+msgstr ""
+
+#: admin/settings/formula.php:53
+msgid "Comparison"
+msgstr ""
+
+#: admin/settings/formula.php:56
+msgid "Conditional"
+msgstr ""
+
+#: admin/settings/formula.php:63
+msgid "Math Static properties"
+msgstr ""
+
+#: admin/settings/formula.php:83
+msgid "Math Static methods"
 msgstr ""
 
 #: admin/settings/tabs.php:14

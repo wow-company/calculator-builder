@@ -49,7 +49,7 @@ class Wow_List_Table extends WP_List_Table {
 	 * @since  1.4
 	 */
 	public function process_bulk_action() {
-		$ids    = isset( $_POST['ID'] ) ? sanitize_text_field( $_POST['ID'] ) : false;
+		$ids    = isset( $_POST['ID'] ) ? ( map_deep($_POST['ID'], 'absint') ) : false;
 		$action = $this->current_action();
 		if ( ! is_array( $ids ) ) {
 			$ids = array( $ids );
@@ -62,10 +62,6 @@ class Wow_List_Table extends WP_List_Table {
 		foreach ( $ids as $id ) {
 			if ( 'delete-items' === $this->current_action() ) {
 				$wpdb->delete( $table, array( 'id' => $id ) );
-			} elseif ( 'activate-items' === $this->current_action() ) {
-				$wpdb->update( $table, array( 'status' => '1' ), array( 'id' => $id ), array( '%d' ) );
-			} elseif ( 'deactivate-items' === $this->current_action() ) {
-				$wpdb->update( $table, array( 'status' => '' ), array( 'id' => $id ), array( '%d' ) );
 			}
 		}
 
@@ -106,18 +102,20 @@ class Wow_List_Table extends WP_List_Table {
 
 	public function column_title( $item ) {
 		$slug          = $this->plugin['slug'];
-		$text          = 'calculator-builder';
 		$title         = ! empty( $item['title'] ) ? $item['title'] : esc_attr__( 'Untitle', 'calculator-builder' );
 		$edit_url      = admin_url( '/admin.php?page=' . $slug . '&tab=settings&act=update&id='
 		                            . urlencode( $item['ID'] ) );
 		$duplicate_url = admin_url( '/admin.php?page=' . $slug . '&tab=settings&act=duplicate&id='
 		                            . urlencode( $item['ID'] ) );
 		$delete_url    = admin_url( '/admin.php?page=' . $slug . '&info=delete&did=' . urlencode( $item['ID'] ) );
+		$export_url    = admin_url( '/admin.php?page=' . $slug . '&info=export&id=' . urlencode( $item['ID'] ) );
+		$export_url    = wp_nonce_url( $export_url, $this->plugin['slug'] . '_export_nonce', $this->plugin['slug'] . '_export_nonce' );
 		$actions       = array(
-			'edit'      => '<a href="' . esc_url( $edit_url ) . '">' . esc_attr__( 'Edit', $text ) . '</a>',
-			'duplicate' => '<a href="' . esc_url( $duplicate_url ) . '" class="has-text-success">' . esc_attr__( 'Duplicate', $text )
+			'edit'      => '<a href="' . esc_url( $edit_url ) . '">' . esc_attr__( 'Edit', 'calculator-builder' ) . '</a>',
+			'duplicate' => '<a href="' . esc_url( $duplicate_url ) . '" class="has-text-success">' . esc_attr__( 'Duplicate', 'calculator-builder' )
 			               . '</a>',
-			'delete'    => '<a href="' . esc_url( $delete_url ) . '" class="has-text-danger">' . esc_attr__( 'Delete', $text ) . '</a>',
+			'delete'    => '<a href="' . esc_url( $delete_url ) . '" class="has-text-danger">' . esc_attr__( 'Delete', 'calculator-builder' ) . '</a>',
+			'export'    => '<a href="' . esc_url( $export_url ) . '" class="has-text-warning">' . esc_attr__( 'Export', 'calculator-builder' ) . '</a>',
 		);
 
 		return '<a href="' . esc_url( $edit_url ) . '">' . $title . '</a>' . $this->row_actions( $actions );
@@ -199,25 +197,29 @@ class Wow_List_Table extends WP_List_Table {
 
 		$table = $this->data;
 
-
 		if ( ! $search || empty( $search ) ) {
-			$result = $wpdb->get_results( "SELECT * FROM " . $table . " order by id desc" );
-		} elseif ( is_numeric( $search ) ) {
-			$result = $wpdb->get_results( "SELECT * FROM " . $table . " WHERE id=" . $search );
+			$result = $wpdb->get_results( "SELECT * FROM $table order by id desc" );
+		} elseif ( trim( $search ) === 'Untitle') {
+			$result = $wpdb->get_results( "SELECT * FROM $table WHERE title='' order by id desc" );
+        }
+		elseif ( is_numeric( $search ) ) {
+			$query  = $wpdb->prepare( "SELECT * FROM $table WHERE id=%d", absint( $search ) );
+			$result = $wpdb->get_results( $query );
 		} else {
-			$result = $wpdb->get_results( "SELECT * FROM " . $table . " WHERE title='" . $search
-			                              . "' order by id desc" );
+			$wild = '%';
+			$find = sanitize_text_field( $search );
+			$like = $wild . $wpdb->esc_like( $find ) . $wild;
+			$query  = $wpdb->prepare( "SELECT * FROM $table WHERE title LIKE %s order by id desc", $like );
+			$result = $wpdb->get_results( $query );
 		}
 
 		$slug      = $this->plugin['slug'];
-		$text      = 'calculator-builder';
 		$shortcode = $this->plugin['shortcode'];
-		$prefix    = $this->plugin['prefix'];
 
 		if ( $result ) {
 			foreach ( $result as $key => $value ) {
 
-				$title  = ! empty( $value->title ) ? $value->title : esc_attr__( 'Untitle', $text );
+				$title  = ! empty( $value->title ) ? $value->title : esc_attr__( 'Untitle', 'calculator-builder' );
 				$data[] = array(
 					'ID'    => $value->id,
 					'title' => '<a href="admin.php?page=' . esc_attr( $slug ) . '&tab=settings&act=update&id=' . absint( $value->id )
