@@ -5,7 +5,7 @@
  *
  * @package     Wow_Plugin
  * @subpackage  Admin/Main_page
- * @author      Dmytro Lobov <i@lobov.dev>
+ * @author      Dmytro Lobov <helper@wow-company.com>
  * @license     GNU Public License
  */
 

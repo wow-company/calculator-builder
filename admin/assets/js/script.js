@@ -113,10 +113,22 @@
     let tab = $(this).data('tab');
     $('#tab li').removeClass('is-active');
     $(this).addClass('is-active');
-    $('#tab-content .tab-content').removeClass('is-active');
-    $('[data-content="' + tab + '"]').addClass('is-active');
+    $('#tab-content .tab-content').removeClass('is-active').css('display', 'none');
+    $('[data-content="' + tab + '"]').addClass('is-active').css('display', '');
   });
+
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  if (tabContents.length > 0) {
+    tabContents.forEach((tab) => {
+      if (!tab.classList.contains('is-active')) {
+        tab.style = 'display:none';
+      }
+    });
+  }
 //endregion
+
+
 
   $('.toggle-preview').on('click', function() {
     $('.live-builder, .toggle-preview .plus, .toggle-preview .minus').toggleClass('is-hidden');

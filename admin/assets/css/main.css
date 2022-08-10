@@ -853,6 +853,10 @@ a.has-text-danger:focus, a.has-text-danger:hover {
 	display: flex !important
 }
 
+.is-align-items-center {
+	align-items: center;
+}
+
 @media screen and (max-width: 768px) {
 	.is-flex-mobile {
 		display: flex !important

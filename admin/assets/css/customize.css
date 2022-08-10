@@ -93,7 +93,6 @@
 	align-items: center;
 	margin-bottom: 1rem;
 	padding: 0 10px;
-	display: flex;
 	grid-gap: 5px;
 }
 
@@ -242,7 +241,7 @@
 }
 
 #tab-content .tab-content {
-	display: none;
+	/*display: none;*/
 }
 
 #tab-content .tab-content.is-active {
@@ -341,10 +340,31 @@
 }
 
 .accordion-wrap .accordion-content {
-	padding: 25px 30px;
+	padding: 15px 0;
 	border-width: 0 1px 1px;
 	border-style: solid;
 	border-color: #ebedf2;
+}
+.accordion-wrap .accordion-content > .columns {
+	padding: 10px 30px;
+}
+
+.accordion-wrap .accordion-content fieldset {
+	padding: 25px 30px 15px;
+	border-top: 2px solid #ebedf2;
+}
+
+.accordion-wrap .accordion-content fieldset + fieldset {
+	margin-top: 15px;
+}
+
+.accordion-wrap .accordion-content legend {
+	font-weight: 700;
+	color: red;
+}
+
+.accordion-wrap .accordion-content label {
+	font-weight: normal !important;
 }
 
 /*endregion*/
@@ -626,22 +646,3 @@
 
 }
 
-
-/*.lightbox-form input, .lightbox-form textarea {*/
-/*	box-sizing: border-box;*/
-/*	width: 100%;*/
-/*	padding: 5px 10px;*/
-/*}*/
-/*.lightbox-form input:not(:last-child) {*/
-/*	margin-bottom: 1rem;*/
-/*}*/
-/*.lightbox-form textarea {*/
-/*	height: 200px;*/
-/*	margin-bottom: 1rem;*/
-/*}*/
-/*.lightbox-form button {*/
-/*	padding: 5px 10px;*/
-/*	border-radius: 4px;*/
-/*	color: white;*/
-/*	background-color: #48c774;*/
-/*}*/

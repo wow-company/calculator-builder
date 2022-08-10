@@ -44,12 +44,20 @@ class WP_Plugin_Public {
 			$form = str_replace( 'has-result', 'has-result is-hidden', $form );
 			$form = str_replace( 'has-required', 'required', $form );
 
-			$content = '<form action="' . esc_url( get_permalink() ) . '" name="formbox" class="formbox" id="calculator">';
+			$content = '<form action="' . esc_url( get_permalink() ) . '" name="formbox" class="formbox" id="calculator_' . absint( $id ) . '">';
 			$content .= $form;
 			$content .= '</form>';
-			$content .= '<script>';
-			$content .= $this->script( $result->formula );
-			$content .= '</script>';
+
+			wp_enqueue_script( $this->plugin['slug'] , plugin_dir_url( __FILE__ ). 'assets/js/script.js', array());
+
+			$data = 'function calculator_' . $id . '(x){ let y = []; '.wp_specialchars_decode( $result->formula, ENT_QUOTES ).' return y;}';
+			$script_packer  = __NAMESPACE__ . '\\JavaScriptPacker';
+			$packer         = new $script_packer( $data, 'Normal', true, false );
+			$packed         = $packer->pack();
+
+			wp_add_inline_script( $this->plugin['slug'], $packed );
+
+			do_action('cb_shortcode_style', $id);
 
 			return $content;
 		}
@@ -67,13 +75,5 @@ class WP_Plugin_Public {
 			wp_enqueue_style( $slug, $url_style, null, $version );
 		}
 	}
-
-	function script( $formula ) {
-		$script = '';
-		require plugin_dir_path( __FILE__ ) . 'generate-script.php';
-
-		return $script;
-	}
-
 
 }

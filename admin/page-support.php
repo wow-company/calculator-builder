@@ -4,7 +4,7 @@
  *
  * @package     Wow_Plugin
  * @subpackage  Admin/Support
- * @author      Dmytro Lobov <i@wpbiker.com>
+ * @author      Dmytro Lobov <helper@wow-company.com>
  * @copyright   2019 Wow-Company
  * @license     GNU Public License
  * @version     1.0

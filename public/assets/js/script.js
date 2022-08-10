@@ -1,20 +1,3 @@
-<?php
-
-
-/**
- * Notification script generation
- *
- * @package     WP_Plugin
- * @copyright   Copyright (c) 2018, Dmytro Lobov
- * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0
- */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-$script = "
 'use strict';
 
 const calc = document.querySelectorAll('.formbox');
@@ -26,12 +9,13 @@ calc.forEach((form) => {
   form.addEventListener('change', {handleEvent: calculate, form: form});
 });
 
-
 function calculate(event) {
   event.preventDefault();
 
-  const fields = this.form.querySelectorAll('[name^=\"formbox-field-\"]');
-  
+  // alert(this.form.id);
+
+  const fields = this.form.querySelectorAll('[name^="formbox-field-"]');
+
   for (let i = 0; i < fields.length; i++) {
     if (fields[i].hasAttribute('required')) {
       if (fields[i].value == '') {
@@ -40,7 +24,7 @@ function calculate(event) {
       }
     }
   }
-  
+
   let x = [];
 
   for (let i = 0; i < fields.length; i++) {
@@ -58,13 +42,9 @@ function calculate(event) {
 
   const results = this.form.querySelectorAll('.formbox__field-result');
 
-  let y = [];
-";
+  let y = window[this.form.id](x);
 
-$script .= wp_specialchars_decode($formula, ENT_QUOTES);
-
-$script .= "
-for (let i = 1; i < y.length; i++) {
+  for (let i = 1; i < y.length; i++) {
     let key = i - 1;
     results[key].value = y[i];
     toggleResults(this.form, 'remove');
@@ -93,4 +73,5 @@ function roundVal(val, decima = '2') {
   let decimal = Math.pow(10, parseInt(decima));
   return Math.round(val * decimal) / decimal;
 }
-";
+
+

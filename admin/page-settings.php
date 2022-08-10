@@ -25,7 +25,7 @@ $url_form = admin_url() . 'admin.php?page=' . esc_attr( $this->plugin['slug'] );
                     <div id="titlediv" class="is-b-margin">
                         <div id="titlewrap">
                             <label class="screen-reader-text" id="title-prompt-text" for="title">
-								<?php esc_attr_e( 'Enter title here', 'calculator-builder' ); ?>
+								<?php esc_html_e( 'Enter title here', 'calculator-builder' ); ?>
                             </label>
                             <div class="field has-addons">
                                 <div class="control is-expanded">
@@ -36,7 +36,7 @@ $url_form = admin_url() . 'admin.php?page=' . esc_attr( $this->plugin['slug'] );
                                 <div class="control">
                                     <button class="button button-primary button-large is-size-6 is-radiusless"
                                             id="submit">
-                                        <span><?php echo esc_attr( $btn ); ?></span>
+                                        <span><?php echo esc_html( $btn ); ?></span>
                                         <span class="icon is-small has-text-white">
                                         &#10004;
                                     </span>
@@ -49,7 +49,8 @@ $url_form = admin_url() . 'admin.php?page=' . esc_attr( $this->plugin['slug'] );
 
                     <div class="live-preview">
                         <h3><span class="dashicons dashicons-admin-customizer"></span>
-                            Builder </h3>
+	                        <?php esc_html_e( 'Builder', 'calculator-builder' ); ?>
+                        </h3>
                         <div class="toggle-preview">
                             <span class="plus is-hidden"><i class="dashicons dashicons-arrow-down-alt2"></i></span>
                             <span class="minus"><i class="dashicons dashicons-arrow-up-alt2"></i></span>
@@ -90,9 +91,9 @@ $url_form = admin_url() . 'admin.php?page=' . esc_attr( $this->plugin['slug'] );
         <input type="hidden" name="data" value="<?php echo esc_attr( $data ); ?>"/>
         <input type="hidden" name="page" value="<?php echo esc_attr( $this->plugin['slug'] ); ?>"/>
         <input type="hidden" name="prefix" value="<?php echo esc_attr( $this->plugin['prefix'] ); ?>" id="prefix"/>
+        <input type="hidden" name="param[time]" value="<?php echo time(); ?>" />
 		<?php wp_nonce_field( $this->plugin['slug'] . '_action', $this->plugin['slug'] . '_nonce' ); ?>
     </form>
 
 <?php
-
 include_once( 'settings/fields-options.php' );

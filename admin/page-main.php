@@ -4,7 +4,7 @@
  *
  * @package     Wow_Plugin
  * @subpackage  Admin/Main_page
- * @author      Dmytro Lobov <i@lobov.dev>
+ * @author      Dmytro Lobov <helper@wow-company.com>
  * @license     GNU Public License
  */
 
@@ -69,22 +69,22 @@ $rating = $this->rating['wp_url'];
 		echo '<h2 class="nav-tab-wrapper">';
 		foreach ( $tabs as $tab => $name ) {
 			$class = ( $tab === $current_tab ) ? ' nav-tab-active' : '';
-			if ( $tab == 'settings' ) {
+			if ( $tab === 'settings' ) {
 				$action = ( isset( $_REQUEST["act"] ) ) ? sanitize_text_field( $_REQUEST["act"] ) : '';
 				if ( ! empty( $action ) && $action === 'update' ) {
 					echo '<a class="nav-tab' . esc_attr( $class ) . '" href="?page=' . esc_attr( $this->plugin['slug'] ) . '&tab='
-					     . esc_attr( $tab ) . '">' . esc_attr__( 'Update', $this->plugin['prefix'] ) . ' #'
+					     . esc_attr( $tab ) . '">' . esc_attr__( 'Update', 'calculator-builder' ) . ' #'
 					     . absint( $_REQUEST["id"] ) . '</a>';
 				} else {
 					echo '<a class="nav-tab' . esc_attr( $class ) . '" href="?page=' . esc_attr( $this->plugin['slug'] ) . '&tab='
 					     . esc_attr( $tab ) . '">' . esc_attr( $name ) . '</a>';
 				}
-			} elseif ( $tab == 'document' ) {
+			} elseif ( $tab === 'document' ) {
 				echo '<a class="nav-tab' . esc_attr( $class ) . '" href="https://calchub.xyz/documentation/" target="_blank">' . esc_attr( $name ) . '</a>';
-			} elseif ( $tab == 'demo' ) {
+			} elseif ( $tab === 'demo' ) {
 				echo '<a class="nav-tab' . esc_attr( $class ) . '" href="https://calchub.xyz/" target="_blank">' . esc_attr( $name ) . '</a>';
 			} else {
-				echo '<a class="nav-tab' . esc_attr( $class ) . '" href="?page=' . $this->plugin['slug'] . '&tab='
+				echo '<a class="nav-tab' . esc_attr( $class ) . '" href="?page=' . esc_attr($this->plugin['slug']) . '&tab='
 				     . esc_attr( $tab ) . '">' . esc_attr( $name ) . '</a>';
 			}
 

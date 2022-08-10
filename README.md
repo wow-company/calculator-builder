@@ -141,6 +141,16 @@ Project on github [https://github.com/wow-company/calculator-builder/](https://g
 
 
 ### Changelog
+
+####  = 0.3.1 =
+* Added: the ability to add more than one calculator per page
+* Improvement: the work of scripts on the page
+
+
+#### = 0.3 =
+* Fixed: Place more then one calculator on the page
+* Improvement: calculator script on the page
+
 #### = 0.3 =
 * Added: Export/Import function
 * Fixed: Delete the calculators

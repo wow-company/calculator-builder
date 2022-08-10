@@ -10,35 +10,24 @@
  * @since       1.0
  */
 
-$tab_elements = array(
-	'formula' => esc_attr__( 'Formula', 'calculator-builder' ),
-);
+$tab_elements = apply_filters( 'cb_filter_settings_tab_menu', array(
+	'formula' => __( 'Formula', 'calculator-builder' ),
+) );
 
 
-$i           = '1';
 echo '<div class="tabs is-centered" id="tab"><ul>';
 foreach ( $tab_elements as $key => $val ) {
-	$active = ( $i == 1 ) ? 'is-active' : '';
-	echo '<li class="' . esc_attr( $active ) . ' is-marginless" data-tab="' . absint( $i ) . '"><a>' . esc_html( $val ) . '</a></li>';
-	$i ++;
+	$active = ( $key === 'formula' ) ? 'is-active' : '';
+	echo '<li class="' . esc_attr( $active ) . ' is-marginless" data-tab="' . esc_attr( $key ) . '"><a>' . esc_html( $val ) . '</a></li>';
 }
 echo '</ul></div>';
 
 echo '<div id="tab-content" class="inside">';
-$i = '1';
 foreach ( $tab_elements as $key => $val ) {
-	$active = ( $i == 1 ) ? 'is-active' : '';
-	echo '<div class="' . esc_attr( $active ) . ' tab-content" data-content="' . absint( $i ) . '">';
-
-	switch ( $key ) {
-		case 'style':
-			include( 'style.php' );
-			break;
-		default:
-			include( 'formula.php' );
-			break;
-	}
+	$active = ( $key === 'formula' ) ? 'is-active' : '';
+	echo '<div class="' . esc_attr( $active ) . ' tab-content" data-content="' . esc_attr( $key ) . '">';
+	$file = apply_filters( 'cb_filter_settings_tab_content', $key );
+	include_once ( $file . '.php' );
 	echo '</div>';
-	$i ++;
 }
 echo '</div>';

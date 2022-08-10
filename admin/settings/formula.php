@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="column">
         <div class="operators">
             <div class="operators-line is-hidden variables-bottom">
-                <h4>Variables:</h4>
+                <h4><?php esc_html_e('Variables', 'calculator-builder');?>:</h4>
                 <div id="variables-bottom"></div>
             </div>
 
@@ -117,6 +117,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="columns">
     <div class="column">
         <textarea class="textarea" name="formula" id="formula" cols="30"
-                  rows="10"><?php echo wp_specialchars_decode( $formula ); ?></textarea>
+                  rows="20"><?php echo wp_specialchars_decode( $formula ); ?></textarea>
     </div>
 </div>

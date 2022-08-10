@@ -3,7 +3,7 @@
  * Plugin Name:       Calculator Builder
  * Plugin URI:        https://wordpress.org/plugins/calculator-builder/
  * Description:       Easily create Powered Popups.
- * Version:           0.3
+ * Version:           0.3.1
  * Author:            Wow-Company
  * Author URI:        https://wow-estore.com/
  * License:           GPL-2.0+
@@ -46,11 +46,12 @@ if ( ! class_exists( 'WP_Plugin' ) ) :
 					'author'    => 'Wow-Company', // Author
 					'prefix'    => 'calculator_builder', // Prefix for database
 					'text'      => 'calculator-builder',    // Text domain for translate files
-					'version'   => '0.3', // Current version of the plugin
+					'version'   => '0.3.1', // Current version of the plugin
 					'file'      => __FILE__, // Main file of the plugin
 					'slug'      => 'calculator-builder', // Name of the plugin folder
 					'url'       => plugin_dir_url( __FILE__ ), // filesystem directory path for the plugin
 					'dir'       => plugin_dir_path( __FILE__ ), // URL directory path for the plugin
+					'basename'  => dirname( plugin_basename( __FILE__ ) ),
 					'shortcode' => 'Calculator',
 				),
 				'url'    => array(
@@ -143,6 +144,7 @@ if ( ! class_exists( 'WP_Plugin' ) ) :
 		private function _includes() {
 			include_once 'admin/class-admin.php';
 			include_once 'public/class-public.php';
+			require_once plugin_dir_path( __FILE__ ) . 'inc/class-js-packer.php';
 		}
 
 		/**
@@ -181,8 +183,6 @@ if ( ! class_exists( 'WP_Plugin' ) ) :
 		 * @since  1.0
 		 */
 		public function text_domain() {
-			$info             = self::_plugin_info();
-			$text             = $info['plugin']['text'];
 			$languages_folder = dirname( plugin_basename( __FILE__ ) ) . '/languages/';
 			load_plugin_textdomain( 'calculator-builder', false, $languages_folder );
 		}

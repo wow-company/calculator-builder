@@ -12,7 +12,6 @@ const Calc_Builder = function() {
         },
       });
 
-      jQuery('.wp-color-picker-field').wpColorPicker();
 
       function removeTagStyle() {
         const containers = document.querySelectorAll('.formbox__container');

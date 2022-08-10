@@ -4,7 +4,7 @@
  * Admin Class
  *
  * @package     Wow_Plugin
- * @author      Dmytro Lobov <i@lobov.dev>
+ * @author      Dmytro Lobov <helper@wow-company.com>
  * @license     GNU Public License
  * @version     1.0
  */
@@ -111,8 +111,11 @@ class WP_Plugin_Admin {
 		add_submenu_page( $slug, 'All Calculators', 'All Calculators', $capability, $slug );
 
 		$subpages_arr = array(
-			'settings' => array( 'Add New Calculator', 'Add New' ),
-			'support'  => array( 'Calculator Builder Support', 'Support' ),
+			'settings'  => array( 'Add New Calculator', 'Add New' ),
+			'tools'     => array( 'Import/Export tool', 'Import/Export' ),
+			'docs'      => array( 'Calculator Builder Documentation', 'Documentation' ),
+			'changelog' => array( 'Calculator Builder Changelog', 'Changelog' ),
+			'support'   => array( 'Calculator Builder Support', 'Support' ),
 		);
 
 		$subpages = apply_filters( $this->plugin['slug'] . '_sub_menu', $subpages_arr );
@@ -173,10 +176,9 @@ class WP_Plugin_Admin {
 		wp_enqueue_script( 'code-editor' );
 		wp_enqueue_style( 'code-editor' );
 		wp_enqueue_script( 'jshint' );
+		wp_enqueue_script( 'csslint' );
 
-		// include the color picker
-		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'wp-color-picker' );
+		do_action( 'cb_admin_enqueue_scripts' );
 
 		// include the plugin admin script
 		$url_script = $url_assets . 'js/script' . $pre_suffix . '.js';
@@ -184,6 +186,8 @@ class WP_Plugin_Admin {
 
 		$url_builder = $url_assets . 'js/builder.js';
 		wp_enqueue_script( $slug . '-builder', $url_builder, array( 'jquery' ), $version, true );
+
+
 
 
 	}
@@ -253,7 +257,7 @@ class WP_Plugin_Admin {
 				'type'  => true,
 				'class' => true,
 			),
-			'hr'   => array(
+			'hr'       => array(
 				'style' => true,
 			),
 
@@ -280,28 +284,43 @@ class WP_Plugin_Admin {
 	public function save_data() {
 		global $wpdb;
 
-		$add   = ( isset( $_REQUEST['add'] ) ) ? absint( $_REQUEST['add'] ) : '';
-		$table = ( isset( $_REQUEST['data'] ) ) ? sanitize_text_field( $_REQUEST['data'] ) : '';
+		$add     = ( isset( $_REQUEST['add'] ) ) ? absint( $_REQUEST['add'] ) : '';
+		$table   = ( isset( $_REQUEST['data'] ) ) ? sanitize_text_field( $_REQUEST['data'] ) : '';
+		$id      = absint( $_POST['tool_id'] );
+		$title   = sanitize_text_field( $_POST['title'] );
+		$form    = $this->sanitize_form( $_POST['form'], false );
+		$formula = sanitize_textarea_field( wp_unslash( $_POST['formula'] ) );
+		$param   = '';
+		if ( $_POST['param'] ) {
+			$param = map_deep( $_POST['param'], array( $this, 'sanitize_param' ) );
+			if($_POST['param']['style']) {
+				$param['style'] = sanitize_textarea_field($_POST['param']['style']);
+			}
+			$param = serialize( $param );
+		}
 
 
 		if ( $add === 1 ) {
 
 			$insert = $wpdb->query(
-				$wpdb->prepare( " INSERT INTO {$table} ( id, title, form, formula ) VALUES ( %d, %s, %s, %s )",
-					absint( $_POST['tool_id'] ),
-					sanitize_text_field( $_POST['title'] ),
-					$this->sanitize_form( $_POST['form'], false ),
-					sanitize_textarea_field( wp_unslash( $_POST['formula'] ) )
+				$wpdb->prepare( " INSERT INTO {$table} ( id, title, form, formula, param  ) VALUES ( %d, %s, %s, %s, %s )",
+					$id,
+					$title,
+					$form,
+					$formula,
+					$param
 				) );
+
 
 		} elseif ( $add === 2 ) {
 			$update =
 				$wpdb->query(
-					$wpdb->prepare( " UPDATE  {$table} SET title = %s, form = %s, formula = %s    WHERE id= %d;",
-						sanitize_text_field( $_POST['title'] ),
-						$this->sanitize_form( $_POST['form'], false ),
-						wp_kses_post( wp_unslash( htmlspecialchars( $_POST['formula'] ) ) ),
-						absint( $_POST['tool_id'] )
+					$wpdb->prepare( " UPDATE  {$table} SET title = %s, form = %s, formula = %s, param = %s WHERE id= %d;",
+						$title,
+						$form,
+						$formula,
+						$param,
+						$id
 					) );
 		}
 
@@ -311,6 +330,10 @@ class WP_Plugin_Admin {
 		);
 
 		return $response;
+	}
+
+	public function sanitize_param( $value ) {
+		return wp_unslash( sanitize_text_field( $value ) );
 	}
 
 	public function item_save() {
@@ -431,11 +454,11 @@ class WP_Plugin_Admin {
 		if ( $_GET['id'] ) {
 			$query  = $wpdb->prepare( "SELECT * FROM $table WHERE id=%d", absint( $_GET['id'] ) );
 			$result = $wpdb->get_results( $query );
-			if($result[0]->title) {
-				$name = trim($result[0]->title);
-				$name = str_replace( ' ', '-', $name);
+			if ( $result[0]->title ) {
+				$name      = trim( $result[0]->title );
+				$name      = str_replace( ' ', '-', $name );
 				$file_name = $name . '-database-' . date( 'm-d-Y' ) . '.json';
-			} else{
+			} else {
 				$file_name = 'Untitle-database-' . date( 'm-d-Y' ) . '.json';
 			}
 		}
