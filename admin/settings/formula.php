@@ -124,7 +124,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="columns">
     <div class="column">
         <?php
-            $obfuscation = $param['obfuscation'] ?? '';
+            $obfuscation = isset($param['obfuscation']) ? $param['obfuscation'] : '';
         ?>
         <label><input type="checkbox" name="param[obfuscation]" <?php checked( '1', $obfuscation ); ?> value="1"> <?php esc_html_e( 'Obfuscation', 'calculator-builder' ); ?></label>
     </div>
