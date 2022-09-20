@@ -121,8 +121,7 @@ const Calc_Builder = function() {
         max = (max) ? max.getAttribute('max') : '';
 
         let required = container.querySelector('.formbox__field input[type="number"]');
-        required = (required) ? required.getAttribute('required') : '';
-
+        required = (required) ? required.getAttribute('has-required') : '';
         if (required == '') {
           $formParam.querySelector('[name="required"]').value = '1';
         } else {
@@ -161,7 +160,7 @@ const Calc_Builder = function() {
           }
         }
 
-        const has_addon = container.querySelector('.formbox__field .has-addon');
+        const has_addon = container.querySelector('.formbox__field.has-addon');
         if (has_addon && has_addon.classList.contains('is-left')) {
           addon_pos = 'left';
         }

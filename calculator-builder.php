@@ -3,7 +3,7 @@
  * Plugin Name:       Calculator Builder
  * Plugin URI:        https://wordpress.org/plugins/calculator-builder/
  * Description:       Easily create Powered Popups.
- * Version:           0.3.2
+ * Version:           0.3.3
  * Author:            Wow-Company
  * Author URI:        https://wow-estore.com/
  * License:           GPL-2.0+
@@ -46,7 +46,7 @@ if ( ! class_exists( 'WP_Plugin' ) ) :
 					'author'    => 'Wow-Company', // Author
 					'prefix'    => 'calculator_builder', // Prefix for database
 					'text'      => 'calculator-builder',    // Text domain for translate files
-					'version'   => '0.3.2', // Current version of the plugin
+					'version'   => '0.3.3', // Current version of the plugin
 					'file'      => __FILE__, // Main file of the plugin
 					'slug'      => 'calculator-builder', // Name of the plugin folder
 					'url'       => plugin_dir_url( __FILE__ ), // filesystem directory path for the plugin

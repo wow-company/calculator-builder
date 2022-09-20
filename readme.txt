@@ -5,7 +5,7 @@ Tags: calculator, calculator builder, online calculator, calculator maker, calcu
 Requires at least: 5.0
 Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 0.3.2
+Stable tag: 0.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,6 +125,9 @@ Search for answers and ask your questions at [forum](https://wordpress.org/suppo
 
 
 == Changelog ==
+= 0.3.3 =
+* Fixed: builder options 'addon' and 'required'
+
 = 0.3.2 =
 * Added: option 'obfuscation';
 
