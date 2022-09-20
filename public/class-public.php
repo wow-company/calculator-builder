@@ -36,8 +36,8 @@ class WP_Plugin_Public {
 		$sSQL   = $wpdb->prepare( "select * from $table WHERE id = %d", $id );
 		$result = $wpdb->get_row( $sSQL );
 		if ( ! empty( $result ) ) {
-
-			$form = $result->form;
+			$param = unserialize( $result->param );
+			$form  = $result->form;
 
 			$form = preg_replace( '#<div class="action-elements">(.*?)</div>#s', ' ', $form );
 			$form = str_replace( ' ui-sortable-handle', '', $form );
@@ -48,16 +48,17 @@ class WP_Plugin_Public {
 			$content .= $form;
 			$content .= '</form>';
 
-			wp_enqueue_script( $this->plugin['slug'] , plugin_dir_url( __FILE__ ). 'assets/js/script.js', array());
+			wp_enqueue_script( $this->plugin['slug'], plugin_dir_url( __FILE__ ) . 'assets/js/script.js', array() );
 
-			$data = 'function calculator_' . $id . '(x){ let y = []; '.wp_specialchars_decode( $result->formula, ENT_QUOTES ).' return y;}';
-			$script_packer  = __NAMESPACE__ . '\\JavaScriptPacker';
-			$packer         = new $script_packer( $data, 'Normal', true, false );
-			$packed         = $packer->pack();
+			$data = 'function calculator_' . $id . '(x){ let y = []; ' . wp_specialchars_decode( $result->formula, ENT_QUOTES ) . ' return y;}';
+			if ( ! empty( $param['obfuscation'] ) ) {
+				$script_packer = __NAMESPACE__ . '\\JavaScriptPacker';
+				$packer        = new $script_packer( $data, 'Normal', true, false );
+				$data        = $packer->pack();
+			}
+			wp_add_inline_script( $this->plugin['slug'], $data );
 
-			wp_add_inline_script( $this->plugin['slug'], $packed );
-
-			do_action('cb_shortcode_style', $id);
+			do_action( 'cb_shortcode_style', $id );
 
 			return $content;
 		}

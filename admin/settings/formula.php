@@ -120,3 +120,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                   rows="20"><?php echo wp_specialchars_decode( $formula ); ?></textarea>
     </div>
 </div>
+
+<div class="columns">
+    <div class="column">
+        <?php
+            $obfuscation = $param['obfuscation'] ?? '';
+        ?>
+        <label><input type="checkbox" name="param[obfuscation]" <?php checked( '1', $obfuscation ); ?> value="1"> <?php esc_html_e( 'Obfuscation', 'calculator-builder' ); ?></label>
+    </div>
+</div>

@@ -5,7 +5,7 @@ Tags: calculator, calculator builder, online calculator, calculator maker, calcu
 Requires at least: 5.0
 Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 0.3.1
+Stable tag: 0.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,18 +125,19 @@ Search for answers and ask your questions at [forum](https://wordpress.org/suppo
 
 
 == Changelog ==
-= 0.3.1 =
-Added: the ability to add more than one calculator per page
-Improvement: the work of scripts on the page
+= 0.3.2 =
+* Added: option 'obfuscation';
 
+= 0.3.1 =
+* Added: the ability to add more than one calculator per page
+* Improvement: the work of scripts on the page
 
 = 0.3 =
-Added: New fields: Title, Separator
-Added: function for Export/Import calculators
-Added: Documentation page
-Added: Changelog page
-Fixed: saving calculators with conditional symbols
-
+* Added: New fields: Title, Separator
+* Added: function for Export/Import calculators
+* Added: Documentation page
+* Added: Changelog page
+* Fixed: saving calculators with conditional symbols
 
 = 0.2 =
 * Updated: file for translate .po
