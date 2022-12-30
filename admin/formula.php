@@ -1,25 +1,22 @@
 <?php
 /**
- * Notification content
+ * Formula TextArea
  *
- * @package     Wow_Plugin
- * @copyright   Copyright (c) 2018, Dmytro Lobov
+ * @package     CalcHub
+ * @copyright   Copyright (c) 2022, CalcHub.xyz
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
  * @since       1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 ?>
-
-
 <div class="columns">
     <div class="column">
         <div class="operators">
             <div class="operators-line is-hidden variables-bottom">
-                <h4><?php esc_html_e('Variables', 'calculator-builder');?>:</h4>
+                <h4><?php esc_html_e( 'Variables', 'calculator-builder' ); ?>:</h4>
                 <div id="variables-bottom"></div>
             </div>
 
@@ -35,25 +32,26 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
             <details open>
                 <summary
-                        style="cursor: pointer;" class="title"><?php esc_html_e( 'Comparison and Conditions', 'calculator-builder' ); ?></summary>
-            <p class="operators-line tags">
-                <span class="operator tag">if(){}</span>
-                <span class="operator tag">else if(){}</span>
-                <span class="operator tag">else{}</span>
-                <span class="operator tag">&gt;=</span>
-                <span class="operator tag"><=</span>
-                <span class="operator tag">==</span>
-                <span class="operator tag">&&</span>
-                <span class="operator tag">||</span>
-            </p>
+                        style="cursor: pointer;"
+                        class="title"><?php esc_html_e( 'Comparison and Conditions', 'calculator-builder' ); ?></summary>
+                <p class="operators-line tags">
+                    <span class="operator tag">if(){}</span>
+                    <span class="operator tag">else if(){}</span>
+                    <span class="operator tag">else{}</span>
+                    <span class="operator tag">&gt;=</span>
+                    <span class="operator tag"><=</span>
+                    <span class="operator tag">==</span>
+                    <span class="operator tag">&&</span>
+                    <span class="operator tag">||</span>
+                </p>
 
                 <p>
-	                <?php esc_html_e( 'Read more about', 'calculator-builder' ); ?>:
+					<?php esc_html_e( 'Read more about', 'calculator-builder' ); ?>:
                     <a href="https://www.w3schools.com/js/js_comparisons.asp" target="_blank">
-	                    <?php esc_html_e( 'Comparison', 'calculator-builder' ); ?>
+						<?php esc_html_e( 'Comparison', 'calculator-builder' ); ?>
                     </a>,
                     <a href="https://www.w3schools.com/js/js_if_else.asp" target="_blank">
-		                <?php esc_html_e( 'Conditional', 'calculator-builder' ); ?>
+						<?php esc_html_e( 'Conditional', 'calculator-builder' ); ?>
                     </a>
                 </p>
 
@@ -73,7 +71,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                 </p>
 
                 <p>
-                    <a href="https://www.w3schools.com/js/js_math.asp" target="_blank"><?php esc_html_e( 'Read more about', 'calculator-builder' ); ?></a>
+                    <a href="https://www.w3schools.com/js/js_math.asp"
+                       target="_blank"><?php esc_html_e( 'Read more about', 'calculator-builder' ); ?></a>
                 </p>
 
             </details>
@@ -106,7 +105,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <span class="operator tag">Math.trunc()</span>
                 </p>
                 <p>
-                    <a href="https://www.w3schools.com/js/js_math.asp" target="_blank"><?php esc_html_e( 'Read more about', 'calculator-builder' ); ?></a>
+                    <a href="https://www.w3schools.com/js/js_math.asp"
+                       target="_blank"><?php esc_html_e( 'Read more about', 'calculator-builder' ); ?></a>
                 </p>
             </details>
 
@@ -123,9 +123,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="columns">
     <div class="column">
-        <?php
-            $obfuscation = isset($param['obfuscation']) ? $param['obfuscation'] : '';
-        ?>
-        <label><input type="checkbox" name="param[obfuscation]" <?php checked( '1', $obfuscation ); ?> value="1"> <?php esc_html_e( 'Obfuscation', 'calculator-builder' ); ?></label>
+		<?php
+		$obfuscation = isset( $param['obfuscation'] ) ? $param['obfuscation'] : '';
+		?>
+        <label>
+            <input type="checkbox" name="param[obfuscation]" <?php checked( '1', $obfuscation ); ?> value="1">
+			<?php esc_html_e( 'Obfuscation', 'calculator-builder' ); ?>
+        </label>
     </div>
 </div>

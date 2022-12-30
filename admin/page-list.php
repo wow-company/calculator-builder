@@ -2,27 +2,23 @@
 /**
  * List of Items
  *
- * @package     Wow_Plugin
- * @subpackage  Admin/Items
- * @author      Dmytro Lobov <helper@wow-company.com>
- * @copyright   2019 Wow-Company
+ * @package     CalcHub
+ * @subpackage  Admin/List
+ * @copyright   Copyright (c) 2022, CalcHub.xyz
  * @license     GNU Public License
  * @version     1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
-require_once 'class-list-table.php';
-
-$list_table = new Wow_List_Table( $data, $this->plugin );
+$list_table = new CalcHub_List_Table();
 $list_table->prepare_items();
 ?>
 <div class="wrap">
     <form method="post">
 		<?php
-		$list_table->search_box( esc_attr__( 'Search', 'calculator-builder' ), $this->plugin['slug'] );
+		$list_table->search_box( esc_attr__( 'Search', 'calculator-builder' ), 'calchub' );
 		$list_table->display();
 		?>
         <input type="hidden" name="page" value="<?php echo sanitize_text_field( $_REQUEST['page'] ); ?>"/>

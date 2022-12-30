@@ -1,111 +1,106 @@
 <?php
 /**
- * Plugin Name:       Calculator Builder
+ * Plugin Name:       Calculator Builder | CalcHub
  * Plugin URI:        https://wordpress.org/plugins/calculator-builder/
- * Description:       Easily create Powered Popups.
- * Version:           0.3.3
- * Author:            Wow-Company
- * Author URI:        https://wow-estore.com/
+ * Description:       Easily create Online calculators
+ * Version:           0.4.2
+ * Author:            CalcHub
+ * Author URI:        https://calchub.xyz
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       calculator-builder
  */
 
-namespace calculator_builder;
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 
-if ( ! class_exists( 'WP_Plugin' ) ) :
+if ( ! class_exists( 'Calculator_Builder' ) ) :
 
 	/**
 	 * Main WP_Plugin Class.
 	 *
 	 * @since 1.0
 	 */
-	final class WP_Plugin {
+	final class Calculator_Builder {
 
-		private static $_instance;
-
-		/**
-		 * Wow Plugin information
-		 *
-		 * All information which need for correctly plugin working
-		 *
-		 * @return array
-		 * @static
-		 */
-		private static function _plugin_info() {
-
-			$info = array(
-				'plugin' => array(
-					'name'      => 'Calculator Builder', // Plugin name
-					'menu'      => 'Calculator Builder', // Plugin name in menu
-					'author'    => 'Wow-Company', // Author
-					'prefix'    => 'calculator_builder', // Prefix for database
-					'text'      => 'calculator-builder',    // Text domain for translate files
-					'version'   => '0.3.3', // Current version of the plugin
-					'file'      => __FILE__, // Main file of the plugin
-					'slug'      => 'calculator-builder', // Name of the plugin folder
-					'url'       => plugin_dir_url( __FILE__ ), // filesystem directory path for the plugin
-					'dir'       => plugin_dir_path( __FILE__ ), // URL directory path for the plugin
-					'basename'  => dirname( plugin_basename( __FILE__ ) ),
-					'shortcode' => 'Calculator',
-				),
-				'url'    => array(
-					'author'  => 'https://wow-estore.com',
-					'home'    => 'https://wordpress.org/plugins/calculator-builder/',
-					'support' => 'https://wordpress.org/support/plugin/calculator-builder/',
-				),
-				'rating' => array(
-					'website'  => 'WordPress.org',
-					'url'      => 'https://wordpress.org/support/plugin/calculator-builder/reviews/#new-post',
-					'wp_url'   => 'https://wordpress.org/support/plugin/calculator-builder/reviews/#new-post',
-					'wp_home'  => 'https://wordpress.org/plugins/calculator-builder/',
-					'wp_title' => 'Calculator Builder',
-				),
-
-
-			);
-
-			return $info;
-
-		}
+		private static $instance;
+		private CalcHub_List_Table $list_table;
 
 		/**
-		 * Main WP_Plugin Instance.
+		 * Main CalcHub Instance.
 		 *
 		 * Insures that only one instance of WP_Plugin exists in memory at any one
 		 * time. Also prevents needing to define globals all over the place.
 		 *
-		 * @return object|WP_Plugin The one true WP_Plugin for Current plugin
-		 *
-		 * @uses      WP_Plugin::_includes() Include the required files.
-		 * @uses      WP_Plugin::text_domain() load the language files.
-		 * @since     1.0
 		 * @static
-		 * @staticvar array $_instance
+		 * @staticvar array $instance
 		 */
 		public static function instance() {
+			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Calculator_Builder ) ) {
 
-			if ( ! isset( self::$_instance ) && ! ( self::$_instance instanceof WP_Plugin ) ) {
+				self::$instance = new self;
 
-				$info = self::_plugin_info();
+				self::$instance->setup_constants();
+				self::$instance->includes();
 
-				self::$_instance = new WP_Plugin;
+				self::$instance->admin    = new Calculator_Builder_Admin();
+				self::$instance->public   = new Calculator_Builder_Public();
+				self::$instance->tools    = new CalcHub_Export_Import();
+				self::$instance->db       = new CalcHub_DB();
+				self::$instance->sanitize = new CalcHub_Sanitize();
+				self::$instance->notices  = new CalcHub_Notices();
 
-				register_activation_hook( __FILE__, array( self::$_instance, 'plugin_activate' ) );
-				add_action( 'plugins_loaded', array( self::$_instance, 'text_domain' ) );
+				register_activation_hook( __FILE__, [ self::$instance, 'plugin_activate' ] );
+				add_action( 'plugins_loaded', [ self::$instance, 'text_domain' ] );
+				if ( get_option( 'calculator_builder_updater' ) === false ) {
+					add_action( 'admin_init', [ self::$instance, 'plugin_updater' ] );
+				}
 
-				self::$_instance->_includes();
-				self::$_instance->admin  = new WP_Plugin_Admin( $info );
-				self::$_instance->public = new WP_Plugin_Public( $info );
 			}
 
-			return self::$_instance;
+			return self::$instance;
 		}
+
+		/**
+		 * Setup plugin constants.
+		 *
+		 * @access private
+		 * @return void
+		 * @since 0.4
+		 */
+		private function setup_constants() {
+			// Plugin version.
+			if ( ! defined( 'CALCHUB_VERSION' ) ) {
+				define( 'CALCHUB_VERSION', '0.4.2' );
+			}
+
+			// Plugin Admin slug.
+			if ( ! defined( 'CALCHUB_PLUGIN_SLUG' ) ) {
+				define( 'CALCHUB_PLUGIN_SLUG', 'calchub' );
+			}
+
+			// Plugin Root File.
+			if ( ! defined( 'CALCHUB_PLUGIN_FILE' ) ) {
+				define( 'CALCHUB_PLUGIN_FILE', __FILE__ );
+			}
+
+			// Plugin Base Name.
+			if ( ! defined( 'CALCHUB_PLUGIN_BASE' ) ) {
+				define( 'CALCHUB_PLUGIN_BASE', plugin_basename( CALCHUB_PLUGIN_FILE ) );
+			}
+
+			// Plugin Folder Path.
+			if ( ! defined( 'CALCHUB_PLUGIN_DIR' ) ) {
+				define( 'CALCHUB_PLUGIN_DIR', plugin_dir_path( CALCHUB_PLUGIN_FILE ) );
+			}
+
+			// Plugin Folder URL.
+			if ( ! defined( 'CALCHUB_PLUGIN_URL' ) ) {
+				define( 'CALCHUB_PLUGIN_URL', plugin_dir_url( CALCHUB_PLUGIN_FILE ) );
+			}
+		}
+
 
 		/**
 		 * Throw error on object clone.
@@ -113,7 +108,6 @@ if ( ! class_exists( 'WP_Plugin' ) ) :
 		 * object therefore, we don't want the object to be cloned.
 		 *
 		 * @return void
-		 * @since  1.0
 		 * @access protected
 		 */
 		public function __clone() {
@@ -125,7 +119,6 @@ if ( ! class_exists( 'WP_Plugin' ) ) :
 		 * Disable unserializing of the class.
 		 *
 		 * @return void
-		 * @since  1.0
 		 * @access protected
 		 */
 		public function __wakeup() {
@@ -138,13 +131,20 @@ if ( ! class_exists( 'WP_Plugin' ) ) :
 		 * Include required files.
 		 *
 		 * @access private
-		 * @return void
 		 * @since  1.0
 		 */
-		private function _includes() {
-			include_once 'admin/class-admin.php';
-			include_once 'public/class-public.php';
-			require_once plugin_dir_path( __FILE__ ) . 'inc/class-js-packer.php';
+		private function includes() {
+			// Admin
+			require_once CALCHUB_PLUGIN_DIR . 'admin/class-admin.php';
+			require_once CALCHUB_PLUGIN_DIR . 'public/class-public.php';
+			if ( ! class_exists( 'JavaScriptPacker' ) ) {
+				require_once CALCHUB_PLUGIN_DIR . 'inc/class-js-packer.php';
+			}
+			require_once CALCHUB_PLUGIN_DIR . 'inc/class-calchub-list-table.php';
+			require_once CALCHUB_PLUGIN_DIR . 'inc/class-calchub-export-import.php';
+			require_once CALCHUB_PLUGIN_DIR . 'inc/class-calchub-db.php';
+			require_once CALCHUB_PLUGIN_DIR . 'inc/class-calchub-sanitize.php';
+			require_once CALCHUB_PLUGIN_DIR . 'inc/class-calchub-notices.php';
 		}
 
 		/**
@@ -154,25 +154,14 @@ if ( ! class_exists( 'WP_Plugin' ) ) :
 		 *
 		 * @access public
 		 * @return void
-		 * @since  1.0
 		 */
-		public function plugin_activate() {
-			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-			global $wpdb;
-			$info   = self::_plugin_info();
-			$prefix = $info['plugin']['prefix'];
-			// Create the database for plugin
-			$table = $wpdb->prefix . $prefix;
-			$sql   = "CREATE TABLE " . $table . " (
-				id mediumint(9) NOT NULL AUTO_INCREMENT,
-				title VARCHAR(200) NOT NULL,
-				param TEXT,
-				form TEXT,
-				formula TEXT,
-				UNIQUE KEY id (id)
-			) 
-			DEFAULT CHARSET=utf8;";
-			dbDelta( $sql );
+		public function plugin_activate(): void {
+			self::$instance->db->create_table();
+			update_option( 'calculator_builder_updater', '0.4' );
+		}
+
+		public function plugin_updater(): void {
+			self::$instance->db->create_table();
 		}
 
 		/**
@@ -180,7 +169,6 @@ if ( ! class_exists( 'WP_Plugin' ) ) :
 		 *
 		 * @access public
 		 * @return void
-		 * @since  1.0
 		 */
 		public function text_domain() {
 			$languages_folder = dirname( plugin_basename( __FILE__ ) ) . '/languages/';
@@ -196,9 +184,9 @@ endif; // End if class_exists check.
  *
  * @since 1.0
  */
-function WP_Plugin_run() {
-	return WP_Plugin::instance();
+function CALCHUB() {
+	return Calculator_Builder::instance();
 }
 
 // Get Running.
-WP_Plugin_run();
+CALCHUB();

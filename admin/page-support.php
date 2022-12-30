@@ -2,22 +2,22 @@
 /**
  * Support Page
  *
- * @package     Wow_Plugin
+ * @package     CalcHub
  * @subpackage  Admin/Support
- * @author      Dmytro Lobov <helper@wow-company.com>
- * @copyright   2019 Wow-Company
+ * @copyright   Copyright (c) 2022, CalcHub.xyz
  * @license     GNU Public License
  * @version     1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+// Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
 
-$plugin  = $this->plugin['name'] . ' v.' . $this->plugin['version'];
+$plugin  = 'CalcHub v.' . CALCHUB_VERSION;
 $website = get_option( 'home' );
-$license = get_option( 'wow_license_key_' . $this->plugin['prefix'], 'no' );
 
+
+
+$form_type = (isset($_GET['type']) && ( $_GET['type'] === 'idea' )) ? 'Idea' : 'Issue';
 ?>
 
     <div class="about-wrap wow-box">
@@ -26,7 +26,7 @@ $license = get_option( 'wow_license_key_' . $this->plugin['prefix'], 'no' );
 
                 <p>To get your support related question answered in the fastest timing, please send a message via the
                     form below
-                    or write to us on email <a href="mailto:helper@wow-company.com">helper@wow-company.com</a>.</p>
+                    or write to us on email <a href="mailto:yoda@calchub.xyz">yoda@calchub.xyz</a>.</p>
 
                 <p>Also, you can send us your ideas and suggestions for improving the plugin.</p>
 				<?php $error = array();
@@ -39,7 +39,7 @@ $license = get_option( 'wow_license_key_' . $this->plugin['prefix'], 'no' );
 						$email   = ! empty( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : '';
 						$type    = ! empty( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : '';
 						$subject = ! empty( $_POST['subject'] ) ? sanitize_text_field( $_POST['subject'] ) : '';
-						$message = ! empty( $_POST['message'] ) ? sanitize_text_field( $_POST['message'] ) : '';
+						$message = ! empty( $_POST['message'] ) ? wp_kses_post( $_POST['message'] ) : '';
 						if ( empty( $name ) ) {
 							$error[] = esc_attr__( 'Please, Enter your Name.', 'calculator-builder' );
 						}
@@ -64,29 +64,25 @@ $license = get_option( 'wow_license_key_' . $this->plugin['prefix'], 'no' );
 								<body>
 								<table>
 								<tr>
-								<td width="30%"><strong>License Key:</strong></td>
-								<td>' . esc_attr($license) . '</td>
-								</tr>
-								<tr>
 								<td><strong>Plugin:</strong></td>
-								<td>' . esc_attr($plugin) . '</td>
+								<td>' . esc_attr( $plugin ) . '</td>
 								</tr>
 								<tr>
 								<td><strong>Website:</strong></td>
-								<td>' . esc_url($website) . '</td>
+								<td>' . esc_url( $website ) . '</td>
 								</tr>
 								</table>
-								' . $message . '					
+								' . nl2br( wp_kses_post( $message ) ) . '
 								</body>
 								</html>';
 							$subject = $type . ': ' . $subject;
-							wp_mail( 'helper@wow-company.com', $subject, $message, $headers );
+							wp_mail( 'yoda@calchub.xyz', $subject, $message, $headers );
 							echo '<div class="notice notice-success is-dismissible"><p>'
 							     . esc_attr__( 'Your Message sent to the Support.', 'calculator-builder' ) . '</p></div>';
 						}
 					} else {
 						echo '<div class="notice notice-warning is-dismissible"><p>'
-						     . esc_attr__( 'Sorry, but message did not send. Please, contact us helper@wow-company.com',
+						     . esc_attr__( 'Sorry, but message did not send. Please, contact us yoda@calchub.xyz',
 								'calculator-builder' ) . ' </p></div>';
 					}
 				}
@@ -98,6 +94,29 @@ $license = get_option( 'wow_license_key_' . $this->plugin['prefix'], 'no' );
 
 
                 <form method="post" action="" class="wow-plugin">
+
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label">Type</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="control">
+                                <label class="radio">
+                                    <input type="radio" name="type" value="Issue" <?php checked('Issue', $form_type);?>>
+                                    Technical issues
+                                </label>
+                                <p class="help"> I am having technical issues with Plugin.</p>
+
+                                <label class="radio">
+                                    <input type="radio" name="type" value="Idea" <?php checked('Idea', $form_type);?>>
+                                    Idea
+                                </label>
+                                <p class="help has-text-weight-semibold has-text-info">Submit an idea for a calculator
+                                    and get and receive the calculator file after it is develop</p>
+                            </div>
+                        </div>
+
+                    </div>
 
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
@@ -127,20 +146,13 @@ $license = get_option( 'wow_license_key_' . $this->plugin['prefix'], 'no' );
                         </div>
                     </div>
 
+
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
                             <label class="label">Subject</label>
                         </div>
                         <div class="field-body">
-                            <div class="field has-addons">
-                                <div class="control">
-									<span class="select is-dark">
-									<select name="type" class="is-radiusless">
-										<option value="Issue"><?php esc_html_e( 'Issue', 'calculator-builder' ); ?></option>
-										<option value="Idea"><?php esc_html_e( 'Idea', 'calculator-builder' ); ?></option>
-									</select>
-									</span>
-                                </div>
+                            <div class="field ">
                                 <div class="control is-expanded">
                                     <input class="input is-radiusless is-dark" type="text" name="subject"
                                            placeholder="Enter Message Subject" required>

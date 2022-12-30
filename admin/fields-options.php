@@ -28,6 +28,40 @@
                                     <option value="8"><?php esc_attr_e( 'Title', 'calculator-builder' ); ?></option>
                                     <option value="9"><?php esc_attr_e( 'Separator', 'calculator-builder' ); ?></option>
                                     <option value="10"><?php esc_attr_e( 'Spacer', 'calculator-builder' ); ?></option>
+                                    <option value="11"><?php esc_attr_e( 'Textarea', 'calculator-builder' ); ?></option>
+                                    <option value="12"><?php esc_attr_e( 'Input', 'calculator-builder' ); ?></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column type-result-field is-hidden">
+                    <div class="field">
+                        <label class="label"><?php esc_html_e( 'Type', 'calculator-builder' ); ?></label>
+                        <div class="control">
+                            <div class="select is-link">
+                                <select name="result_field">
+                                    <option value="1"><?php esc_attr_e( 'Field', 'calculator-builder' ); ?></option>
+                                    <option value="2"><?php esc_attr_e( 'Textarea', 'calculator-builder' ); ?></option>
+                                    <option value="3"><?php esc_attr_e( 'HTML block', 'calculator-builder' ); ?></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column type-input-field is-hidden">
+                    <div class="field">
+                        <label class="label"><?php esc_html_e( 'Type', 'calculator-builder' ); ?></label>
+                        <div class="control">
+                            <div class="select is-link">
+                                <select name="input_field_type">
+                                    <option value="text"><?php esc_attr_e( 'Text', 'calculator-builder' ); ?></option>
+                                    <option value="email"><?php esc_attr_e( 'Email', 'calculator-builder' ); ?></option>
+                                    <option value="date"><?php esc_attr_e( 'Date', 'calculator-builder' ); ?></option>
+                                    <option value="datetime"><?php esc_attr_e( 'DateTime', 'calculator-builder' ); ?></option>
+                                    <option value="month"><?php esc_attr_e( 'Month', 'calculator-builder' ); ?></option>
+                                    <option value="time"><?php esc_attr_e( 'Time', 'calculator-builder' ); ?></option>
+                                    <option value="week"><?php esc_attr_e( 'Week', 'calculator-builder' ); ?></option>
                                 </select>
                             </div>
                         </div>
@@ -59,7 +93,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="column type-number type-result">
+                <div class="column type-number type-result result-type-1">
                     <div class="field">
                         <label class="label"><?php esc_html_e( 'Addon', 'calculator-builder' ); ?></label>
                         <div class="field has-addons">

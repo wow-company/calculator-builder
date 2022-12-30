@@ -3,31 +3,41 @@
 /**
  * Tools page
  *
- * @package     Wow_Plugin
- * @subpackage  Admin/Main_page
- * @author      Wow-Company <helper@wow-company.com>
- * @copyright   2019 Wow-Company
+ * @package     CalcHub
+ * @subpackage  Admin/Tools
+ * @author      CalcHub.xyz <yoda@calchub.xyz>
+ * @copyright   2Copyright (c) 2022, CalcHub.xyz
  * @license     GNU Public License
  * @version     1.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 ?>
-
     <div class="wrap">
         <div class="postbox">
             <div class="inside">
-                <h3><span><?php esc_attr_e( 'Export Settings', $this->plugin['text'] ); ?></span></h3>
+                <h3>
+					<?php
+					esc_attr_e( 'Export Settings', 'calculator-builder' ); ?>
+                </h3>
 
-                <p><?php
-					printf( esc_attr__( 'Export the  settings for %s as a .json file. This allows you to easily import the configuration into another site.', $this->plugin['text'] ), '<b>' . esc_attr( $this->plugin['name'] ) . '</b>' );; ?></p>
+                <p>
+					<?php
+					printf( esc_attr__( 'Export the  settings for %s as a .json file. This allows you to easily import the configuration into another site.',
+						'calculator-builder' ), '<b>CalcHub</b>' ); ?>
+                </p>
+
                 <form method="post" action="">
-                    <p><input type="hidden" name="wow_action" value="export_database"/></p>
+                    <p><input type="hidden" name="calchub_action" value="export_tool"/></p>
                     <p>
-						<?php wp_nonce_field( $this->plugin['slug'] . '_export_nonce', $this->plugin['slug'] . '_export_nonce' ); ?><?php submit_button( __( 'Export', $this->plugin['text'] ), 'secondary', 'submit', false ); ?>
+                        <?php CALCHUB()->tools->display_tags();?>
+                    </p>
+                    <p>
+						<?php wp_nonce_field( 'calchub_action', 'calchub_export_import' ); ?>
+
+						<?php
+						submit_button( __( 'Export', 'calculator-builder' ), 'secondary', 'submit', false ); ?>
                     </p>
                 </form>
             </div>
@@ -35,31 +45,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 
         <div class="postbox">
             <div class="inside">
-                <h3><span><?php esc_attr_e( 'Import Settings', $this->plugin['text'] ); ?></span></h3>
+                <h3><?php
+					esc_attr_e( 'Import Settings', 'calculator-builder' ); ?></h3>
 
-                <p><?php
-					printf( esc_attr__( 'Import the %s settings from a .json file. This file can be obtained by exporting the settings on another site using the form above.', $this->plugin['text'] ), '<b>' . esc_attr( $this->plugin['name'] ) . '</b>    ' );; ?></p>
+                <p>
+					<?php
+					printf( esc_attr__( 'Import the %s settings from a .json file. This file can be obtained by exporting the settings on another site using the form above.',
+						'calculator-builder' ), '<b>CalcHub</b>    ' ); ?>
+                </p>
                 <form method="post" enctype="multipart/form-data" action="">
                     <p>
                         <input type="file" name="import_file"/>
                     </p>
                     <p>
                         <label>
-                            <input type="checkbox" name="wow_import_update" value="1">
-							<?php esc_attr_e( 'Update item if item already exists.' ); ?>
+                            <input type="checkbox" name="calchub_import_update" value="1">
+							<?php
+							esc_attr_e( 'Update item if item already exists.', 'calculator-builder' ); ?>
                         </label>
-
                     </p>
 
                     <p>
-                        <input type="hidden" name="wow_action" value="import_database"/>
-						<?php wp_nonce_field( $this->plugin['slug'] . '_import_nonce', $this->plugin['slug'] . '_import_nonce' ); ?>
-						<?php submit_button( __( 'Import', $this->plugin['text'] ), 'secondary', 'submit', false ); ?>
+                        <input type="hidden" name="calchub_action" value="import_tool"/>
+	                    <?php wp_nonce_field( 'calchub_action', 'calchub_export_import' ); ?>
+						<?php
+						submit_button( __( 'Import', 'calculator-builder' ), 'secondary', 'submit', false ); ?>
                     </p>
                 </form>
             </div>
         </div>
-
 
     </div>
 
