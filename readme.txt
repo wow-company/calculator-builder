@@ -33,21 +33,21 @@ Do you write a blog? Own a car dealership? Or are otherwise involved in **financ
 
 You can do the following types of **financial calculations**:
 
-* Loan amount
-* Interest rate
-* Loan monthly payment
-* And more
+* [Loan amount](https://calchub.xyz/loan-amount/)
+* [Interest rate](https://calchub.xyz/interest-rate/)
+* [Loan monthly payment](https://calchub.xyz/loan-monthly-payment/)
+* [And more!](https://calchub.xyz/category/finance/)
 
 #### 2 Health calculators
 
 Do you own **sports, diet, or health websites**? Are you involved in health-related services? If yes, then you should start using the Calculator Builder WordPress plugin as a **health-related calculator** to make your work easier.
 
-* Body Fat
-* Ideal Weight
-* Lean body mass
-* Body mass
-* Fat-Free Mass Index
-* And many more!
+* [Body Fat](https://calchub.xyz/body-fat/)
+* [BAI and BMI](https://calchub.xyz/bai-and-bmi/)
+* [Ideal Weight](https://calchub.xyz/ideal-weight/)
+* [Lean body mass](https://calchub.xyz/lean-body-mass/)
+* [Fat-Free Mass Index](https://calchub.xyz/fat-free-mass-index/)
+* [And many more!](https://calchub.xyz/category/health/)
 
 ### Elements
 
