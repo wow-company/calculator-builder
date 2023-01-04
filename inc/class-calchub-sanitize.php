@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 class CalcHub_Sanitize {
 
 	public function param( $value ) {
-		return wp_unslash( sanitize_text_field( $value ) );
+		return  sanitize_text_field( $value ) ;
 	}
 
 	public function form( $string, $echo = true ): string {

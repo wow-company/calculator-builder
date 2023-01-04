@@ -62,7 +62,7 @@ class CalcHub_DB {
 		$param   = [];
 
 		if ( $_POST['param'] ) {
-			$param = map_deep( $_POST['param'], CALCHUB()->sanitize->param );
+			$param = map_deep( $_POST['param'], 'sanitize_text_field' );
 			if ( $_POST['param']['style'] ) {
 				$param['style'] = sanitize_textarea_field( $_POST['param']['style'] );
 			}
@@ -183,4 +183,11 @@ class CalcHub_DB {
 		return $settings;
 	}
 
+	public function get_tags_from_table() {
+		global $wpdb;
+		$table    = $wpdb->prefix . $this->table_name;
+		$all_tags = $wpdb->get_results( "SELECT DISTINCT tag FROM $table ORDER BY tag ASC", ARRAY_A );
+
+		return ! empty( $all_tags ) ? $all_tags : false;
+	}
 }

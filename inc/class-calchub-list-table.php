@@ -40,7 +40,6 @@ class CalcHub_List_Table extends WP_List_Table {
 	 * CalcHub_List_Table constructor.
 	 */
 	public function __construct() {
-
 		// Set parent defaults
 		parent::__construct( [
 			'ajax' => false,
@@ -179,7 +178,7 @@ class CalcHub_List_Table extends WP_List_Table {
 			'tag'   => esc_attr__( 'Tag', 'calculator-builder' ),
 		];
 
-		$columns = apply_filters( 'calchub_table_columns', $columns);
+		$columns = apply_filters( 'calchub_table_columns', $columns );
 
 		return $columns;
 	}
@@ -218,8 +217,9 @@ class CalcHub_List_Table extends WP_List_Table {
 
 		$table = $wpdb->prefix . $this->table;
 
+		$tag_search = ( ! empty( $_REQUEST['tag'] ) ) ? sanitize_text_field( $_REQUEST  ['tag'] ) : '';
+		$tag_search = ( $tag_search === 'all' ) ? '' : $tag_search;
 
-		$tag_search = ! empty( $_REQUEST['tag'] ) ? sanitize_text_field( $_REQUEST  ['tag'] ) : '';
 
 		if ( empty( $search ) ) {
 			$result = $wpdb->get_results( "SELECT * FROM $table order by id desc" );
@@ -234,7 +234,8 @@ class CalcHub_List_Table extends WP_List_Table {
 		} elseif ( is_numeric( $search ) ) {
 			$query = $wpdb->prepare( "SELECT * FROM $table WHERE id=%d", absint( $search ) );
 			if ( ! empty( $tag_search ) ) {
-				$query = $wpdb->prepare( "SELECT * FROM $table WHERE id=%d AND tag='%s'", absint( $search ), $tag_search );
+				$query = $wpdb->prepare( "SELECT * FROM $table WHERE id=%d AND tag='%s'", absint( $search ),
+					$tag_search );
 			}
 			$result = $wpdb->get_results( $query );
 		} else {
@@ -243,7 +244,8 @@ class CalcHub_List_Table extends WP_List_Table {
 			$like  = $wild . $wpdb->esc_like( $find ) . $wild;
 			$query = $wpdb->prepare( "SELECT * FROM $table WHERE title LIKE %s order by id desc", $like );
 			if ( ! empty( $tag_search ) ) {
-				$query = $wpdb->prepare( "SELECT * FROM $table WHERE title LIKE %s AND tag='%s' order by id desc", $like, $tag_search );
+				$query = $wpdb->prepare( "SELECT * FROM $table WHERE title LIKE %s AND tag='%s' order by id desc",
+					$like, $tag_search );
 			}
 			$result = $wpdb->get_results( $query );
 		}
@@ -257,7 +259,7 @@ class CalcHub_List_Table extends WP_List_Table {
 					$tag_url = admin_url( '/admin.php?page=' . CALCHUB_PLUGIN_SLUG . '&tag=' . $value->tag );
 					$tag     = '<a href="' . esc_url( $tag_url ) . '">' . $value->tag . '</a>';
 				}
-				 $args = [
+				$args   = [
 					'ID'    => $value->id,
 					'title' => '<a href="admin.php?page=' . esc_attr( CALCHUB_PLUGIN_SLUG ) . '&tab=settings&act=update&id=' . absint( $value->id ) . '">' . esc_attr( $title ) . '</a>',
 					'tag'   => $tag,
@@ -266,7 +268,7 @@ class CalcHub_List_Table extends WP_List_Table {
                 <div class="control"><span class="button is-small is-dark calc-copy-shortcode">
                                        ' . esc_attr__( 'Copy', 'calculator-builder' ) . '</span></div></div>',
 				];
-				$data[] = apply_filters( 'calchub_table_column', $args, $value->id);
+				$data[] = apply_filters( 'calchub_table_column', $args, $value->id );
 			}
 		}
 
@@ -357,6 +359,26 @@ class CalcHub_List_Table extends WP_List_Table {
 
 		// Send final sort direction to usort
 		return ( $order === 'asc' ) ? $result : - $result;
+	}
+
+	protected function extra_tablenav( $which ) {
+		if ( 'top' === $which ) {
+			$tags = CALCHUB()->db->get_tags_from_table();
+
+			echo '<div class="alignleft actions"><label for="filter-by-tag" class="screen-reader-text">' . __( 'Filter by tag',
+					'calculator-builder' ) . '</label>';
+			echo '<select name="tag" id="filter-by-tag">';
+			echo '<option value="all">' . __( 'All', 'calculator-builder' ) . '</option>';
+
+			if ( ! empty( $tags ) ) {
+				foreach ( $tags as $tag ) {
+					echo '<option value="' . trim( esc_attr( $tag['tag'] ) ) . '">' . esc_attr( $tag['tag'] ) . '</option>';
+				}
+			}
+			echo '</select>';
+			submit_button( __( 'Filter', 'calculator-builder' ), 'secondary', 'action', false );
+			echo '</div>';
+		}
 	}
 
 }

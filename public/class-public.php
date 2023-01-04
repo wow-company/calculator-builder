@@ -51,8 +51,7 @@ class Calculator_Builder_Public {
 				return y;}";
 
 			if ( ! empty( $param['obfuscation'] ) ) {
-				$script_packer = new JavaScriptPacker();
-				$packer        = new $script_packer( $data, 'Normal', true, false );
+				$packer = new JavaScriptPacker($data);
 				$data          = $packer->pack();
 			}
 			wp_add_inline_script( CALCHUB_PLUGIN_SLUG, $data );

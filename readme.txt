@@ -85,7 +85,7 @@ https://www.youtube.com/watch?v=EGjO6k3JGU0&t=2s
 
 ### Extensions
 
-**Calchub Style** (free) -  customize the calculator for each individual calculator.
+**[Calchub Style](https://calchub.xyz/downloads/calchub-style/)** (free) -  customize the calculator for each individual calculator.
 
 ### EQUATION / FORMULA
 
@@ -123,9 +123,11 @@ roundVal(val, decimals) - function for rounding a number. The first parameter (v
 = Conditional formula =
 You can use complex structures to calculate the results.
 the ability to use the following comparison operators:
+
 * <  less
 * >  more
 * ==  equal
+
 
 For Example:
 
@@ -170,7 +172,7 @@ If you have any questions concerning the plugin ask us at the [WordPress forum](
 == Changelog ==
 
 = 0.4.2 =
-* Fixed: field addon style and saving
+* Fixed: saving parameters in database
 
 = 0.4.1 =
 * Fixed: show calculator on page, custom post
