@@ -171,6 +171,9 @@ If you have any questions concerning the plugin ask us at the [WordPress forum](
 
 == Changelog ==
 
+= 0.4.3 =
+* Fixed: Obfuscation function
+
 = 0.4.2 =
 * Fixed: saving parameters in database
 

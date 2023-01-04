@@ -3,7 +3,7 @@
  * Plugin Name:       Calculator Builder | CalcHub
  * Plugin URI:        https://wordpress.org/plugins/calculator-builder/
  * Description:       Easily create Online calculators
- * Version:           0.4.2
+ * Version:           0.4.3
  * Author:            CalcHub
  * Author URI:        https://calchub.xyz
  * License:           GPL-2.0+
@@ -72,7 +72,7 @@ if ( ! class_exists( 'Calculator_Builder' ) ) :
 		private function setup_constants() {
 			// Plugin version.
 			if ( ! defined( 'CALCHUB_VERSION' ) ) {
-				define( 'CALCHUB_VERSION', '0.4.2' );
+				define( 'CALCHUB_VERSION', '0.4.3' );
 			}
 
 			// Plugin Admin slug.
