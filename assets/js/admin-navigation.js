@@ -57,5 +57,15 @@
     } else if (params['tab'] === 'settings' && params['act'] !== 'update') {
         $('#toplevel_page_' + navigation_id + ' .wp-first-item').removeClass('current');
         $('#toplevel_page_' + navigation_id + ' li:nth-child(3)').addClass('current');
+    } else if (params['tab'] === 'calchub_settings') {
+        $('#toplevel_page_' + navigation_id + ' .wp-first-item').removeClass('current');
+        $('#toplevel_page_' + navigation_id + ' li:nth-child(7)').addClass('current');
     }
+
+    $('#extensions-tab ul.tabs__caption').on('click', 'li:not(.is-active)', function() {
+        $(this)
+        .addClass('is-active').siblings().removeClass('is-active')
+        .parents('.page-extensions').find('div.tabs__content').removeClass('is-active').eq($(this).index()).addClass('is-active');
+    });
+
 })(jQuery);

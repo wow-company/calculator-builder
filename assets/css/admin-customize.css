@@ -104,7 +104,19 @@
 .calchub-cards {
 	margin-top: 1.5rem;
 	display: grid;
-	grid-template-columns: repeat(3, 33.33333%);
+	grid-template-columns: repeat(3, 33%);
+	grid-gap: 0.75rem;
+}
+@media only screen and (max-width: 1024px){
+	.calchub-cards {
+		grid-template-columns: repeat(2, 50%);
+	}
+}
+
+@media only screen and (max-width: 776px){
+	.calchub-cards {
+		grid-template-columns: repeat(1, 100%);
+	}
 }
 
 .calchub-card {
@@ -789,6 +801,17 @@ p.help {
 
 .lightbox .has-buttons {
 	margin-top: 2rem;
+}
 
+
+.page-extensions .tabs__caption li {
+	margin-bottom: 0;
+}
+
+.tabs__content {
+	display: none;
+}
+.tabs__content.is-active {
+	display: block;
 }
 

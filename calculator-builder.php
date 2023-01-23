@@ -3,17 +3,23 @@
  * Plugin Name:       Calculator Builder | CalcHub
  * Plugin URI:        https://wordpress.org/plugins/calculator-builder/
  * Description:       Easily create Online calculators
- * Version:           0.4.3
  * Author:            CalcHub
  * Author URI:        https://calchub.xyz
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Version:           1.0
  * Text Domain:       calculator-builder
+ * License:           GPL-2.0+
+ * Domain Path:       languages
+ * Requires PHP:      7.4
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * @package CALCHUB
+ * @category Core
+ * @author CalcHub
+ * @version 0.4.4
  */
 
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
-
 
 if ( ! class_exists( 'Calculator_Builder' ) ) :
 
@@ -38,7 +44,6 @@ if ( ! class_exists( 'Calculator_Builder' ) ) :
 		 */
 		public static function instance() {
 			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Calculator_Builder ) ) {
-
 				self::$instance = new self;
 
 				self::$instance->setup_constants();
@@ -51,12 +56,15 @@ if ( ! class_exists( 'Calculator_Builder' ) ) :
 				self::$instance->sanitize = new CalcHub_Sanitize();
 				self::$instance->notices  = new CalcHub_Notices();
 
+				if ( has_filter( 'calchub_settings_menu_file' ) ) {
+					self::$instance->settings = new CalcHub_Settings();
+				}
+				
 				register_activation_hook( __FILE__, [ self::$instance, 'plugin_activate' ] );
 				add_action( 'plugins_loaded', [ self::$instance, 'text_domain' ] );
 				if ( get_option( 'calculator_builder_updater' ) === false ) {
 					add_action( 'admin_init', [ self::$instance, 'plugin_updater' ] );
 				}
-
 			}
 
 			return self::$instance;
@@ -72,7 +80,7 @@ if ( ! class_exists( 'Calculator_Builder' ) ) :
 		private function setup_constants() {
 			// Plugin version.
 			if ( ! defined( 'CALCHUB_VERSION' ) ) {
-				define( 'CALCHUB_VERSION', '0.4.3' );
+				define( 'CALCHUB_VERSION', '1.0' );
 			}
 
 			// Plugin Admin slug.
@@ -145,6 +153,7 @@ if ( ! class_exists( 'Calculator_Builder' ) ) :
 			require_once CALCHUB_PLUGIN_DIR . 'inc/class-calchub-db.php';
 			require_once CALCHUB_PLUGIN_DIR . 'inc/class-calchub-sanitize.php';
 			require_once CALCHUB_PLUGIN_DIR . 'inc/class-calchub-notices.php';
+			require_once CALCHUB_PLUGIN_DIR . 'inc/class-calchub-settings.php';
 		}
 
 		/**
