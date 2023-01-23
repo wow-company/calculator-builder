@@ -1,13 +1,14 @@
 <?php
-
 /**
  * Admin Class
  *
  * @package     CALCHUB
- * @license     GNU Public License
- * @version     1.0
+ * @subpackage  CALCHUB/Admin_Class
+ * @author      Dmytro Lobov <yoda@calchub.xyz>
+ * @copyright   Copyright (c) 2022, CalcHub.xyz
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @version     0.4
  */
-
 
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
@@ -29,7 +30,6 @@ class Calculator_Builder_Admin {
 		add_action( 'admin_menu', [ $this, 'add_admin_page' ] ); // add admin page
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ] ); // add admin script
 	}
-
 
 	/**
 	 * Add the link to the plugin page on Plugins page
@@ -134,7 +134,8 @@ class Calculator_Builder_Admin {
 		$version = CALCHUB_VERSION;
 		$assets  = CALCHUB_PLUGIN_URL . 'assets/';
 
-		wp_enqueue_script( $slug . '-navigation', $assets . 'js/admin-navigation.js', array( 'jquery' ), $version, true );
+		wp_enqueue_script( $slug . '-navigation', $assets . 'js/admin-navigation.js', array( 'jquery' ), $version,
+			true );
 
 		wp_enqueue_style( $slug . '-admin', $assets . 'css/admin-main.css', false, $version );
 		wp_enqueue_style( $slug . '-custom', $assets . 'css/admin-customize.css', false, $version );

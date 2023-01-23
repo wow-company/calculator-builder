@@ -4,16 +4,16 @@
  *
  * @package     CalcHub
  * @subpackage  Public
+ * @author      Dmytro Lobov <yoda@calchub.xyz>
  * @copyright   Copyright (c) 2022, CalcHub.xyz
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0
+ * @version     0.4
  */
 
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
 class Calculator_Builder_Public {
-
 
 	public const SHORTCODE = 'Calculator';
 	private $table_name = 'calculator_builder';
@@ -37,11 +37,23 @@ class Calculator_Builder_Public {
 			$form = str_replace( [ ' ui-sortable-handle', 'has-result', 'has-required' ],
 				[ '', 'has-result is-hidden', 'required' ], $form );
 
-			$content = '<form action="' . esc_url( get_permalink() ) . '" name="formbox" class="formbox" id="calculator_' . absint( $id ) . '">';
-			$content .= $form;
-			$content .= '</form>';
+			$out = '<form action="' . esc_url( get_permalink() ) . '" name="formbox" class="formbox" id="calculator_' . absint( $id ) . '">';
+			$out .= apply_filters( 'calhub_calculator_form', $form, $id );
+			$out .= '</form>';
 
-			$content = apply_filters( 'calchub_action_buttons', $content, $id );
+
+			$content = '<div class="formbox-wrapper">';
+
+			$content .= apply_filters( 'calhub_calculator_filter', $out, $id );
+
+			if(has_filter('calhub_calculator_buttons')) {
+				$content .= '<div class="formbox__actions_btns">';
+				$content .= apply_filters('calhub_calculator_buttons', '', $id);
+				$content .= '</div>';
+
+			}
+
+			$content .= '</div>';
 
 			wp_enqueue_script( CALCHUB_PLUGIN_SLUG, CALCHUB_PLUGIN_URL . 'assets/js/calchub.js', null, CALCHUB_VERSION,
 				true );
@@ -51,12 +63,12 @@ class Calculator_Builder_Public {
 				return y;}";
 
 			if ( ! empty( $param['obfuscation'] ) ) {
-				$packer = new JavaScriptPacker($data);
-				$data          = $packer->pack();
+				$packer = new JavaScriptPacker( $data );
+				$data   = $packer->pack();
 			}
 			wp_add_inline_script( CALCHUB_PLUGIN_SLUG, $data );
 
-			do_action( 'calchub_shortcode_style', $id );
+			$content = apply_filters( 'calchub_shortcode_style', $content, $id );
 
 			return $content;
 		}

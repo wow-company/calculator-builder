@@ -1,6 +1,19 @@
-<?php if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+<?php
+/**
+ * Fields options
+ *
+ * Popup with the fields. Add to the form
+ *
+ * @package     CALCHUB
+ * @subpackage  Admin/Fields
+ * @author      Dmytro Lobov <yoda@calchub.xyz>
+ * @copyright   Copyright (c) 2022, CalcHub.xyz
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @version     0.4
+ */
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 ?>
 

@@ -3,9 +3,10 @@
  * Class for Export and Import calculators
  *
  * @package     CalcHub
- * @author      CalcHub.xyz <yoda@calchub.xyz>
- * @license     GNU Public License
- * @version     1.0
+ * @author      Dmytro Lobov <yoda@calchub.xyz>
+ * @copyright   Copyright (c) 2022, CalcHub.xyz
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @version     0.4
  */
 
 // Exit if accessed directly.
@@ -122,11 +123,11 @@ class CalcHub_Export_Import {
 		$result = $wpdb->get_results( "SELECT * FROM " . $table . " order by id asc" );
 
 		if ( ! empty( $_REQUEST['calculators_tags'] ) ) {
-			$tag = sanitize_text_field($_REQUEST['calculators_tags']);
+			$tag    = sanitize_text_field( $_REQUEST['calculators_tags'] );
 			$result = $wpdb->get_results( "SELECT * FROM " . $table . " WHERE tag='$tag' order by id asc" );
 		}
 
-		if ( isset($_GET['id']) ) {
+		if ( isset( $_GET['id'] ) ) {
 			$query  = $wpdb->prepare( "SELECT * FROM $table WHERE id=%d", absint( $_GET['id'] ) );
 			$result = $wpdb->get_results( $query );
 

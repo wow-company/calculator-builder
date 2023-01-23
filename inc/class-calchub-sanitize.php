@@ -3,9 +3,11 @@
  * Class for custom sanitize
  *
  * @package     CalcHub
- * @author      CalcHub.xyz <yoda@calchub.xyz>
- * @license     GNU Public License
- * @version     1.0
+ * @author      Dmytro Lobov <yoda@calchub.xyz>
+ * @author      Dmytro Lobov <yoda@calchub.xyz>
+ * @copyright   Copyright (c) 2022, CalcHub.xyz
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @version     0.4
  */
 
 // Exit if accessed directly.
@@ -14,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
 class CalcHub_Sanitize {
 
 	public function param( $value ) {
-		return  sanitize_text_field( $value ) ;
+		return sanitize_text_field( $value );
 	}
 
 	public function form( $string, $echo = true ): string {
@@ -76,8 +78,8 @@ class CalcHub_Sanitize {
 			'hr'       => array(
 				'style' => true,
 			),
-			'sup' => [],
-			'sub' => [],
+			'sup'      => [],
+			'sub'      => [],
 
 		);
 

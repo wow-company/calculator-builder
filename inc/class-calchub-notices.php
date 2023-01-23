@@ -4,8 +4,10 @@
  *
  * @package     CalcHub
  * @subpackage  Admin/Notices
+ * @author      Dmytro Lobov <yoda@calchub.xyz>
+ * @copyright   Copyright (c) 2022, CalcHub.xyz
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       0.4
+ * @version     0.4
  */
 
 // Exit if accessed directly
@@ -16,11 +18,10 @@ class CalcHub_Notices {
 	public function __construct() {
 		add_action( 'calchub_admin_info_notices', [ $this, 'display_notices' ] );
 		add_action( 'wp_ajax_calchub_hide_notice', [ $this, 'deactivate_notice' ] );
-
 	}
 
 	public function display_notices() {
-		if(!empty($_GET['tab']) && $_GET['tab'] === 'settings') {
+		if ( ! empty( $_GET['tab'] ) && $_GET['tab'] === 'settings' ) {
 			return false;
 		}
 		if ( get_option( 'calchub_notice_status' ) !== 'read' ) :
@@ -35,7 +36,8 @@ class CalcHub_Notices {
                         <br/>
                         <i class="dashicons dashicons-star-filled has-text-warning is-r-margin"></i>If you like the
                         plugin,
-                        please <a href="https://wordpress.org/support/plugin/calculator-builder/reviews/#new-post" target="_blank">leave a review</a> about it at
+                        please <a href="https://wordpress.org/support/plugin/calculator-builder/reviews/#new-post"
+                                  target="_blank">leave a review</a> about it at
                         WordPress.org.<br/>
                     </p>
                     <span class="calchub-dismiss dashicons dashicons-no"></span>

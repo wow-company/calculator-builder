@@ -8,9 +8,10 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package     CalcHub
  * @subpackage  Classes/CalcHub DB
+ * @author      Dmytro Lobov <yoda@calchub.xyz>
  * @copyright   Copyright (c) 2022, CalcHub.xyz
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       0.4
+ * @version     0.4
  */
 class CalcHub_DB {
 

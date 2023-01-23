@@ -2,10 +2,12 @@
 /**
  * Formula TextArea
  *
- * @package     CalcHub
+ * @package     CALCHUB
+ * @subpackage  CALCHUB/Admin_Class
+ * @author      Dmytro Lobov <yoda@calchub.xyz>
  * @copyright   Copyright (c) 2022, CalcHub.xyz
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0
+ * @version     0.4
  */
 
 // Exit if accessed directly.

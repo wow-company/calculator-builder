@@ -4,8 +4,10 @@
  *
  * @package     CalcHub
  * @copyright   Copyright (c) 2022, CalcHub.xyz
+ * @author      Dmytro Lobov <yoda@calchub.xyz>
+ * @copyright   Copyright (c) 2022, CalcHub.xyz
  * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
- * @since       1.0
+ * @version     0.4
  */
 
 // Exit if accessed directly
@@ -37,8 +39,7 @@ $url_form = admin_url() . 'admin.php?page=' . CALCHUB_PLUGIN_SLUG;
 									echo esc_attr( $title ); ?>" name="title" autocomplete="off">
                                 </div>
                                 <div class="control">
-                                    <button class="button is-link button-large is-size-6 is-radiusless"
-                                            id="submit">
+                                    <button class="button is-link button-large is-size-6 is-radiusless" id="submit">
                                         <span><?php
 	                                        echo esc_html( $btn ); ?></span>
                                         <span class="icon is-small has-text-white">
@@ -58,9 +59,12 @@ $url_form = admin_url() . 'admin.php?page=' . CALCHUB_PLUGIN_SLUG;
                                     </span>
                                     </div>
                                     <div class="control">
-                                        <input list="calc-tags" class="input is-small is-info calc-tags " name="tag" type="text" value="<?php echo esc_attr( $tag ); ?>" autocomplete="off">
+                                        <input list="calc-tags" class="input is-small is-info calc-tags " name="tag"
+                                               type="text" value="<?php
+										echo esc_attr( $tag ); ?>" autocomplete="off">
                                         <datalist id="calc-tags">
-                                           <?php $this->get_calc_tags();?>
+											<?php
+											$this->get_calc_tags(); ?>
                                         </datalist>
 
                                     </div>

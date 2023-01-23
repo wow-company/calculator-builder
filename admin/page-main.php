@@ -4,13 +4,14 @@
  *
  * @package     CalcHub
  * @subpackage  Admin/Main_page
- * @author      CalcHub.xyz <yoda@calchub.xyz>
- * @license     GNU Public License
+ * @author      Dmytro Lobov <yoda@calchub.xyz>
+ * @copyright   Copyright (c) 2022, CalcHub.xyz
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @version     0.4
  */
 
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
-
 
 $current_tab = ( isset( $_REQUEST["tab"] ) ) ? sanitize_text_field( $_REQUEST["tab"] ) : 'list';
 
@@ -39,11 +40,11 @@ $support_url = admin_url('admin.php?page='.CALCHUB_PLUGIN_URL.'&tab=support');
 					if ( isset($_REQUEST['act']) && $_REQUEST['act'] === 'update' ) {
 						esc_attr_e( 'Update Calculator' );
 					} else {
-						echo esc_attr( $tabs_arr[ $current_tab ] );
+						echo esc_attr( $tabs[ $current_tab ] );
 					}
 					?></span>
             </h1>
-			<?php if ( $current_tab === 'list' || ( $current_tab === 'settings' && (isset($_REQUEST['act']) && $_REQUEST['act'] === 'update' ) ) ) : ?>
+			<?php if ( $current_tab === 'list' ||  $current_tab === 'settings' ) : ?>
                 <a href="?page=<?php echo esc_attr( CALCHUB_PLUGIN_SLUG ); ?>&tab=settings"
                    class="button is-info is-outlined">
 					<?php esc_html_e( 'Add New', 'calculator-builder' ); ?>
@@ -64,7 +65,7 @@ $support_url = admin_url('admin.php?page='.CALCHUB_PLUGIN_URL.'&tab=support');
 
     <div class="wrap">
 		<?php
-		$current_tab = array_key_exists( $current_tab, $tabs_arr ) ? 'page-' . $current_tab : $current_tab;
+		$current_tab = array_key_exists( $current_tab, $tabs ) ? 'page-' . $current_tab : $current_tab;
 		$file        = apply_filters( CALCHUB_PLUGIN_SLUG . '_menu_file', $current_tab );
 		include_once( $file . '.php' );
 		?>

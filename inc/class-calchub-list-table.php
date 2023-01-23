@@ -1,13 +1,13 @@
 <?php
-
 /**
  * Table for calculators list
  *
  * @package     CalcHub
  * @subpackage  Admin/Table_List
+ * @author      Dmytro Lobov <yoda@calchub.xyz>
  * @copyright   Copyright (c) 2022, CalcHub.xyz
- * @license     GNU Public License
- * @version     1.0
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @version     0.4
  */
 
 // Exit if accessed directly.
@@ -213,13 +213,40 @@ class CalcHub_List_Table extends WP_List_Table {
 		$data   = [];
 		$paged  = $this->get_paged();
 		$offset = $this->per_page * ( $paged - 1 );
-		$search = $this->get_search();
+		$result = $this->get_data_result();
 
-		$table = $wpdb->prefix . $this->table;
+		if ( ! empty( $result ) ) {
+			foreach ( $result as $key => $value ) {
+				$title = ! empty( $value->title ) ? $value->title : esc_attr__( 'Untitle', 'calculator-builder' );
+				$tag   = '';
 
+				if ( isset( $value->tag ) ) {
+					$tag_url = admin_url( '/admin.php?page=' . CALCHUB_PLUGIN_SLUG . '&tag=' . $value->tag );
+					$tag     = '<a href="' . esc_url( $tag_url ) . '">' . $value->tag . '</a>';
+				}
+				$args   = [
+					'ID'    => $value->id,
+					'title' => '<a href="admin.php?page=' . esc_attr( CALCHUB_PLUGIN_SLUG ) . '&tab=settings&act=update&id=' . absint( $value->id ) . '">' . esc_attr( $title ) . '</a>',
+					'tag'   => $tag,
+					'code'  => '<div class="field has-addons"><div class="control">
+                <input class="input is-small is-dark" type="text" readonly value="[Calculator id=\'' . absint( $value->id ) . '\']"></div>
+                <div class="control"><span class="button is-small is-dark calc-copy-shortcode">
+                                       ' . esc_attr__( 'Copy', 'calculator-builder' ) . '</span></div></div>',
+				];
+				$data[] = apply_filters( 'calchub_table_column', $args, $value->id );
+			}
+		}
+
+		return $data;
+	}
+
+	private function get_data_result() {
+		global $wpdb;
+		$table      = $wpdb->prefix . $this->table;
+		$search     = $this->get_search();
 		$tag_search = ( ! empty( $_REQUEST['tag'] ) ) ? sanitize_text_field( $_REQUEST  ['tag'] ) : '';
 		$tag_search = ( $tag_search === 'all' ) ? '' : $tag_search;
-
+		$result     = '';
 
 		if ( empty( $search ) ) {
 			$result = $wpdb->get_results( "SELECT * FROM $table order by id desc" );
@@ -250,29 +277,7 @@ class CalcHub_List_Table extends WP_List_Table {
 			$result = $wpdb->get_results( $query );
 		}
 
-		if ( $result ) {
-			foreach ( $result as $key => $value ) {
-				$title = ! empty( $value->title ) ? $value->title : esc_attr__( 'Untitle', 'calculator-builder' );
-				$tag   = '';
-
-				if ( isset( $value->tag ) ) {
-					$tag_url = admin_url( '/admin.php?page=' . CALCHUB_PLUGIN_SLUG . '&tag=' . $value->tag );
-					$tag     = '<a href="' . esc_url( $tag_url ) . '">' . $value->tag . '</a>';
-				}
-				$args   = [
-					'ID'    => $value->id,
-					'title' => '<a href="admin.php?page=' . esc_attr( CALCHUB_PLUGIN_SLUG ) . '&tab=settings&act=update&id=' . absint( $value->id ) . '">' . esc_attr( $title ) . '</a>',
-					'tag'   => $tag,
-					'code'  => '<div class="field has-addons"><div class="control">
-                <input class="input is-small is-dark" type="text" readonly value="[Calculator id=\'' . absint( $value->id ) . '\']"></div>
-                <div class="control"><span class="button is-small is-dark calc-copy-shortcode">
-                                       ' . esc_attr__( 'Copy', 'calculator-builder' ) . '</span></div></div>',
-				];
-				$data[] = apply_filters( 'calchub_table_column', $args, $value->id );
-			}
-		}
-
-		return $data;
+		return $result;
 	}
 
 	/**
@@ -298,9 +303,7 @@ class CalcHub_List_Table extends WP_List_Table {
 	}
 
 	public function list_count(): int {
-		global $wpdb;
-		$table  = $wpdb->prefix . $this->table;
-		$result = $wpdb->get_results( "SELECT * FROM " . $table . " order by id asc" );
+		$result = $this->get_data_result();
 
 		return count( $result );
 	}
@@ -365,14 +368,19 @@ class CalcHub_List_Table extends WP_List_Table {
 		if ( 'top' === $which ) {
 			$tags = CALCHUB()->db->get_tags_from_table();
 
+			$tag_search = ( ! empty( $_REQUEST['tag'] ) ) ? sanitize_text_field( $_REQUEST  ['tag'] ) : '';
+			$tag_search = ( $tag_search === 'all' ) ? '' : $tag_search;
+
 			echo '<div class="alignleft actions"><label for="filter-by-tag" class="screen-reader-text">' . __( 'Filter by tag',
 					'calculator-builder' ) . '</label>';
 			echo '<select name="tag" id="filter-by-tag">';
-			echo '<option value="all">' . __( 'All', 'calculator-builder' ) . '</option>';
+			echo '<option value="all"' . selected( 'all', $tag_search, false ) . '>' . __( 'All',
+					'calculator-builder' ) . '</option>';
 
 			if ( ! empty( $tags ) ) {
 				foreach ( $tags as $tag ) {
-					echo '<option value="' . trim( esc_attr( $tag['tag'] ) ) . '">' . esc_attr( $tag['tag'] ) . '</option>';
+					echo '<option value="' . trim( esc_attr( $tag['tag'] ) ) . '"' . selected( $tag['tag'], $tag_search,
+							false ) . '>' . esc_attr( $tag['tag'] ) . '</option>';
 				}
 			}
 			echo '</select>';

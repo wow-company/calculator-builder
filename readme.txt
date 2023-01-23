@@ -4,8 +4,8 @@ Donate link: https://calchub.xyz
 Tags: calculator, calculator builder, online calculator, calculator maker, calculate
 Requires at least: 5.0
 Tested up to: 6.1
-Requires PHP: 5.6
-Stable tag: 0.4.2
+Requires PHP: 7.4
+Stable tag: 0.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,7 +85,10 @@ https://www.youtube.com/watch?v=EGjO6k3JGU0&t=2s
 
 ### Extensions
 
-**[Calchub Style](https://calchub.xyz/downloads/calchub-style/)** (free) -  customize the calculator for each individual calculator.
+**[Calchub Style](https://calchub.xyz/downloads/calchub-style/)** (free) - customize the calculator for each individual calculator.
+**[CalcHub Counter](https://calchub.xyz/downloads/calchub-counter/)** - add the button likes and calculation counter to your calculators and you'll be able to track it easily.
+**[CalcHub Print](https://calchub.xyz/downloads/calchub-print/)** - Easily add an online calculator print button as well as a copy URL button.
+**[CalcHub WPCF7](https://calchub.xyz/downloads/calchub-wpcf7/)** - Integration WordPress plugin Contact Form 7 with Calculator Builder. Easily send the calculator result by email.
 
 ### EQUATION / FORMULA
 
@@ -170,6 +173,11 @@ If you have any questions concerning the plugin ask us at the [WordPress forum](
 5. Frontend - calculator on frontend
 
 == Changelog ==
+= 1.0 =
+* Added: button 'New' in page created the calculator
+* Changed: create calculator without the button 'Calculate'
+* Fixed: selected current tag in filter
+* Fixed: item count in List table
 
 = 0.4.3 =
 * Fixed: Obfuscation function

@@ -1,14 +1,13 @@
 <?php
-
 /**
  * Tools page
  *
  * @package     CalcHub
  * @subpackage  Admin/Tools
- * @author      CalcHub.xyz <yoda@calchub.xyz>
- * @copyright   2Copyright (c) 2022, CalcHub.xyz
- * @license     GNU Public License
- * @version     1.0
+ * @author      Dmytro Lobov <yoda@calchub.xyz>
+ * @copyright   Copyright (c) 2022, CalcHub.xyz
+ * @license     http://opensource.org/licenses/gpl-2.0.php GNU Public License
+ * @version     0.4
  */
 
 // Exit if accessed directly.
@@ -31,10 +30,12 @@ defined( 'ABSPATH' ) || exit;
                 <form method="post" action="">
                     <p><input type="hidden" name="calchub_action" value="export_tool"/></p>
                     <p>
-                        <?php CALCHUB()->tools->display_tags();?>
+						<?php
+						CALCHUB()->tools->display_tags(); ?>
                     </p>
                     <p>
-						<?php wp_nonce_field( 'calchub_action', 'calchub_export_import' ); ?>
+						<?php
+						wp_nonce_field( 'calchub_action', 'calchub_export_import' ); ?>
 
 						<?php
 						submit_button( __( 'Export', 'calculator-builder' ), 'secondary', 'submit', false ); ?>
@@ -67,7 +68,8 @@ defined( 'ABSPATH' ) || exit;
 
                     <p>
                         <input type="hidden" name="calchub_action" value="import_tool"/>
-	                    <?php wp_nonce_field( 'calchub_action', 'calchub_export_import' ); ?>
+						<?php
+						wp_nonce_field( 'calchub_action', 'calchub_export_import' ); ?>
 						<?php
 						submit_button( __( 'Import', 'calculator-builder' ), 'secondary', 'submit', false ); ?>
                     </p>
@@ -76,7 +78,4 @@ defined( 'ABSPATH' ) || exit;
         </div>
 
     </div>
-
 <?php
-
-
