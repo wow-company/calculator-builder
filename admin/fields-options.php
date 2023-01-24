@@ -277,7 +277,6 @@ defined( 'ABSPATH' ) || exit;
                             name="update-field"><?php esc_html_e( 'Update Field', 'calculator-builder' ); ?></button>
                 </div>
             </div>
-
         </form>
     </div>
 
