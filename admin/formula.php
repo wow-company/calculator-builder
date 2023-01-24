@@ -134,3 +134,15 @@ defined( 'ABSPATH' ) || exit;
         </label>
     </div>
 </div>
+
+<div class="columns">
+    <div class="column">
+		<?php
+		$calc_load = isset( $param['calc_load'] ) ? $param['calc_load'] : '';
+		?>
+        <label>
+            <input type="checkbox" name="param[calc_load]" <?php checked( '1', $calc_load ); ?> value="1">
+			<?php esc_html_e( 'Make a calculation when loading the form', 'calculator-builder' ); ?>
+        </label>
+    </div>
+</div>

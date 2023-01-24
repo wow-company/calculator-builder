@@ -5,7 +5,7 @@ Tags: calculator, calculator builder, online calculator, calculator maker, calcu
 Requires at least: 5.0
 Tested up to: 6.1
 Requires PHP: 7.4
-Stable tag: 0.4.4
+Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -173,6 +173,10 @@ If you have any questions concerning the plugin ask us at the [WordPress forum](
 5. Frontend - calculator on frontend
 
 == Changelog ==
+= 1.0.1 =
+* Added: option for calculation when form load
+
+
 = 1.0 =
 * Added: button 'New' in page created the calculator
 * Changed: create calculator without the button 'Calculate'

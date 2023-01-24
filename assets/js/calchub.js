@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     form.addEventListener('reset', calcReset);
     form.addEventListener('change', {handleEvent: calculate, form: form});
+    let load_calc = form.querySelector('.calc-load');
+    if (load_calc) {
+      window.addEventListener('load', {handleEvent: calculate, form: form});
+    }
   });
 
   function calculate(event) {

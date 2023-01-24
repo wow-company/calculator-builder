@@ -39,6 +39,9 @@ class Calculator_Builder_Public {
 
 			$out = '<form action="' . esc_url( get_permalink() ) . '" name="formbox" class="formbox" id="calculator_' . absint( $id ) . '">';
 			$out .= apply_filters( 'calhub_calculator_form', $form, $id );
+			if ( ! empty( $param['calc_load'] ) ) {
+				$out .= '<input type="hidden" id="calc-load-'.absint($id).'" class="calc-load">';
+			}
 			$out .= '</form>';
 
 
