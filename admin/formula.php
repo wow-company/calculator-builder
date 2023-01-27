@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 
 ?>
 <div class="columns">
-    <div class="column">
+    <div class="column is-6">
         <div class="operators">
             <div class="operators-line is-hidden variables-bottom">
                 <h4><?php esc_html_e( 'Variables', 'calculator-builder' ); ?>:</h4>
@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
                 <span class="operator tag">-</span>
                 <span class="operator tag">/</span>
                 <span class="operator tag">*</span>
-                <span class="operator tag">roundVal()</span>
+                <span class="operator tag">.round(2)</span>
                 <span class="operator tag">alert('')</span>
 
             </div>
@@ -113,6 +113,31 @@ defined( 'ABSPATH' ) || exit;
             </details>
 
         </div>
+    </div>
+    <div class="column is-6">
+        <div class="operators-line is-hidden calc-fieldset-bottom">
+            <h4><?php esc_html_e( 'Fieldsets', 'calculator-builder' ); ?>:</h4>
+            <div id="calc-fieldset-bottom"></div>
+        </div>
+        <div class="operators-line is-hidden calc-label-bottom">
+            <h4><?php esc_html_e( 'Labels', 'calculator-builder' ); ?>:</h4>
+            <div id="calc-label-bottom"></div>
+        </div>
+
+        <div class="operators-line is-hidden calc-field-bottom">
+            <h4><?php esc_html_e( 'Fields', 'calculator-builder' ); ?>:</h4>
+            <div id="calc-field-bottom"></div>
+        </div>
+        <p class="operators-line tags">
+            <span class="operator tag">.hide()</span>
+            <span class="operator tag">.show()</span>
+            <span class="operator tag">.addClass('')</span>
+            <span class="operator tag">.removeClass('')</span>
+            <span class="operator tag">.addAttr('name', 'value')</span>
+            <span class="operator tag">.removeAttr('name')</span>
+            <span class="operator tag">.text('text')</span>
+        </p>
+        <p><a href="https://calchub.xyz/doc/variables-and-functions/" target="_blank">Read More</a></p>
     </div>
 </div>
 

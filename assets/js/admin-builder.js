@@ -53,7 +53,8 @@ const Calc_Builder = function() {
       setFieldUpdate(e.target);
     } else if (e.target && e.target.classList.contains('variable') ||
         e.target.classList.contains('variable', 'is-result') ||
-        e.target.classList.contains('operator')) {
+        e.target.classList.contains('operator') || e.target.classList.contains('calc-fieldset') ||
+        e.target.classList.contains('calc-field') || e.target.classList.contains('calc-label')) {
       insertTextAtCursor(e.target.innerText);
     }
   });
@@ -193,6 +194,19 @@ const Calc_Builder = function() {
     $formParam.querySelector('[name="calculate"]').value = calc;
     $formParam.querySelector('[name="reset"]').value = reset;
 
+    let extraClasses = '';
+    const classes = container.classList;
+    if (classes.length > 0) {
+      for (let i = 0; i < classes.length; i++) {
+        if (classes[i] !== 'formbox__container' && classes[i] !== 'ui-sortable-handle' && classes[i] !== 'has-result') {
+          extraClasses += classes[i];
+          extraClasses += ' ';
+        }
+      }
+    }
+
+    $formParam.querySelector('[name="extraClasses"]').value = extraClasses;
+
   }
 
   function insertTextAtCursor(text) {
@@ -201,7 +215,7 @@ const Calc_Builder = function() {
     const cursor = doc.getCursor();
     doc.replaceRange(text, cursor);
     editor.focus();
-    editor.setCursor(editor.lineCount(), 0);
+    // editor.setCursor(editor.lineCount(), 0);
   }
 
   const $form = document.getElementById('calculator');
@@ -268,16 +282,30 @@ const Calc_Builder = function() {
                     <a href="#field-number" class="edit">&#9998;</a>
                     </div>`;
 
+    const classes = param.extraClasses;
+
     let dataVal = $formParam.getAttribute('data-field-index');
     if (dataVal === '') {
-      let out = `<fieldset class="formbox__container${class_result}">${content}</fieldset>`;
+      let out = `<fieldset class="formbox__container${class_result} ${classes}">${content}</fieldset>`;
       $form.insertAdjacentHTML('beforeend', out);
     } else {
       dataVal = Number(dataVal);
       let allContainer = document.querySelectorAll('.formbox__container');
+
+      allContainer[dataVal].className = '';
+      allContainer[dataVal].classList.add('formbox__container', 'ui-sortable-handle');
       if (class_result !== '') {
         allContainer[dataVal].classList.add(class_result.trim());
       }
+      let extraClasses = classes.split(' ');
+      if (extraClasses.length > 0) {
+        for (let i = 0; i < extraClasses.length; i++) {
+          if (extraClasses[i] !== '') {
+            allContainer[dataVal].classList.add(extraClasses[i].trim());
+          }
+        }
+      }
+
       allContainer[dataVal].innerHTML = content;
       $lightboxClose.click();
 
@@ -289,6 +317,7 @@ const Calc_Builder = function() {
 
   function createVariables() {
     const fields = document.querySelectorAll('#calculator .formbox__field');
+
     let variables = '';
     let result = 1;
     if (fields.length < 1) return;
@@ -301,11 +330,45 @@ const Calc_Builder = function() {
       }
     }
 
+    const fieldAll = document.querySelectorAll('#calculator .formbox__field, #calculator button');
+    let fieldsEl = '';
+
+    for (let i = 1; i <= fieldAll.length; i++) {
+      fieldsEl += '<span class="calc-field">field[' + i + ']</span>';
+    }
+
+    const labels = document.querySelectorAll('#calculator .formbox__title');
+    let label = '';
+
+    for (let i = 1; i <= labels.length; i++) {
+      label += '<span class="calc-label">label[' + i + ']</span>';
+    }
+
+    document.getElementById('calc-label-bottom').innerHTML = label;
+    document.querySelector('.calc-label-bottom').classList.remove('is-hidden');
+    labelHoverBottom();
+
     document.getElementById('variables').innerHTML = variables;
     document.getElementById('variables-bottom').innerHTML = variables;
     document.querySelector('.variables-bottom').classList.remove('is-hidden');
     variableHover();
     variableHoverBottom();
+
+    document.getElementById('calc-field-bottom').innerHTML = fieldsEl;
+    document.querySelector('.calc-field-bottom').classList.remove('is-hidden');
+    fieldHoverBottom();
+
+    const fieldsets = document.querySelectorAll('#calculator fieldset');
+
+    let fieldset = '';
+    for (let i = 1; i <= fieldsets.length; i++) {
+      fieldset += '<span class="calc-fieldset">fieldset[' + i + ']</span>';
+    }
+
+    document.getElementById('calc-fieldset-bottom').innerHTML = fieldset;
+    document.querySelector('.calc-fieldset-bottom').classList.remove('is-hidden');
+    fieldsetHoverBottom();
+
   }
 
   function variableHover() {
@@ -345,6 +408,55 @@ const Calc_Builder = function() {
       });
     });
 
+  }
+
+  function fieldsetHoverBottom() {
+    let variables = document.querySelectorAll('#calc-fieldset-bottom .calc-fieldset');
+    let fields = document.querySelectorAll('#calculator fieldset');
+    variables.forEach((el, index) => {
+      el.addEventListener('mouseover', () => {
+        fields[index].style.boxShadow = '0 0 10px 5px red';
+      });
+    });
+
+    variables.forEach((el, index) => {
+      el.addEventListener('mouseout', () => {
+        fields[index].style.boxShadow = 'none';
+      });
+    });
+
+  }
+
+  function fieldHoverBottom() {
+    let variables = document.querySelectorAll('#calc-field-bottom .calc-field');
+    let fields = document.querySelectorAll('#calculator .formbox__field, #calculator button');
+    variables.forEach((el, index) => {
+      el.addEventListener('mouseover', () => {
+        fields[index].style.boxShadow = '0 0 10px 5px red';
+      });
+    });
+
+    variables.forEach((el, index) => {
+      el.addEventListener('mouseout', () => {
+        fields[index].style.boxShadow = 'none';
+      });
+    });
+  }
+
+  function labelHoverBottom() {
+    let variables = document.querySelectorAll('#calc-label-bottom .calc-label');
+    let fields = document.querySelectorAll('#calculator .formbox__title');
+    variables.forEach((el, index) => {
+      el.addEventListener('mouseover', () => {
+        fields[index].style.boxShadow = '0 0 10px 5px red';
+      });
+    });
+
+    variables.forEach((el, index) => {
+      el.addEventListener('mouseout', () => {
+        fields[index].style.boxShadow = 'none';
+      });
+    });
   }
 
   function setFieldsAttributes() {

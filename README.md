@@ -31,6 +31,11 @@ If you have any questions concerning the plugin ask us at the [WordPress forum](
 
 ## Changlog
 
+### = 1.1 =
+* Added: option for calculation when form load
+* Added: variables: fieldset, label, field
+* Added: custom functions: hide, show, addClass, removeClass
+
 ### = 1.0 =
 * Added: button 'New' in page created the calculator
 * Changed: create calculator without the button 'Calculate'

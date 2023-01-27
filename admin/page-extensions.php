@@ -50,7 +50,7 @@ defined( 'ABSPATH' ) || exit;
 						if ( ! class_exists( 'CalcHub_Style' ) ) : ?>
                             <a href="https://calchub.xyz/downloads/calchub-style/" target="_blank"
                                class="button is-link">GET
-                                FREE</a>
+                                Now</a>
 						<?php
 						else : ?><?php
 							do_action( 'calchub_style_activation_license' ); ?><?php

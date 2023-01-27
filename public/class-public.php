@@ -40,7 +40,7 @@ class Calculator_Builder_Public {
 			$out = '<form action="' . esc_url( get_permalink() ) . '" name="formbox" class="formbox" id="calculator_' . absint( $id ) . '">';
 			$out .= apply_filters( 'calhub_calculator_form', $form, $id );
 			if ( ! empty( $param['calc_load'] ) ) {
-				$out .= '<input type="hidden" id="calc-load-'.absint($id).'" class="calc-load">';
+				$out .= '<input type="hidden" id="calc-load-' . absint( $id ) . '" class="calc-load">';
 			}
 			$out .= '</form>';
 
@@ -49,11 +49,10 @@ class Calculator_Builder_Public {
 
 			$content .= apply_filters( 'calhub_calculator_filter', $out, $id );
 
-			if(has_filter('calhub_calculator_buttons')) {
+			if ( has_filter( 'calhub_calculator_buttons' ) ) {
 				$content .= '<div class="formbox__actions_btns">';
-				$content .= apply_filters('calhub_calculator_buttons', '', $id);
+				$content .= apply_filters( 'calhub_calculator_buttons', '', $id );
 				$content .= '</div>';
-
 			}
 
 			$content .= '</div>';
@@ -61,7 +60,7 @@ class Calculator_Builder_Public {
 			wp_enqueue_script( CALCHUB_PLUGIN_SLUG, CALCHUB_PLUGIN_URL . 'assets/js/calchub.js', null, CALCHUB_VERSION,
 				true );
 
-			$data = "function calculator_{$id}(x){ let y = [];
+			$data = "function calculator_{$id}(x, fieldset, field, label){ let y = [];
 				" . wp_specialchars_decode( $result->formula, ENT_QUOTES ) . "
 				return y;}";
 

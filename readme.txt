@@ -1,11 +1,11 @@
 ﻿=== Calculator Builder ===
-Contributors: calchub, Wpcalc
+Contributors: calchub, Wpcalc, lobov
 Donate link: https://calchub.xyz
 Tags: calculator, calculator builder, online calculator, calculator maker, calculate
 Requires at least: 5.0
 Tested up to: 6.1
 Requires PHP: 7.4
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,6 +33,8 @@ Do you write a blog? Own a car dealership? Or are otherwise involved in **financ
 
 You can do the following types of **financial calculations**:
 
+* [Mortgage Calculator](https://calchub.xyz/mortgage-calculator/)
+* [Credit card minimum payment](https://calchub.xyz/credit-card-minimum-payment/)
 * [Loan amount](https://calchub.xyz/loan-amount/)
 * [Interest rate](https://calchub.xyz/interest-rate/)
 * [Loan monthly payment](https://calchub.xyz/loan-monthly-payment/)
@@ -48,6 +50,19 @@ Do you own **sports, diet, or health websites**? Are you involved in health-rela
 * [Lean body mass](https://calchub.xyz/lean-body-mass/)
 * [Fat-Free Mass Index](https://calchub.xyz/fat-free-mass-index/)
 * [And many more!](https://calchub.xyz/category/health/)
+
+#### Examples online calculators
+
+* [Beauty](https://calchub.xyz/category/beauty/):
+    - [Appearance](https://calchub.xyz/category/beauty/appearance/)
+    - [Food](https://calchub.xyz/category/beauty/food/)
+    - [Pregnancy](https://calchub.xyz/category/beauty/pregnancy/)
+* [Finance](https://calchub.xyz/category/finance/):
+    - [Investment](https://calchub.xyz/category/finance/investment/)
+    - [Loan](https://calchub.xyz/category/finance/loan/)
+* [Medical](https://calchub.xyz/category/medical/)
+    - [Cardiology](https://calchub.xyz/category/medical/cardiology/)
+    - [Pharmacology](https://calchub.xyz/category/medical/pharmacology/)
 
 ### Elements
 
@@ -85,7 +100,7 @@ https://www.youtube.com/watch?v=EGjO6k3JGU0&t=2s
 
 ### Extensions
 
-**[Calchub Style](https://calchub.xyz/downloads/calchub-style/)** (free) - customize the calculator for each individual calculator.
+**[Calchub Style](https://calchub.xyz/downloads/calchub-style/)** - customize the calculator for each individual calculator.
 **[CalcHub Counter](https://calchub.xyz/downloads/calchub-counter/)** - add the button likes and calculation counter to your calculators and you'll be able to track it easily.
 **[CalcHub Print](https://calchub.xyz/downloads/calchub-print/)** - Easily add an online calculator print button as well as a copy URL button.
 **[CalcHub WPCF7](https://calchub.xyz/downloads/calchub-wpcf7/)** - Integration WordPress plugin Contact Form 7 with Calculator Builder. Easily send the calculator result by email.
@@ -173,9 +188,10 @@ If you have any questions concerning the plugin ask us at the [WordPress forum](
 5. Frontend - calculator on frontend
 
 == Changelog ==
-= 1.0.1 =
+= 1.1 =
 * Added: option for calculation when form load
-
+* Added: variables: fieldset, label, field
+* Added: custom functions: hide, show, addClass, removeClass
 
 = 1.0 =
 * Added: button 'New' in page created the calculator

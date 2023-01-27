@@ -68,8 +68,6 @@
 
     const editor = wp.codeEditor.initialize(formuls, editorSettings);
 
-
-
     //region Send Form
     $('#calchub-form').on('submit', function (event) {
         event.preventDefault();

@@ -53,8 +53,7 @@ $support_url = admin_url('admin.php?page='.CALCHUB_PLUGIN_URL.'&tab=support');
         </div>
         <div class="calchub-links">
             <a href="?page=<?php echo esc_attr( CALCHUB_PLUGIN_SLUG ); ?>&tab=extensions" class="calchub-link">Extensions</a>
-            <a href="?page=<?php echo esc_attr( CALCHUB_PLUGIN_SLUG ); ?>&tab=support&type=idea" class="calchub-link">Idea</a>
-            <a href="https://calchub.xyz/doc/installation/" target="_blank" class="calchub-link">Docs</a>
+            <a href="https://calchub.xyz/community/" target="_blank" class="calchub-link">Community/Questions</a>
             <a href="https://calchub.xyz" class="calchub-link" target="_blank">Examples</a>
             <a href="https://wordpress.org/support/plugin/calculator-builder/reviews/" class="calchub-link" target="_blank">Reviews</a>
         </div>

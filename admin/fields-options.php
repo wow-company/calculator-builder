@@ -270,6 +270,20 @@ defined( 'ABSPATH' ) || exit;
             </div>
 
             <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label"><?php esc_html_e( 'Extra class', 'calculator-builder' ); ?></label>
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                <input class="input is-link" type="text" name="extraClasses" value="" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="columns">
                 <div class="column has-text-centered">
                     <button class="button-add button is-success is-radiusless"
                             name="add-field"><?php esc_html_e( 'Add Field', 'calculator-builder' ); ?></button>
