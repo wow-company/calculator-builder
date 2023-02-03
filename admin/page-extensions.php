@@ -295,6 +295,48 @@ defined( 'ABSPATH' ) || exit;
                 </div>
             </div>
 
+            <div class="calchub-card-wrapper">
+                <div class="calchub-card">
+                    <div class="calchub-card-img">
+                        <img src="<?php
+				        echo esc_url( CALCHUB_PLUGIN_URL ); ?>assets/img/sets/text-tool-logo.jpg">
+                    </div>
+                    <div class="calchub-card-content">
+                        <h4 class="calchub-card-title">Text web tools</h4>
+                        <p class="calchub-card-text">
+                            A collection of text content related tools to help you create, modify & improve text type of content.
+                        </p>
+                    </div>
+                    <div class="calchub-card-footer">
+                        <a href="https://calchub.xyz/downloads/text-web-tools/" target="_blank"
+                           class="button is-link">GET
+                            Now</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="calchub-card-wrapper">
+                <div class="calchub-card">
+                    <div class="calchub-card-img">
+                        <img src="<?php
+				        echo esc_url( CALCHUB_PLUGIN_URL ); ?>assets/img/sets/converter-tools-logo.jpg">
+                    </div>
+                    <div class="calchub-card-content">
+                        <h4 class="calchub-card-title">Converter web tools</h4>
+                        <p class="calchub-card-text">
+                            A collection of tools that help you easily convert data.
+                        </p>
+                    </div>
+                    <div class="calchub-card-footer">
+                        <a href="https://calchub.xyz/downloads/converter-web-tools/" target="_blank"
+                           class="button is-link">GET
+                            Now</a>
+                    </div>
+
+                </div>
+            </div>
+
 
         </div>
 

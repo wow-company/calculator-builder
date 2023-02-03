@@ -137,16 +137,24 @@ class Calculator_Builder_Admin {
 		wp_enqueue_script( $slug . '-navigation', $assets . 'js/admin-navigation.js', array( 'jquery' ), $version,
 			true );
 
-		wp_enqueue_style( $slug . '-admin', $assets . 'css/admin-main.css', false, $version );
-		wp_enqueue_style( $slug . '-custom', $assets . 'css/admin-customize.css', false, $version );
+		if ( is_rtl() ) {
+			wp_enqueue_style( $slug . '-admin', $assets . 'css/admin-main-rtl.css', false, $version );
+			wp_enqueue_style( $slug . '-custom', $assets . 'css/admin-customize-rtl.css', false, $version );
+		} else {
+			wp_enqueue_style( $slug . '-admin', $assets . 'css/admin-main.css', false, $version );
+			wp_enqueue_style( $slug . '-custom', $assets . 'css/admin-customize.css', false, $version );
+		}
 
 		do_action( 'calchub_admin_enqueue_scripts_general' );
 
 		if ( empty( $_GET['tab'] ) || $_GET['tab'] !== 'settings' ) {
 			return false;
 		}
-
-		wp_enqueue_style( $slug . '-form', $assets . 'css/admin-form.css', false, $version );
+		if ( is_rtl() ) {
+			wp_enqueue_style( $slug . '-form', $assets . 'css/admin-form-rtl.css', false, $version );
+		} else {
+			wp_enqueue_style( $slug . '-form', $assets . 'css/admin-form.css', false, $version );
+		}
 		// include sortable
 		wp_enqueue_script( 'jquery-ui-sortable' );
 

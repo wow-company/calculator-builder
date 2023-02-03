@@ -1,0 +1,201 @@
+.formbox,
+.formbox * {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	border: none;
+	font-size: 16px;
+}
+
+.formbox {
+	display: flex;
+	flex-direction: column;
+	grid-gap: 1em;
+	max-width: 100%;
+	padding: 1em;
+	margin: 1em 0;
+	border: none;
+	border-radius: 4px;
+}
+
+.formbox hr {
+	width: 100%;
+	height: 2px;
+	margin: 8px 0;
+	background-color: #f5f5f5;
+}
+
+.formbox__container {
+	display: flex;
+	grid-gap: 0.5em;
+}
+
+@media screen and (max-width: 776px) {
+	.formbox__container {
+		flex-direction: column;
+	}
+}
+
+.formbox__container.has-result .formbox-title {
+	padding: 0;
+}
+
+.formbox__container.has-result.is-hidden {
+	display: none;
+}
+
+.formbox__title {
+	flex: 2 0 0;
+	padding-top: 0.375em;
+	font-weight: 600;
+	font-size: 1.125em;
+}
+
+.formbox__body {
+	flex: 3 0 0;
+}
+
+.formbox__body.has-group {
+	display: flex;
+	grid-gap: 0.5em;
+}
+
+@media screen and (max-width: 776px) {
+	.formbox__body.has-group {
+		flex-direction: column;
+	}
+}
+
+.formbox__body.has-group .formbox__field {
+	flex: 1 0 0;
+}
+
+.formbox__field input[type=radio],
+.formbox__field input[type=checkbox],
+.formbox__field label {
+	cursor: pointer;
+}
+input.formbox__field-text,
+input[type="number"].formbox__field-input, select.formbox__field-select, input[type="text"].formbox__field-result, textarea.formbox__field-result, textarea.formbox__field-textarea {
+	width: 100%;
+	max-width: 100%;
+	height: 2.5em !important;
+	line-height: 1.5 !important;
+	padding: calc(.5em - 1px) calc(0.75em - 1px);
+	font-size: 1em;
+	border: 1px solid #dbdbdb;
+	border-radius: 4px;
+}
+
+textarea.formbox__field-textarea,
+textarea.formbox__field-result {
+	height: 10em !important;
+}
+
+.formbox__htmlBlock-result {
+	word-break: break-all;
+}
+
+.formbox__field-addon {
+	height: 2.5em;
+	line-height: 1.5;
+	padding: calc(.5em - 1px) calc(1em - 1px);
+	font-size: 1em;
+	border: 1px solid #dbdbdb;
+	background: #f5f5f5;
+	white-space: nowrap;
+}
+
+.formbox__field-lable {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important;
+}
+
+.formbox__field-lable:focus {
+	background-color: #f1f1f1;
+	border-radius: 3px;
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+	clip: auto !important;
+	clip-path: none;
+	color: #21759b;
+	display: block;
+	font-size: 0.875em;
+	font-weight: 700;
+	height: auto;
+	right: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000;
+}
+
+.formbox__field.has-addon {
+	display: flex;
+}
+
+.formbox__field.has-addon.is-right .formbox__field-result,
+.formbox__field.has-addon.is-right .formbox__field-input {
+	border-radius: 0 4px 4px 0;
+}
+
+.formbox__field.has-addon.is-right .formbox__field-addon {
+	order: 1;
+	border-radius: 4px 0 0 4px;
+	border-right: none;
+}
+
+.formbox__field.has-addon.is-left .formbox__field-result,
+.formbox__field.has-addon.is-left .formbox__field-input {
+	border-radius: 4px 0 0 4px;
+}
+
+.formbox__field.has-addon.is-left .formbox__field-addon {
+	border-radius: 0 4px 4px 0;
+	border-left: none;
+}
+
+.formbox__btn {
+	display: flex;
+	grid-gap: 0.5em;
+}
+
+.formbox__btn input[type=submit],
+.formbox__btn input[type=reset],
+.formbox__btn button {
+	padding: 0.5em 1em;
+	justify-content: center;
+	border-radius: 4px;
+	border: 1px solid transparent;
+	text-align: center;
+	white-space: nowrap;
+	cursor: pointer;
+	user-select: none;
+	font-size: 1em;
+	font-weight: 500;
+}
+
+.formbox__btn-calc {
+	color: white;
+	background: darkgreen;
+}
+
+.formbox__btn-reset {
+	color: white;
+	background: #383838;
+}
+
+@media screen and (max-width: 776px) {
+	.formbox__btn {
+		text-align: center;
+	}
+}

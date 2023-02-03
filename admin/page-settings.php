@@ -127,7 +127,8 @@ $url_form = admin_url() . 'admin.php?page=' . CALCHUB_PLUGIN_SLUG;
                             <ul>
 								<?php
 								$tab_elements = apply_filters( 'calchub_filter_settings_tab_menu', array(
-									'formula' => __( 'Formula', 'calculator-builder' ),
+									'formula'  => __( 'Formula', 'calculator-builder' ),
+									'includes' => __( 'Includes', 'calculator-builder' ),
 								) );
 								foreach ( $tab_elements as $key => $val ) {
 									$active = ( $key === 'formula' ) ? 'is-active' : '';

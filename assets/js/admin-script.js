@@ -163,14 +163,14 @@
                     <div class="field has-addons has-addons-right">
                         <div class="control">
                             <div class="select">
-                                <select name="param[include][]">
+                                <select name="param[includes][]">
                                     <option value="css">css</option>
                                     <option value="js">js</option>
                                 </select>
                             </div>
                         </div>
                         <div class="control is-expanded">
-                            <input type="text" class="input" name="param[include_file][]"
+                            <input type="url" class="input" name="param[includes_file][]"
                                    value="" placeholder="URL to file">
                         </div>
                     </div>
@@ -195,6 +195,8 @@
   $(document).on('click', '.button-delete-item', function() {
     this.closest('.columns').remove();
   });
+
+
 
 })(jQuery);
 

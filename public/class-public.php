@@ -57,7 +57,12 @@ class Calculator_Builder_Public {
 
 			$content .= '</div>';
 
-			wp_enqueue_script( CALCHUB_PLUGIN_SLUG, CALCHUB_PLUGIN_URL . 'assets/js/calchub.js', null, CALCHUB_VERSION,
+			$this->includes_files( $id, $param );
+
+			$pre_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '-min';
+
+			wp_enqueue_script( CALCHUB_PLUGIN_SLUG, CALCHUB_PLUGIN_URL . 'assets/js/calchub' . $pre_suffix . '.js',
+				null, CALCHUB_VERSION,
 				true );
 
 			$data = "function calculator_{$id}(x, fieldset, field, label){ let y = [];
@@ -83,9 +88,34 @@ class Calculator_Builder_Public {
 		}
 		global $post;
 		if ( has_shortcode( $post->post_content, self::SHORTCODE ) ) {
-			wp_enqueue_style( CALCHUB_PLUGIN_SLUG, CALCHUB_PLUGIN_URL . 'assets/css/calchub.css', null,
-				CALCHUB_VERSION );
+			$pre_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '-min';
+			if ( is_rtl() ) {
+				wp_enqueue_style( CALCHUB_PLUGIN_SLUG,
+					CALCHUB_PLUGIN_URL . 'assets/css/calchub-rtl' . $pre_suffix . '.css', null,
+					CALCHUB_VERSION );
+			} else {
+				wp_enqueue_style( CALCHUB_PLUGIN_SLUG, CALCHUB_PLUGIN_URL . 'assets/css/calchub' . $pre_suffix . '.css',
+					null,
+					CALCHUB_VERSION );
+			}
 		}
 	}
 
+	public function includes_files( $id, $param ) {
+		$includes = isset( $param['includes'] ) ? count( $param['includes'] ) : 0;
+		if ( $includes > 0 ) {
+			for ( $i = 0; $i < $includes; $i ++ ) {
+				$slug = CALCHUB_PLUGIN_SLUG . '-' . $id . '-' . $i;
+
+				if ( $param['includes'][ $i ] === 'css' && ! empty( $param['includes_file'][ $i ] ) ) {
+					wp_enqueue_style( $slug, esc_url( $param['includes_file'][ $i ] ), null,
+						CALCHUB_VERSION );
+				}
+				if ( $param['includes'][ $i ] === 'js' && ! empty( $param['includes_file'][ $i ] ) ) {
+					wp_enqueue_script( $slug, esc_url( $param['includes_file'][ $i ] ), null, CALCHUB_VERSION,
+						true );
+				}
+			}
+		}
+	}
 }
