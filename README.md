@@ -31,6 +31,11 @@ If you have any questions concerning the plugin ask us at the [WordPress forum](
 
 ## Changlog
 
+### = 1.2 =
+* Added: includes JS and CSS files
+* Added: support RTL
+* Added: minification script and style
+
 ### = 1.1 =
 * Added: option for calculation when form load
 * Added: variables: fieldset, label, field
