@@ -1,3 +1,9 @@
+/*! ========= INFORMATION ============================
+	- author:    CalcHub
+	- url:       https://calchub.xyz
+	- plugin:    https://wordpress.org/plugins/calculator-builder/
+==================================================== */
+
 'use strict';
 
 const CalculatorBuilder = function() {
@@ -73,6 +79,17 @@ const CalculatorBuilder = function() {
         let element = fields[i].getAttribute('name');
         let el = element.split('-');
         input[el[2]] = fields[i].value;
+      }
+
+      if (fields[i].tagName.toLowerCase() === 'input' && fields[i].getAttribute('type') === 'checkbox') {
+        let element = fields[i].getAttribute('name');
+        let el = element.split('-');
+        if (fields[i].checked) {
+          input[el[2]] = parseFloat(fields[i].value);
+        } else {
+          input[el[2]] = 0;
+        }
+
       }
     }
 

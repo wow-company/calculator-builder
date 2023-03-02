@@ -330,7 +330,7 @@ const Calc_Builder = function() {
       }
     }
 
-    const fieldAll = document.querySelectorAll('#calculator .formbox__field, #calculator button');
+    const fieldAll = document.querySelectorAll('#calculator [name^="formbox-field-"], #calculator button');
     let fieldsEl = '';
 
     for (let i = 1; i <= fieldAll.length; i++) {
@@ -429,7 +429,7 @@ const Calc_Builder = function() {
 
   function fieldHoverBottom() {
     let variables = document.querySelectorAll('#calc-field-bottom .calc-field');
-    let fields = document.querySelectorAll('#calculator .formbox__field, #calculator button');
+    let fields = document.querySelectorAll('#calculator [name^="formbox-field-"], #calculator button');
     variables.forEach((el, index) => {
       el.addEventListener('mouseover', () => {
         fields[index].style.boxShadow = '0 0 10px 5px red';

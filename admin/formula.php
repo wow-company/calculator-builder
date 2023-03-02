@@ -18,7 +18,8 @@ defined( 'ABSPATH' ) || exit;
     <div class="column is-6">
         <div class="operators">
             <div class="operators-line is-hidden variables-bottom">
-                <h4><?php esc_html_e( 'Variables', 'calculator-builder' ); ?>:</h4>
+                <h4><?php
+					esc_html_e( 'Variables', 'calculator-builder' ); ?>:</h4>
                 <div id="variables-bottom"></div>
             </div>
 
@@ -33,9 +34,8 @@ defined( 'ABSPATH' ) || exit;
 
             </div>
             <details open>
-                <summary
-                        style="cursor: pointer;"
-                        class="title"><?php esc_html_e( 'Comparison and Conditions', 'calculator-builder' ); ?></summary>
+                <summary style="cursor: pointer;" class="title"><?php
+					esc_html_e( 'Comparison and Conditions', 'calculator-builder' ); ?></summary>
                 <p class="operators-line tags">
                     <span class="operator tag">if(){}</span>
                     <span class="operator tag">else if(){}</span>
@@ -48,19 +48,22 @@ defined( 'ABSPATH' ) || exit;
                 </p>
 
                 <p>
-					<?php esc_html_e( 'Read more about', 'calculator-builder' ); ?>:
+					<?php
+					esc_html_e( 'Read more about', 'calculator-builder' ); ?>:
                     <a href="https://www.w3schools.com/js/js_comparisons.asp" target="_blank">
-						<?php esc_html_e( 'Comparison', 'calculator-builder' ); ?>
+						<?php
+						esc_html_e( 'Comparison', 'calculator-builder' ); ?>
                     </a>,
                     <a href="https://www.w3schools.com/js/js_if_else.asp" target="_blank">
-						<?php esc_html_e( 'Conditional', 'calculator-builder' ); ?>
+						<?php
+						esc_html_e( 'Conditional', 'calculator-builder' ); ?>
                     </a>
                 </p>
 
             </details>
             <details>
-                <summary
-                        style="cursor: pointer;"><?php esc_html_e( 'Math Static properties', 'calculator-builder' ); ?></summary>
+                <summary style="cursor: pointer;"><?php
+					esc_html_e( 'Math Static properties', 'calculator-builder' ); ?></summary>
                 <p class="operators-line tags">
                     <span class="operator tag">Math.E</span>
                     <span class="operator tag">Math.LN2</span>
@@ -73,15 +76,15 @@ defined( 'ABSPATH' ) || exit;
                 </p>
 
                 <p>
-                    <a href="https://www.w3schools.com/js/js_math.asp"
-                       target="_blank"><?php esc_html_e( 'Read more about', 'calculator-builder' ); ?></a>
+                    <a href="https://www.w3schools.com/js/js_math.asp" target="_blank"><?php
+						esc_html_e( 'Read more about', 'calculator-builder' ); ?></a>
                 </p>
 
             </details>
 
             <details>
-                <summary
-                        style="cursor: pointer;"><?php esc_html_e( 'Math Static methods', 'calculator-builder' ); ?></summary>
+                <summary style="cursor: pointer;"><?php
+					esc_html_e( 'Math Static methods', 'calculator-builder' ); ?></summary>
                 <p class="operators-line tags">
                     <span class="operator tag">Math.pow()</span>
                     <span class="operator tag">Math.sqrt()</span>
@@ -107,8 +110,8 @@ defined( 'ABSPATH' ) || exit;
                     <span class="operator tag">Math.trunc()</span>
                 </p>
                 <p>
-                    <a href="https://www.w3schools.com/js/js_math.asp"
-                       target="_blank"><?php esc_html_e( 'Read more about', 'calculator-builder' ); ?></a>
+                    <a href="https://www.w3schools.com/js/js_math.asp" target="_blank"><?php
+						esc_html_e( 'Read more about', 'calculator-builder' ); ?></a>
                 </p>
             </details>
 
@@ -116,17 +119,29 @@ defined( 'ABSPATH' ) || exit;
     </div>
     <div class="column is-6">
         <div class="operators-line is-hidden calc-fieldset-bottom">
-            <h4><?php esc_html_e( 'Fieldsets', 'calculator-builder' ); ?>:</h4>
-            <div id="calc-fieldset-bottom"></div>
+            <details open>
+                <summary style="cursor: pointer;"><?php
+					esc_html_e( 'Fieldsets', 'calculator-builder' ); ?>:
+                </summary>
+                <div id="calc-fieldset-bottom"></div>
+            </details>
         </div>
         <div class="operators-line is-hidden calc-label-bottom">
-            <h4><?php esc_html_e( 'Labels', 'calculator-builder' ); ?>:</h4>
-            <div id="calc-label-bottom"></div>
+            <details open>
+                <summary style="cursor: pointer;"><?php
+					esc_html_e( 'Labels', 'calculator-builder' ); ?>:
+                </summary>
+                <div id="calc-label-bottom"></div>
+            </details>
         </div>
 
         <div class="operators-line is-hidden calc-field-bottom">
-            <h4><?php esc_html_e( 'Fields', 'calculator-builder' ); ?>:</h4>
-            <div id="calc-field-bottom"></div>
+            <details open>
+                <summary style="cursor: pointer;"><?php
+					esc_html_e( 'Fields', 'calculator-builder' ); ?>:
+                </summary>
+                <div id="calc-field-bottom"></div>
+            </details>
         </div>
         <p class="operators-line tags">
             <span class="operator tag">.hide()</span>
@@ -138,13 +153,14 @@ defined( 'ABSPATH' ) || exit;
             <span class="operator tag">.text('text')</span>
         </p>
         <p><a href="https://calchub.xyz/doc/variables-and-functions/" target="_blank">Read More</a></p>
+
     </div>
 </div>
 
 <div class="columns">
     <div class="column">
-        <textarea class="textarea" name="formula" id="formula" cols="30"
-                  rows="20"><?php echo wp_specialchars_decode( $formula ); ?></textarea>
+        <textarea class="textarea" name="formula" id="formula" cols="30" rows="20"><?php
+	        echo wp_specialchars_decode( $formula ); ?></textarea>
     </div>
 </div>
 
@@ -154,8 +170,10 @@ defined( 'ABSPATH' ) || exit;
 		$obfuscation = isset( $param['obfuscation'] ) ? $param['obfuscation'] : '';
 		?>
         <label>
-            <input type="checkbox" name="param[obfuscation]" <?php checked( '1', $obfuscation ); ?> value="1">
-			<?php esc_html_e( 'Obfuscation', 'calculator-builder' ); ?>
+            <input type="checkbox" name="param[obfuscation]" <?php
+			checked( '1', $obfuscation ); ?> value="1">
+			<?php
+			esc_html_e( 'Obfuscation', 'calculator-builder' ); ?>
         </label>
     </div>
 </div>
@@ -166,8 +184,10 @@ defined( 'ABSPATH' ) || exit;
 		$calc_load = isset( $param['calc_load'] ) ? $param['calc_load'] : '';
 		?>
         <label>
-            <input type="checkbox" name="param[calc_load]" <?php checked( '1', $calc_load ); ?> value="1">
-			<?php esc_html_e( 'Make a calculation when loading the form', 'calculator-builder' ); ?>
+            <input type="checkbox" name="param[calc_load]" <?php
+			checked( '1', $calc_load ); ?> value="1">
+			<?php
+			esc_html_e( 'Make a calculation when loading the form', 'calculator-builder' ); ?>
         </label>
     </div>
 </div>

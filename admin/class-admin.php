@@ -151,9 +151,9 @@ class Calculator_Builder_Admin {
 			return false;
 		}
 		if ( is_rtl() ) {
-			wp_enqueue_style( $slug . '-form', $assets . 'css/admin-form-rtl.css', false, $version );
+			wp_enqueue_style( $slug . '-form', $assets . 'css/calchub-rtl.css', false, $version );
 		} else {
-			wp_enqueue_style( $slug . '-form', $assets . 'css/admin-form.css', false, $version );
+			wp_enqueue_style( $slug . '-form', $assets . 'css/calchub.css', false, $version );
 		}
 		// include sortable
 		wp_enqueue_script( 'jquery-ui-sortable' );

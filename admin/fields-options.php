@@ -275,9 +275,10 @@ defined( 'ABSPATH' ) || exit;
                         <label class="label"><?php esc_html_e( 'Extra class', 'calculator-builder' ); ?></label>
                         <div class="field has-addons">
                             <div class="control is-expanded">
-                                <input class="input is-link" type="text" name="extraClasses" value="" autocomplete="off">
+                                    <input class="input is-link" type="text" name="extraClasses" value="" autocomplete="off">
                             </div>
                         </div>
+                        <p class="help">You can use class is-vertical - for show fields in column</p>
                     </div>
                 </div>
 
