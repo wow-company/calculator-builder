@@ -3,9 +3,9 @@ Contributors: calchub, Wpcalc, lobov
 Donate link: https://calchub.xyz
 Tags: calculator, calculator builder, online calculator, calculator maker, calculate
 Requires at least: 5.0
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 7.4
-Stable tag: 1.3
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -188,6 +188,9 @@ If you have any questions concerning the plugin ask us at the [WordPress forum](
 5. Frontend - calculator on frontend
 
 == Changelog ==
+= 1.3.1 =
+* Changed: the data table fields type from text to LONGTEXT
+
 = 1.3 =
 * Added: possibility resize the form in admin
 * Fixed: the radio field was omitted in variable field[]

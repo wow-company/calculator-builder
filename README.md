@@ -31,6 +31,15 @@ If you have any questions concerning the plugin ask us at the [WordPress forum](
 
 ## Changlog
 
+### = 1.3.1 =
+* Changed: the data table fields type from text to LONGTEXT
+
+### = 1.3 =
+* Added: possibility resize the form in admin
+* Fixed: the radio field was omitted in variable field[]
+* Fixed: checkbox value was sting. Change on number.
+* Fixed: checkbox value get when the checkbox checked, other = 0;
+
 ### = 1.2 =
 * Added: includes JS and CSS files
 * Added: support RTL
@@ -46,7 +55,8 @@ If you have any questions concerning the plugin ask us at the [WordPress forum](
 * Changed: create calculator without the button 'Calculate'
 * Fixed: selected current tag in filter
 * Fixed: item count in List table
-  = 0.4.3 =
+
+### = 0.4.3 =
 * Fixed: Obfuscation function
 
 ### = 0.4.2 =

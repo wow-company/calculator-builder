@@ -135,9 +135,9 @@ class CalcHub_DB {
 		dbDelta( "CREATE TABLE {$table} (
     	id mediumint(9) NOT NULL AUTO_INCREMENT,
 		title VARCHAR(200) NOT NULL,
-		param TEXT,
-		form TEXT,
-		formula TEXT,
+		param LONGTEXT,
+		form LONGTEXT,
+		formula LONGTEXT,
 		tag TEXT,
 		UNIQUE KEY id (id)
 		) DEFAULT CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->collate};" );

@@ -5,7 +5,7 @@
  * Description:       Easily create Online calculators
  * Author:            CalcHub
  * Author URI:        https://calchub.xyz
- * Version:           1.3
+ * Version:           1.3.1
  * Text Domain:       calculator-builder
  * License:           GPL-2.0+
  * Domain Path:       languages
@@ -62,9 +62,10 @@ if ( ! class_exists( 'Calculator_Builder' ) ) :
 
 				register_activation_hook( __FILE__, [ self::$instance, 'plugin_activate' ] );
 				add_action( 'plugins_loaded', [ self::$instance, 'text_domain' ] );
-				if ( get_option( 'calculator_builder_updater' ) === false ) {
+				if ( get_option( 'calculator_builder_data' ) !== '1.3.1' ) {
 					add_action( 'admin_init', [ self::$instance, 'plugin_updater' ] );
 				}
+
 			}
 
 			return self::$instance;
@@ -80,7 +81,7 @@ if ( ! class_exists( 'Calculator_Builder' ) ) :
 		private function setup_constants() {
 			// Plugin version.
 			if ( ! defined( 'CALCHUB_VERSION' ) ) {
-				define( 'CALCHUB_VERSION', '1.3' );
+				define( 'CALCHUB_VERSION', '1.3.1' );
 			}
 
 			// Plugin Admin slug.
@@ -166,7 +167,7 @@ if ( ! class_exists( 'Calculator_Builder' ) ) :
 		 */
 		public function plugin_activate(): void {
 			self::$instance->db->create_table();
-			update_option( 'calculator_builder_updater', '0.4' );
+			update_option( 'calculator_builder_data', '1.3.1' );
 		}
 
 		public function plugin_updater(): void {
