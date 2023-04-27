@@ -18,7 +18,15 @@ const CalculatorBuilder = function() {
     }
     const defaultForm = new FormData(form);
     form.addEventListener('reset', {handleEvent: calcReset, form: form, data: defaultForm});
-    form.addEventListener('change', {handleEvent: calculate, form: form});
+
+    let calc_reset = form.querySelector('.calc-reset');
+    if (calc_reset) {
+      form.addEventListener('change', {handleEvent: hideResult, form: form});
+    } else {
+      form.addEventListener('change', {handleEvent: calculate, form: form});
+    }
+
+
     let load_calc = form.querySelector('.calc-load');
     if (load_calc) {
       window.addEventListener('load', {handleEvent: calculate, form: form});
@@ -95,6 +103,10 @@ const CalculatorBuilder = function() {
 
     return input;
 
+  }
+
+  function hideResult(form) {
+    toggleResults(this.form, 'add');
   }
 
   function calculate(event) {

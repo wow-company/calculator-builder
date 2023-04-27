@@ -29,6 +29,7 @@ class Calculator_Builder_Admin {
 		add_filter( 'admin_footer_text', [ $this, 'footer_text' ] ); // add footer information
 		add_action( 'admin_menu', [ $this, 'add_admin_page' ] ); // add admin page
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_scripts' ] ); // add admin script
+
 	}
 
 	/**
@@ -167,7 +168,7 @@ class Calculator_Builder_Admin {
 
 		// include the plugin admin script
 		wp_enqueue_script( $slug . '-admin', $assets . 'js/admin-script.js', array( 'jquery' ), $version, true );
-		wp_enqueue_script( $slug . '-builder', $assets . 'js/admin-builder.js', array( 'jquery' ), $version, true );
+		wp_enqueue_script( $slug . '-builder', $assets . 'js/calcBuilder.js', array( 'jquery' ), $version, true );
 	}
 
 	public function get_calc_tags() {

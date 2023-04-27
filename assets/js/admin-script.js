@@ -75,7 +75,7 @@
         let dataform = $(this).serialize();
         let form = $('#calculator').html();
         let data = 'action=calchub_save_calc&' + dataform + '&form=' + form;
-        $('#submit').addClass('is-loading');
+        $('.submit-btn').addClass('is-loading');
         setTimeout(function () {
             $.post(ajaxurl, data, function (response) {
                 if (response.status == 'OK') {
@@ -90,7 +90,7 @@
                     let tool_id = $('#tool_id').val();
                     $('.nav-tab.nav-tab-active').text('Update #' + tool_id);
                 }
-                $('#submit').removeClass('is-loading');
+                $('.submit-btn').removeClass('is-loading');
             });
         }, 500);
     });
@@ -125,6 +125,10 @@
 
     $('.toggle-preview').on('click', function () {
         $('.live-builder, .toggle-preview .plus, .toggle-preview .minus').toggleClass('is-hidden');
+    });
+
+    $('.can-toggle .is-toggle').on('click', function () {
+        $('.can-toggle .column, .is-toggle .plus, .is-toggle .minus').toggleClass('is-hidden');
     });
 
     //region Accordion

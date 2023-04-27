@@ -27,6 +27,8 @@ const Calc_Builder = function() {
   const $typeSeparator = document.querySelectorAll('.type-separator');
   const $typeSpace = document.querySelectorAll('.type-spacer');
   const $typeNumber = document.querySelectorAll('.type-number');
+  const $typeRequired = document.querySelectorAll('.type-required');
+
   const $typeResult = document.querySelectorAll('.type-result');
   const $typeTextarea = document.querySelectorAll('.type-textarea');
   const $typeResultField = document.querySelectorAll('.type-result-field');
@@ -116,6 +118,7 @@ const Calc_Builder = function() {
       type = '6';
     }
 
+
     let title = container.querySelector('.formbox__title').innerHTML;
     let val = container.querySelector('.formbox__field input[type="number"]');
     val = (val) ? val.value : '';
@@ -132,8 +135,17 @@ const Calc_Builder = function() {
     let max = container.querySelector('.formbox__field input[type="number"]');
     max = (max) ? max.getAttribute('max') : '';
 
-    let required = container.querySelector('.formbox__field input[type="number"]');
+    let required = ''
+    if(type === '1') {
+      required = container.querySelector('.formbox__field input[type="number"]');
+    } else if(type === '12') {
+      required = container.querySelector('.formbox__field input');
+    }
+
+
+
     required = (required) ? required.getAttribute('has-required') : '';
+
     if (required == '') {
       $formParam.querySelector('[name="required"]').value = '1';
     } else {
@@ -499,9 +511,10 @@ const Calc_Builder = function() {
   }
 
   function textField(param) {
+    const required = (param.required == '1') ? ' has-required' : ''
     let content = `<div class="formbox__field">`;
     content += `<label class="formbox__field-lable">${param.title}</label>`;
-    content += `<input type="${param.input_field_type}" class="formbox__field-text" has-required>`;
+    content += `<input type="${param.input_field_type}" class="formbox__field-text" ${required}>`;
     content += '</div>';
     return content;
   }
@@ -726,6 +739,7 @@ const Calc_Builder = function() {
         toogleTypeSpace('hide');
         toogleResultField('hide');
         toogleTypeText('hide');
+        toogleTypeRequired('show');
         break;
       case '2':
       case '3':
@@ -739,6 +753,7 @@ const Calc_Builder = function() {
         toogleTypeSpace('hide');
         toogleResultField('hide');
         toogleTypeText('hide');
+        toogleTypeRequired('hide');
         break;
       case '5':
         toogleNumber('show');
@@ -750,6 +765,7 @@ const Calc_Builder = function() {
         toogleTypeSpace('hide');
         toogleResultField('hide');
         toogleTypeText('hide');
+        toogleTypeRequired('hide');
         break;
       case '6':
         toogleNumber('hide');
@@ -762,6 +778,7 @@ const Calc_Builder = function() {
         toogleResultField('hide');
         toogleTypeText('hide');
         toogleTypeText('hide');
+        toogleTypeRequired('hide');
         break;
       case '7':
         toogleNumber('hide');
@@ -774,6 +791,7 @@ const Calc_Builder = function() {
         toogleTypeSpace('hide');
         toogleResultField('show');
         toogleTypeText('hide');
+        toogleTypeRequired('hide');
         resultType();
         break;
       case '8':
@@ -788,6 +806,7 @@ const Calc_Builder = function() {
         toogleTypeSpace('hide');
         toogleResultField('hide');
         toogleTypeText('hide');
+        toogleTypeRequired('hide');
         break;
       case '9':
         toogleNumber('hide');
@@ -801,6 +820,7 @@ const Calc_Builder = function() {
         toogleTypeSpace('hide');
         toogleResultField('hide');
         toogleTypeText('hide');
+        toogleTypeRequired('hide');
         break;
       case '10':
         toogleNumber('hide');
@@ -814,6 +834,7 @@ const Calc_Builder = function() {
         toogleTypeSpace('show');
         toogleResultField('hide');
         toogleTypeText('hide');
+        toogleTypeRequired('hide');
         break;
       case '11':
         toogleNumber('hide');
@@ -825,6 +846,7 @@ const Calc_Builder = function() {
         toogleTypeSpace('hide');
         toogleResultField('hide');
         toogleTypeText('hide');
+        toogleTypeRequired('hide');
         break;
       case '12':
         toogleNumber('hide');
@@ -836,10 +858,25 @@ const Calc_Builder = function() {
         toogleTypeSpace('hide');
         toogleResultField('hide');
         toogleTypeText('show');
+        toogleTypeRequired('show');
         break;
 
     }
 
+  }
+
+
+  function toogleTypeRequired(action) {
+    if (action === 'show') {
+      $typeRequired.forEach(el => {
+        el.classList.remove('is-hidden');
+      });
+
+    } else {
+      $typeRequired.forEach(el => {
+        el.classList.add('is-hidden');
+      });
+    }
   }
 
   function toogleTypeText(action) {

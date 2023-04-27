@@ -28,7 +28,7 @@ $current_tab = array_key_exists( $current_tab, $tabs ) ? 'page-' . $current_tab 
 $file        = apply_filters( 'calchub_settings_menu_file', $current_tab );
 if ( file_exists( $file ) ) {
 	$options = get_option( 'calchub_settings' );
-	echo '<form method="post" action="options.php">';
+	echo '<form method="post" action="select.php">';
 	settings_fields( 'calchub-settings-group' );
 	do_settings_sections( 'calchub-settings-group' );
 	include_once( $file );

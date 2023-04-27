@@ -795,10 +795,11 @@ p.help {
 }
 
 .lightbox-title {
-	font-size: 1.5rem;
+	font-size: 1.1rem;
+	margin-bottom: 8px;
+	line-height: 30px;
 	font-weight: 600;
-	margin-bottom: 2rem;
-	color: #5e81ac;
+	color: #2E273A;
 }
 
 .lightbox .has-buttons {
@@ -843,4 +844,24 @@ p.help {
 .live-preview {
 	resize: vertical;
 	overflow: auto;
+}
+
+.lightbox .field-label {
+	text-align: left;
+}
+
+.can-toggle {
+	position: relative
+}
+
+.can-toggle .is-toggle{
+	position: absolute;
+	top: -28px;
+	right: 0;
+	padding: 15px;
+	transform: translateY(-100%);
+}
+
+.calc-options {
+	padding-top: 15px;
 }

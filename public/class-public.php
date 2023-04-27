@@ -19,6 +19,7 @@ class Calculator_Builder_Public {
 	private $table_name = 'calculator_builder';
 
 	public function __construct() {
+		add_action('init', [ $this, 'register_styles_script']);
 		add_shortcode( self::SHORTCODE, [ $this, 'shortcode' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'shortcode_scripts' ] );
 	}
@@ -42,6 +43,10 @@ class Calculator_Builder_Public {
 			if ( ! empty( $param['calc_load'] ) ) {
 				$out .= '<input type="hidden" id="calc-load-' . absint( $id ) . '" class="calc-load">';
 			}
+			if ( ! empty( $param['calc_reset'] ) ) {
+				$out .= '<input type="hidden" class="calc-reset">';
+			}
+
 			$out .= '</form>';
 
 
@@ -61,9 +66,14 @@ class Calculator_Builder_Public {
 
 			$pre_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '-min';
 
-			wp_enqueue_script( CALCHUB_PLUGIN_SLUG, CALCHUB_PLUGIN_URL . 'assets/js/calchub' . $pre_suffix . '.js',
-				null, CALCHUB_VERSION,
-				true );
+
+			if ( is_rtl() ) {
+				wp_enqueue_style( CALCHUB_PLUGIN_SLUG . '-rtl' );
+			} else {
+				wp_enqueue_style( CALCHUB_PLUGIN_SLUG );
+			}
+
+			wp_enqueue_script( CALCHUB_PLUGIN_SLUG);
 
 			$data = "function calculator_{$id}(x, fieldset, field, label){ let y = [];
 				" . wp_specialchars_decode( $result->formula, ENT_QUOTES ) . "
@@ -81,6 +91,14 @@ class Calculator_Builder_Public {
 		}
 	}
 
+	public function register_styles_script(): void {
+		$pre_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '-min';
+		wp_register_style( CALCHUB_PLUGIN_SLUG, CALCHUB_PLUGIN_URL . 'assets/css/calchub' . $pre_suffix . '.css', null, CALCHUB_VERSION);
+		wp_register_style( CALCHUB_PLUGIN_SLUG . '-rtl', CALCHUB_PLUGIN_URL . 'assets/css/calchub-rtl' . $pre_suffix . '.css', null, CALCHUB_VERSION);
+
+		wp_register_script(CALCHUB_PLUGIN_SLUG, CALCHUB_PLUGIN_URL . 'assets/js/calchub' . $pre_suffix . '.js',null, CALCHUB_VERSION,true);
+	}
+
 
 	public function shortcode_scripts(): void {
 		if ( ! is_singular() ) {
@@ -88,15 +106,10 @@ class Calculator_Builder_Public {
 		}
 		global $post;
 		if ( has_shortcode( $post->post_content, self::SHORTCODE ) ) {
-			$pre_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '-min';
 			if ( is_rtl() ) {
-				wp_enqueue_style( CALCHUB_PLUGIN_SLUG,
-					CALCHUB_PLUGIN_URL . 'assets/css/calchub-rtl' . $pre_suffix . '.css', null,
-					CALCHUB_VERSION );
+				wp_enqueue_style( CALCHUB_PLUGIN_SLUG . '-rtl' );
 			} else {
-				wp_enqueue_style( CALCHUB_PLUGIN_SLUG, CALCHUB_PLUGIN_URL . 'assets/css/calchub' . $pre_suffix . '.css',
-					null,
-					CALCHUB_VERSION );
+				wp_enqueue_style( CALCHUB_PLUGIN_SLUG );
 			}
 		}
 	}

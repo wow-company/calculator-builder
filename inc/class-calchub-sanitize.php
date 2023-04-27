@@ -62,6 +62,7 @@ class CalcHub_Sanitize {
 				'checked'      => true,
 				'readonly'     => true,
 				'has-required' => true,
+				'placeholder'  => true,
 			),
 			'textarea' => array(
 				'name'         => true,
@@ -70,6 +71,7 @@ class CalcHub_Sanitize {
 				'readonly'     => true,
 				'has-required' => true,
 				'hidden'       => true,
+				'placeholder'  => true,
 			),
 			'button'   => array(
 				'type'  => true,
