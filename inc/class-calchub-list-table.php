@@ -84,17 +84,17 @@ class CalcHub_List_Table extends WP_List_Table {
 			echo '<input type="hidden" name="order" value="' . esc_attr( $_REQUEST['order'] ) . '" />';
 		}
 		?>
-        <p class="search-box">
-            <label class="screen-reader-text" for="<?php
+		<p class="search-box">
+			<label class="screen-reader-text" for="<?php
 			echo esc_attr( $input_id ) ?>"><?php
 				echo esc_html( $text ); ?>
-                :</label>
-            <input type="search" id="<?php
+				:</label>
+			<input type="search" id="<?php
 			echo esc_attr( $input_id ) ?>" name="s" value="<?php
 			_admin_search_query(); ?>"/>
 			<?php
 			submit_button( $text, 'button', false, false, [ 'ID' => 'search-submit' ] ); ?>
-        </p>
+		</p>
 		<?php
 	}
 
@@ -132,8 +132,26 @@ class CalcHub_List_Table extends WP_List_Table {
 			'export'    => '<a href="' . esc_url( $export_url ) . '" class="has-text-warning">' . esc_attr__( 'Export',
 					'calculator-builder' ) . '</a>',
 		];
+		$view_url      = $this->get_attachmed_link( $item['ID'] );
+		if(!empty($view_url)) {
+			$actions['view'] = '<a href="' . esc_url( $view_url ) . '" target="_blank">' . esc_attr__( 'View','calculator-builder' ) . '</a>';
+		}
 
 		return '<a href="' . esc_url( $edit_url ) . '">' . $title . '</a>' . $this->row_actions( $actions );
+	}
+
+	private function get_attachmed_link( $id ) {
+		global $wpdb;
+		$table  = $wpdb->prefix . $this->table;
+		$sSQL   = $wpdb->prepare( "select * from $table WHERE id = %d", $id );
+		$result = $wpdb->get_row( $sSQL );
+		$link   = '';
+		if ( ! empty( $result ) ) {
+			$param = unserialize( $result->param );
+			$link  = isset( $param['calc_link'] ) ? $param['calc_link'] : '';
+		}
+
+		return $link;
 	}
 
 	/**

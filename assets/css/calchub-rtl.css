@@ -44,12 +44,9 @@
 
 .formbox-wrapper {
 	position: relative;
-	display: -webkit-flex;
 	display: flex;
-	-webkit-flex-direction: column;
 	flex-direction: column;
 	font-size: var(--formbox-font-size);
-	-webkit-margin-after: 1.125em;
 	margin-block-end: 1.125em;
 }
 
@@ -63,9 +60,7 @@
 }
 
 .formbox {
-	display: -webkit-flex;
 	display: flex;
-	-webkit-flex-direction: column;
 	flex-direction: column;
 	max-width: 100%;
 	padding: 1em;
@@ -97,7 +92,6 @@
 
 .formbox__container {
 	display: grid;
-	-webkit-align-items: flex-start;
 	align-items: flex-start;
 	grid-gap: 0.75em;
 }
@@ -132,7 +126,6 @@
 }
 
 .formbox__body:not(.has-group) .formbox__field + .formbox__field {
-	-webkit-margin-before: 8px;
 	margin-block-start: 8px;
 }
 .formbox__body.has-group {
@@ -155,7 +148,6 @@
 	word-wrap: normal;
 	overflow: hidden;
 	clip: rect(1px, 1px, 1px, 1px);
-	-webkit-clip-path: inset(50%);
 	clip-path: inset(50%);
 }
 .formbox__field-lable:focus {
@@ -175,18 +167,14 @@
 	font-weight: 700;
 	line-height: normal;
 	clip: auto !important;
-	-webkit-clip-path: none;
 	clip-path: none;
 }
 .formbox__field label {
 	cursor: pointer;
 }
 .formbox__field-addon {
-	display: -webkit-flex;
 	display: flex;
-	-webkit-justify-content: center;
 	justify-content: center;
-	-webkit-align-items: center;
 	align-items: center;
 	vertical-align: middle;
 	height: var(--form-field-height);
@@ -200,7 +188,6 @@
 	white-space: nowrap;
 }
 .formbox__field.has-addon {
-	display: -webkit-flex;
 	display: flex;
 }
 .formbox__field.has-addon.is-left .formbox__field-result,
@@ -212,7 +199,6 @@
 	border-radius: 0 var(--formbox-radius) var(--formbox-radius) 0;
 }
 .formbox__field.has-addon.is-right {
-	-webkit-flex-direction: row-reverse;
 	flex-direction: row-reverse;
 }
 .formbox__field.has-addon.is-right .formbox__field-result,
@@ -226,20 +212,16 @@
 
 .formbox__container .formbox__field-radio,
 .formbox__container .formbox__field-checkbox {
-	display: -webkit-flex;
 	display: flex;
-	-webkit-align-items: flex-start;
 	align-items: flex-start;
 	line-height: 1;
 	gap: 0.5em;
 }
 .formbox__container .formbox__field-radio label,
 .formbox__container .formbox__field-checkbox label {
-	-webkit-flex: 1;
 	flex: 1;
 }
 .formbox__container .formbox__field-radio + .formbox__field-radio {
-	-webkit-margin-before: 8px;
 	margin-block-start: 8px;
 }
 .formbox__container input[type=checkbox],
@@ -255,6 +237,7 @@
 	border-color: var(--formbox-field-border-hcolor);
 }
 .formbox__container input.formbox__field-text,
+.formbox__container input.formbox__field-range,
 .formbox__container textarea.formbox__field-textarea,
 .formbox__container input.formbox__field-input,
 .formbox__container select.formbox__field-select,
@@ -278,6 +261,7 @@
 	line-height: 1;
 }
 .formbox__container input.formbox__field-text:focus,
+.formbox__container input.formbox__field-range:focus,
 .formbox__container textarea.formbox__field-textarea:focus,
 .formbox__container input.formbox__field-input:focus,
 .formbox__container select.formbox__field-select:focus,
@@ -290,6 +274,8 @@
 	outline: none;
 }
 .formbox__container input.formbox__field-text[readonly], .formbox__container input.formbox__field-text[disabled],
+.formbox__container input.formbox__field-range[readonly],
+.formbox__container input.formbox__field-range[disabled],
 .formbox__container textarea.formbox__field-textarea[readonly],
 .formbox__container textarea.formbox__field-textarea[disabled],
 .formbox__container input.formbox__field-input[readonly],
@@ -317,14 +303,34 @@
 	font-size: 1em;
 	-webkit-appearance: none;
 }
+.formbox__container input.formbox__field-range {
+	height: auto;
+	padding: 0;
+}
 .formbox__container textarea.formbox__field-textarea,
 .formbox__container textarea.formbox__field-result {
 	height: 10em;
 	resize: vertical;
 }
 
+.field-range-text {
+	display: flex;
+	justify-content: space-between;
+	padding-inline: 5px;
+}
+.field-range-text option {
+	flex: 1;
+	text-align: center;
+	font-size: 0.75rem;
+}
+.field-range-text option:first-child {
+	text-align: right;
+}
+.field-range-text option:last-child {
+	text-align: left;
+}
+
 .formbox__btn {
-	display: -webkit-flex;
 	display: flex;
 	grid-gap: 0.5em;
 }
@@ -336,16 +342,12 @@
 .formbox__btn input[type=submit],
 .formbox__btn input[type=reset],
 .formbox__btn button {
-	-webkit-justify-content: center;
 	justify-content: center;
 	height: var(--form-field-height);
 	padding: 0.75em 1em;
 	border: var(--formbox-field-border-width) solid transparent;
 	border-radius: var(--formbox-radius);
 	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 	text-align: center;
 	font-size: 1em;
@@ -417,3 +419,4 @@
 .formbox__counter-btn {
 	color: currentColor;
 }
+

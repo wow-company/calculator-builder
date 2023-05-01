@@ -5,7 +5,7 @@ Tags: calculator, calculator builder, online calculator, calculator maker, calcu
 Requires at least: 5.0
 Tested up to: 6.2
 Requires PHP: 7.4
-Stable tag: 1.3.1
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,9 +60,16 @@ Do you own **sports, diet, or health websites**? Are you involved in health-rela
 * [Finance](https://calchub.xyz/category/finance/):
     - [Investment](https://calchub.xyz/category/finance/investment/)
     - [Loan](https://calchub.xyz/category/finance/loan/)
+    - [Inventory](https://calchub.xyz/category/finance/inventory/)
 * [Medical](https://calchub.xyz/category/medical/)
     - [Cardiology](https://calchub.xyz/category/medical/cardiology/)
     - [Pharmacology](https://calchub.xyz/category/medical/pharmacology/)
+* [Engineering](https://calchub.xyz/category/engineering/)
+    - [Electrical](https://calchub.xyz/category/engineering/electrical/)
+* [Web Tools](https://calchub.xyz/category/web-tools/)
+    - [Converter tools](https://calchub.xyz/category/web-tools/converter-tools/)
+    - [Text tools](https://calchub.xyz/category/web-tools/text-tools/)
+* [Converters](https://calchub.xyz/category/converters/)
 
 ### Elements
 
@@ -75,6 +82,7 @@ The calculator elements of WordPress Calculator Builder include the following:
 * Textarea
 * Date
 * Time
+* Range
 
 ### Field Types
 
@@ -85,6 +93,12 @@ The calculator elements of WordPress Calculator Builder include the following:
 **Number and Select** - insert Number and Select fields, set the title, choose the addon and write the preferred value
 **Buttons** - write the title, and then set the “Calculate” and “Reset” buttons
 **Result** - set the field containing the outcome. It is a read-only field.
+**Title** - set the title without fields. You can control size and wight of the font;
+**Separator** - add the separator to the calculator form as a line
+**Spacer** - add space between fieldset
+**Textarea** - add textarea to the form
+**Input** - you can use the next type of the field: Text, Email, Date, DateTime, Month, Time, Week
+**Range** - a slider or dial control.
 
 ### Formulas
 
@@ -188,6 +202,14 @@ If you have any questions concerning the plugin ask us at the [WordPress forum](
 5. Frontend - calculator on frontend
 
 == Changelog ==
+
+= 1.4 =
+* Added: submit button in the bottom of the form
+* Added: type 'required' for fields: Text, Textarea
+* Added: option 'Hide fields of results when changing calculator parameters'
+* Optimized: builder script & style
+* Fixed: minor bug with create variables
+
 = 1.3.1 =
 * Changed: the data table fields type from text to LONGTEXT
 

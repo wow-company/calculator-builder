@@ -64,9 +64,6 @@ class Calculator_Builder_Public {
 
 			$this->includes_files( $id, $param );
 
-			$pre_suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '-min';
-
-
 			if ( is_rtl() ) {
 				wp_enqueue_style( CALCHUB_PLUGIN_SLUG . '-rtl' );
 			} else {
@@ -89,6 +86,7 @@ class Calculator_Builder_Public {
 
 			return $content;
 		}
+		return '';
 	}
 
 	public function register_styles_script(): void {

@@ -67,6 +67,9 @@ class CalcHub_DB {
 			if ( $_POST['param']['style'] ) {
 				$param['style'] = sanitize_textarea_field( $_POST['param']['style'] );
 			}
+			if ( $_POST['param']['calc_link'] ) {
+				$param['calc_link'] = sanitize_url( $_POST['param']['calc_link'] );
+			}
 			$param = serialize( $param );
 		}
 

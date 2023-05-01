@@ -237,6 +237,7 @@
   border-color: var(--formbox-field-border-hcolor);
 }
 .formbox__container input.formbox__field-text,
+.formbox__container input.formbox__field-range,
 .formbox__container textarea.formbox__field-textarea,
 .formbox__container input.formbox__field-input,
 .formbox__container select.formbox__field-select,
@@ -260,6 +261,7 @@
   line-height: 1;
 }
 .formbox__container input.formbox__field-text:focus,
+.formbox__container input.formbox__field-range:focus,
 .formbox__container textarea.formbox__field-textarea:focus,
 .formbox__container input.formbox__field-input:focus,
 .formbox__container select.formbox__field-select:focus,
@@ -272,6 +274,8 @@
   outline: none;
 }
 .formbox__container input.formbox__field-text[readonly], .formbox__container input.formbox__field-text[disabled],
+.formbox__container input.formbox__field-range[readonly],
+.formbox__container input.formbox__field-range[disabled],
 .formbox__container textarea.formbox__field-textarea[readonly],
 .formbox__container textarea.formbox__field-textarea[disabled],
 .formbox__container input.formbox__field-input[readonly],
@@ -299,10 +303,31 @@
   font-size: 1em;
   -webkit-appearance: none;
 }
+.formbox__container input.formbox__field-range {
+  height: auto;
+  padding: 0;
+}
 .formbox__container textarea.formbox__field-textarea,
 .formbox__container textarea.formbox__field-result {
   height: 10em;
   resize: vertical;
+}
+
+.field-range-text {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 5px;
+}
+.field-range-text option {
+  flex: 1;
+  text-align: center;
+  font-size: 0.75rem;
+}
+.field-range-text option:first-child {
+  text-align: left;
+}
+.field-range-text option:last-child {
+  text-align: right;
 }
 
 .formbox__btn {
@@ -384,13 +409,29 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.cb-icon-calculator:before { content: '\e80a'; }
-.cb-icon-envelope:before { content: '\e80b'; }
-.cb-icon-link:before { content: '\e80c'; }
-.cb-icon-print:before { content: '\e80d'; }
-.cb-icon-like:before { content: '\e80e'; }
+.cb-icon-calculator:before {
+  content: "";
+}
+
+.cb-icon-envelope:before {
+  content: "";
+}
+
+.cb-icon-link:before {
+  content: "";
+}
+
+.cb-icon-print:before {
+  content: "";
+}
+
+.cb-icon-like:before {
+  content: "";
+}
 
 .formbox__action-btn,
 .formbox__counter-btn {
   color: currentColor;
 }
+
+/*# sourceMappingURL=style.css.map */

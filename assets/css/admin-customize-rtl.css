@@ -3,7 +3,6 @@
 	- author:    Dmytro Lobov
 	- copyright: 2019 Wow-Company
 	- version:   1.0
-	- email:     i@lobov.dev
 ==================================================== */
 *, *::before, *::after {
 	box-sizing: inherit;
@@ -14,13 +13,13 @@
 	border-top: 5px solid #88C0D0;
 	border-bottom: 1px solid #c3c4c7;
 	padding: 20px 0;
-	margin-right: -20px;
+	margin-left: -20px;
 	background: #fff;
 }
 .calchub-links {
 	position: absolute;
 	top: 0;
-	left: 20px;
+	right: 20px;
 	display: flex;
 	gap: 0.75rem;
 	padding: 5px 10px;
@@ -53,13 +52,13 @@
 .calchub-heading-separator:before {
 	content: "";
 	height: 20px;
-	border-left: 2px solid #e7e7e7;
+	border-right: 2px solid #e7e7e7;
 	font-size: 20px;
 }
 
 .calchub-notices {
 	background-color: #88C0D0;
-	margin-right: -20px;
+	margin-left: -20px;
 	padding: 0 20px;
 }
 
@@ -73,10 +72,10 @@
 }
 .calchub-dismiss {
 	margin-top: 0.275em;
-	margin-right: auto;
+	margin-left: auto;
 	padding: 0 20px;
 	font-size: 30px;
-	margin-left: 20px;
+	margin-right: 20px;
 	cursor: pointer;
 	color: #ffffff;
 }
@@ -162,7 +161,7 @@
 
 p.help {
 	font-size: 12px;
-	margin: 0 28px 10px 0 !important;
+	margin: 0 0 10px 28px !important;
 	line-height: 24px;
 }
 
@@ -177,11 +176,11 @@ p.help {
 }
 
 .is-l-margin {
-	margin-right: 1.5rem !important;
+	margin-left: 1.5rem !important;
 }
 
 .is-r-margin {
-	margin-left: 1.5rem !important;
+	margin-right: 1.5rem !important;
 }
 
 /*endregion*/
@@ -206,7 +205,7 @@ p.help {
 .toggle-preview {
 	position: absolute;
 	top: 0;
-	left: 0;
+	right: 0;
 	padding: 15px;
 	cursor: pointer;
 }
@@ -224,7 +223,7 @@ p.help {
 	min-height: 200px;
 	padding: 1em;
 	margin: 1em 0;
-	border-left: 1px dashed #88C0D0;
+	border-right: 1px dashed #88C0D0;
 }
 
 .column.has-variable-btn {
@@ -232,7 +231,7 @@ p.help {
 	min-height: 200px;
 	padding: 1em;
 	margin: 1em 0;
-	border-right: 1px dashed #88C0D0;
+	border-left: 1px dashed #88C0D0;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -245,7 +244,7 @@ p.help {
 
 .action-elements {
 	position: absolute;
-	right: -100px;
+	left: -100px;
 	z-index: 2;
 	display: flex;
 	align-items: center;
@@ -255,8 +254,8 @@ p.help {
 }
 
 .action-elements.has-variable {
-	left: -120px;
-	right: auto;
+	right: -120px;
+	left: auto;
 	top: 0;
 
 }
@@ -341,8 +340,8 @@ p.help {
 	height: 2em;
 	justify-content: center;
 	line-height: 1.5;
-	padding-right: 0.75em;
 	padding-left: 0.75em;
+	padding-right: 0.75em;
 	white-space: nowrap;
 	cursor: pointer;
 
@@ -389,7 +388,7 @@ p.help {
 
 .builder-buttons .buttons h3 {
 	margin: 0;
-	padding: 0 0 0 15px;
+	padding: 0 15px 0 0;
 	border: none;
 }
 
@@ -439,17 +438,17 @@ p.help {
 }
 
 .accordion-wrap .accordion-title .faq-title {
-	padding: 0 20px 0 27px;
+	padding: 0 27px 0 20px;
 }
 
 .accordion-wrap .accordion-title .plus,
 .accordion-wrap .accordion-title .minus,
 .accordion-wrap .accordion-title .status {
-	float: right;
+	float: left;
 	display: none;
 	width: 60px;
 	height: 100%;
-	border-left: 1px solid #ebedf2;
+	border-right: 1px solid #ebedf2;
 	text-align: center;
 	-webkit-transition: 0.3s;
 	-o-transition: 0.3s;
@@ -581,7 +580,7 @@ p.help {
 }
 
 .install {
-	float: left;
+	float: right;
 }
 
 /*endregion*/
@@ -767,7 +766,7 @@ p.help {
 
 .lightbox:target {
 	position: fixed;
-	right: 0;
+	left: 0;
 	top: 10%;
 	width: 100%;
 	display: flex;
@@ -789,7 +788,7 @@ p.help {
 .lightbox-close {
 	position: absolute !important;
 	top: 0;
-	left: 0;
+	right: 0;
 	color: #bf616a;
 	text-decoration: none;
 }

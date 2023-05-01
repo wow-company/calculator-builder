@@ -18,6 +18,7 @@ $settings = CALCHUB()->db->get_settings();
 foreach ( $settings as $key => $value ) {
 	$$key = $value;
 }
+$calc_link =  isset( $param['calc_link'] )  ? $param['calc_link'] : '';
 
 $url_form = admin_url() . 'admin.php?page=' . CALCHUB_PLUGIN_SLUG; ?>
 	<form action="<?php echo esc_url( $url_form ); ?>" method="post" name="post" class="wow-plugin" id="calchub-form">
@@ -74,6 +75,26 @@ $url_form = admin_url() . 'admin.php?page=' . CALCHUB_PLUGIN_SLUG; ?>
 										       echo absint( $tool_id ); ?>']" id="calc-shortcode">
 									</div>
 								</div>
+
+								<div class="field has-addons">
+									<div class="control">
+                                    <span class="button is-small is-link" id="calc-copy-action"  style="cursor: default">
+                                        <?php esc_html_e( 'Attached link', 'calculator-builder' ); ?>
+                                    </span>
+									</div>
+									<div class="control">
+										<input class="input is-small is-link" type="text"
+										       value="<?php echo esc_url( $calc_link ); ?>" name="param[calc_link]"
+										       id="calc-post-link">
+									</div>
+									<?php if ( !empty( $calc_link ) ) : ?>
+										<div class="control">
+											<a href="<?php echo esc_url($calc_link);?>" target="_blank" class="button is-small is-link has-background-link">
+												<span class="dashicons dashicons-admin-links"></span>
+											</a>
+										</div>
+									<?php endif; ?>
+								</div>
 							</div>
 
 						</div>
@@ -103,7 +124,7 @@ $url_form = admin_url() . 'admin.php?page=' . CALCHUB_PLUGIN_SLUG; ?>
 
 						</div>
 						<div class="builder-button">
-							<a class="btn-add-new-field" href="#field-number">
+							<a class="btn-add-new-field" href="#">
 								<span class="dashicons dashicons-plus"></span>
 							</a>
 						</div>
@@ -154,6 +175,16 @@ $url_form = admin_url() . 'admin.php?page=' . CALCHUB_PLUGIN_SLUG; ?>
 				<span><?php echo esc_html( $btn ); ?></span>
 				<span class="icon is-small has-text-white">&#10004;</span>
 			</button>
+
+
+			<?php if ( !empty( $calc_link ) ) : ?>
+
+			<a href="<?php echo esc_url($calc_link);?>" target="_blank" class="button button-large is-size-6 is-radiusless is-link has-background-link">
+				<?php esc_html_e( 'Attached link', 'calculator-builder' ); ?>
+			</a>
+
+			<?php endif; ?>
+
 		</p>
 	</form>
 

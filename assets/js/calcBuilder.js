@@ -2,12 +2,13 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+
     jQuery('#calculator').sortable({
         appendTo: document.body,
         cursor: 'move',
         update: function (event, ui) {
-            Variables.start();
             Field.setAttributes();
+            Variables.start();
             Field.removeTagStyle();
         },
     });
@@ -202,6 +203,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     case 'input':
                         content += Field.input(param);
                         break;
+                    case 'range':
+                        content += Field.range(param);
+                        break;
 
                 }
 
@@ -240,8 +244,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 allContainer[dataVal].innerHTML = content;
             }
             elements.boxClose.click();
-            Variables.start();
             Field.setAttributes();
+            Variables.start();
         }
 
         static title(param) {
@@ -396,6 +400,32 @@ document.addEventListener('DOMContentLoaded', function () {
             return content;
         }
 
+        static range(param) {
+            const step = (param.step !== '') ? ' step="' + param.step + '"' : '';
+            const min = (param.min !== '') ? ' min="' + param.min + '"' : '';
+            const max = (param.max !== '') ? ' max="' + param.max + '"' : '';
+            const option = `value="${param.value}"${step}${min}${max}`;
+            let content = `<div class="formbox__field">`;
+            content += `<label class="formbox__field-lable">${param.title}</label>`;
+            const marker_id = Field.getRandomInt(10, 1000);
+            let marker = (param.options) ? ' list="markers_' + marker_id + '"' : '';
+            content += `<input type="range" class="formbox__field-range" ${option}${marker}>`;
+            if (param.options) {
+                content += `<datalist id="markers_${marker_id}" class="field-range-text">`;
+                let arr = param.options.split('\n');
+                for (let i = 0; i < arr.length; i++) {
+                    let option = Field.getOptions(arr[i]);
+                    if (option !== '') {
+                        content += `<option value="${option.val}" label="${option.name}">${option.name}</option>`;
+                    }
+                }
+                content += '</datalist>';
+            }
+            content += '</div>';
+
+            return content;
+        }
+
         static getParams(form) {
             const data = new FormData(form);
             let params = {};
@@ -404,6 +434,12 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             return params;
+        }
+
+        static getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
         static setAttributes() {
@@ -474,6 +510,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (e.target && e.target.classList.contains('delete')) {
                     Actions.removeField(e.target);
                 } else if (e.target && e.target.classList.contains('edit')) {
+                    e.preventDefault();
                     Actions.updateField(e.target);
                 } else if (e.target && e.target.classList.contains('variable') ||
                     e.target.classList.contains('variable', 'is-result') ||
@@ -500,6 +537,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         static updateField(element) {
+            elements.box.showModal();
             const parent = element.closest('.formbox__container');
             let allContainer = document.querySelectorAll('.formbox__container');
             allContainer.forEach((container, index) => {
@@ -522,6 +560,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 type = 'number-select';
             } else if (container.querySelector('input[type="number"]')) {
                 type = 'number';
+            } else if (container.querySelector('input[type="range"]')) {
+                type = 'range';
             } else if (container.querySelector('select')) {
                 type = 'select';
             } else if (container.querySelector('.formbox__field-checkbox')) {
@@ -563,17 +603,44 @@ document.addEventListener('DOMContentLoaded', function () {
             let max = container.querySelector('.formbox__field input[type="number"]');
             max = (max) ? max.getAttribute('max') : '';
 
+            let options = '';
+
+            if (type === 'range') {
+
+                let rangeVal = container.querySelector('.formbox__field input[type="range"]');
+                val = (rangeVal) ? rangeVal.value : '';
+
+                let rangeStep = container.querySelector('.formbox__field input[type="range"]');
+                step = (rangeStep) ? rangeStep.getAttribute('step') : '';
+
+                let rangeMin = container.querySelector('.formbox__field input[type="range"]');
+                min = (rangeMin) ? rangeMin.getAttribute('min') : '';
+
+                let rangeMax = container.querySelector('.formbox__field input[type="range"]');
+                max = (rangeMax) ? rangeMax.getAttribute('max') : '';
+
+                const rangeList = container.querySelector('datalist');
+                if (rangeList) {
+                    const rangeOption = rangeList.querySelectorAll('option');
+                    if (rangeOption.length > 0) {
+                        for (let i = 0; i < rangeOption.length; i++) {
+                            options += rangeOption[i].text + ' = ' + rangeOption[i].value + '\n';
+                        }
+                    }
+                }
+
+            }
 
             let placeholder;
             if (type === 'number' || type === 'number-select') {
                 placeholder = container.querySelector('.formbox__field input[type="number"]');
-            } else if(type === 'textarea') {
+            } else if (type === 'textarea') {
                 placeholder = container.querySelector('.formbox__field textarea');
-            } else if(type === 'input') {
+            } else if (type === 'input') {
                 placeholder = container.querySelector('.formbox__field input');
             }
 
-            if(placeholder && placeholder.hasAttribute('placeholder')) {
+            if (placeholder && placeholder.hasAttribute('placeholder')) {
                 elements.form.querySelector('[name="placeholder"]').value = placeholder.getAttribute('placeholder');
             } else {
                 elements.form.querySelector('[name="placeholder"]').value = '';
@@ -609,7 +676,6 @@ document.addEventListener('DOMContentLoaded', function () {
             let reset = container.querySelector('.formbox__btn-reset');
             reset = (reset) ? reset.innerText : '';
 
-            let options = '';
 
             const checkbox = container.querySelectorAll('.formbox__field-checkbox, .formbox__field-radio');
 
@@ -684,10 +750,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         run() {
-            // const el = Builder.getElements();
             this.changeFieldsType();
             elements.fieldType.addEventListener('change', this.changeFieldsType);
             document.querySelector('.btn-add-new-field').addEventListener('click', this.changeBox);
+            elements.boxClose.addEventListener('click', this.closeBox);
 
             const fields = new Field(elements);
             fields.run();
@@ -697,7 +763,7 @@ document.addEventListener('DOMContentLoaded', function () {
         changeFieldsType() {
             const el = elements;
             const els = el.fields;
-            Builder.hideElements(els.input, els.required, els.result, els.title, els.addon, els.number, els.options, els.button, els.font, els.spacer, els.holder );
+            Builder.hideElements(els.input, els.required, els.result, els.title, els.addon, els.number, els.options, els.button, els.font, els.spacer, els.holder);
 
             const type = el.fieldType.value;
 
@@ -732,14 +798,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 case 'input':
                     Builder.showElements(els.required, els.title, els.input, els.holder);
                     break;
+                case 'range':
+                    Builder.showElements(els.title, els.number, els.options);
+                    break;
             }
 
         }
 
-        changeBox() {
+        changeBox(e) {
+            e.preventDefault();
             elements.form.classList.remove('is-field-update');
             elements.boxTitle.innerText = 'Add Field';
             elements.form.setAttribute('data-field-index', '');
+            elements.box.showModal();
+        }
+
+        closeBox(e) {
+            e.preventDefault();
+            elements.box.close();
         }
 
         // Show Elements

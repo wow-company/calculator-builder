@@ -49,6 +49,7 @@ class CalcHub_Sanitize {
 			'option'   => array(
 				'value'    => true,
 				'selected' => true,
+				'label' => true,
 			),
 			'input'    => array(
 				'type'         => true,
@@ -63,6 +64,7 @@ class CalcHub_Sanitize {
 				'readonly'     => true,
 				'has-required' => true,
 				'placeholder'  => true,
+				'list'         => true,
 			),
 			'textarea' => array(
 				'name'         => true,
@@ -82,6 +84,10 @@ class CalcHub_Sanitize {
 			),
 			'sup'      => [],
 			'sub'      => [],
+			'datalist' => [
+				'id'    => true,
+				'class' => true,
+			]
 
 		);
 

@@ -3,7 +3,6 @@
 	- author:    Dmytro Lobov
 	- copyright: 2019 Wow-Company
 	- version:   1.0
-	- email:     i@lobov.dev
 ==================================================== */
 *, *::before, *::after {
 	box-sizing: inherit;
@@ -22,7 +21,7 @@
 	top: 0;
 	right: 20px;
 	display: flex;
-	gap: 0.75rem;
+	gap: 1rem;
 	padding: 5px 10px;
 	border-radius: 0 0 4px 4px;
 	border: 2px solid #88C0D0;
@@ -32,8 +31,35 @@
 .calchub-link {
 	text-decoration: none;
 	color: #222222;
-	font-size: 0.85rem;
+	display: flex;
+	flex-direction: column;
+	font-size: 12px;
+	align-items: center;
 }
+
+.calchub-link .dashicons {
+	width: 15px;
+	height: 15px;
+	font-size: 15px;
+}
+
+.calchub-link svg {
+	fill: #6261FB;
+	width: 15px;
+	height: 15px;
+	font-size: 15px;
+}
+
+.calchub-link .dashicons-star-filled {
+	color: #F7CC5F;
+}
+
+.calchub-link .dashicons-admin-links {
+	color: #0D6DFD;
+}
+
+
+
 .calchub-header-wrapper {
 	display: flex;
 	gap: 1.5rem;
@@ -760,30 +786,38 @@ p.help {
 	fill: currentColor;
 }
 
-.lightbox {
-	z-index: 9999;
-	display: none;
+/*.lightbox {*/
+/*	z-index: 9999;*/
+/*	display: none;*/
+/*}*/
+
+/*.lightbox:target {*/
+/*	position: fixed;*/
+/*	left: 0;*/
+/*	top: 10%;*/
+/*	width: 100%;*/
+/*	display: flex;*/
+/*	justify-content: center;*/
+/*}*/
+
+
+.lightbox:modal {
+	padding: 0;
+	box-shadow: 0 0 1em rgb(0 0 0 / .3);
+	width: 750px;
+	border-width: 2px;
 }
 
-.lightbox:target {
-	position: fixed;
-	left: 0;
-	top: 10%;
-	width: 100%;
-	display: flex;
-	justify-content: center;
+.lightbox::backdrop {
+	background: rgba(0, 0, 0, 0.55);
 }
 
 .lightbox-content {
-	position: relative;
+	padding: 15px;
 	display: flex;
 	flex-direction: column;
-	padding: 20px 15px 15px;
-	width: 750px;
-	min-height: 550px;
-	background-color: #eceff4;
-	border: 1px solid #8fbcbb;
-	border-radius: 4px;
+
+	background-color: #eceff4;;
 }
 
 .lightbox-close {
@@ -792,6 +826,16 @@ p.help {
 	right: 0;
 	color: #bf616a;
 	text-decoration: none;
+}
+
+.lightbox-content .type-required {
+	color: #E86E2C;
+}
+
+.lightbox-close .dashicons {
+	width: 26px;
+	height: 26px;
+	font-size: 26px;
 }
 
 .lightbox-title {
@@ -846,8 +890,12 @@ p.help {
 	overflow: auto;
 }
 
-.lightbox .field-label {
+.lightbox-content .field-label {
 	text-align: left;
+}
+
+.lightbox-header {
+	background-color: #ffffff;
 }
 
 .can-toggle {
@@ -860,8 +908,24 @@ p.help {
 	right: 0;
 	padding: 15px;
 	transform: translateY(-100%);
+	cursor: pointer;
 }
 
 .calc-options {
 	padding-top: 15px;
+}
+
+.formbox__title {
+	cursor: move;
+}
+
+.control a.button {
+	display: flex ;
+	align-items: center;
+}
+
+a.button .dashicons {
+	width: 18px;
+	height: 18px;
+	font-size: 18px;
 }

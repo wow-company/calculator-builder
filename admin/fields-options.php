@@ -17,21 +17,22 @@ defined( 'ABSPATH' ) || exit;
 
 ?>
 
-<div class="lightbox" id="field-number">
+<dialog class="lightbox" id="field-number">
 
-	<div class="lightbox-content p-4">
+	<div class="lightbox-content">
 
 		<a href="#" class="lightbox-close"><span class="dashicons dashicons-no-alt"></span> </a>
 
 		<form action="" id="form-params" data-field-index="">
 
-			<div class="columns">
+			<div class="columns lightbox-header">
 				<div class="column">
 					<div class="field is-horizontal">
 						<div class="field-label is-normal">
-							<div class="lightbox-title"><?php esc_html_e( 'Add Field', 'calculator-builder' ); ?></div>
+							<div class="lightbox-title" id="lightbox-header"><?php esc_html_e( 'Add Field', 'calculator-builder' ); ?></div>
 							<label class="type-required">
-								<input type="checkbox" checked name="required" value="1"><?php esc_html_e( 'Required', 'calculator-builder' ); ?>
+								<input type="checkbox" checked name="required"
+								       value="1"><?php esc_html_e( 'Required', 'calculator-builder' ); ?>
 							</label>
 						</div>
 						<div class="field-body">
@@ -39,30 +40,44 @@ defined( 'ABSPATH' ) || exit;
 								<div class="control">
 									<div class="select is-link">
 										<select name="type" id="form-type">
-											<option
-												value="number"><?php esc_attr_e( 'Number', 'calculator-builder' ); ?></option>
-											<option
-												value="select"><?php esc_attr_e( 'Select', 'calculator-builder' ); ?></option>
-											<option
-												value="radio"><?php esc_attr_e( 'Radio', 'calculator-builder' ); ?></option>
-											<option
-												value="checkbox"><?php esc_attr_e( 'Checkbox', 'calculator-builder' ); ?></option>
-											<option
-												value="number-select"><?php esc_attr_e( 'Number + Select', 'calculator-builder' ); ?></option>
-											<option
-												value="buttons"><?php esc_attr_e( 'Buttons', 'calculator-builder' ); ?></option>
-											<option
-												value="result"><?php esc_attr_e( 'Result', 'calculator-builder' ); ?></option>
-											<option
-												value="title"><?php esc_attr_e( 'Title', 'calculator-builder' ); ?></option>
-											<option
-												value="separator"><?php esc_attr_e( 'Separator', 'calculator-builder' ); ?></option>
-											<option
-												value="spacer"><?php esc_attr_e( 'Spacer', 'calculator-builder' ); ?></option>
-											<option
-												value="textarea"><?php esc_attr_e( 'Textarea', 'calculator-builder' ); ?></option>
-											<option
-												value="input"><?php esc_attr_e( 'Input', 'calculator-builder' ); ?></option>
+											<option value="number">
+												<?php esc_attr_e( 'Number', 'calculator-builder' ); ?>
+											</option>
+											<option value="select">
+												<?php esc_attr_e( 'Select', 'calculator-builder' ); ?>
+											</option>
+											<option value="radio">
+												<?php esc_attr_e( 'Radio', 'calculator-builder' ); ?>
+											</option>
+											<option value="checkbox">
+												<?php esc_attr_e( 'Checkbox', 'calculator-builder' ); ?></option>
+											<option value="number-select">
+												<?php esc_attr_e( 'Number + Select', 'calculator-builder' ); ?>
+											</option>
+											<option value="buttons">
+												<?php esc_attr_e( 'Buttons', 'calculator-builder' ); ?>
+											</option>
+											<option value="result">
+												<?php esc_attr_e( 'Result', 'calculator-builder' ); ?>
+											</option>
+											<option value="title">
+												<?php esc_attr_e( 'Title', 'calculator-builder' ); ?>
+											</option>
+											<option value="separator">
+												<?php esc_attr_e( 'Separator', 'calculator-builder' ); ?>
+											</option>
+											<option value="spacer">
+												<?php esc_attr_e( 'Spacer', 'calculator-builder' ); ?>
+											</option>
+											<option value="textarea">
+												<?php esc_attr_e( 'Textarea', 'calculator-builder' ); ?>
+											</option>
+											<option value="input">
+												<?php esc_attr_e( 'Input', 'calculator-builder' ); ?>
+											</option>
+											<option value="range">
+												<?php esc_attr_e( 'Range', 'calculator-builder' ); ?>
+											</option>
 										</select>
 									</div>
 								</div>
@@ -338,6 +353,5 @@ defined( 'ABSPATH' ) || exit;
 			</div>
 		</form>
 	</div>
-
-</div>
+</dialog>
 

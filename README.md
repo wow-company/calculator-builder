@@ -36,6 +36,7 @@ If you have any questions concerning the plugin ask us at the [WordPress forum](
 * Added: type 'required' for fields: Text, Textarea
 * Added: option 'Hide fields of results when changing calculator parameters'
 * Optimized: builder script & style
+* Fixed: minor bug with create variables
 
 ### = 1.3.1 =
 * Changed: the data table fields type from text to LONGTEXT
