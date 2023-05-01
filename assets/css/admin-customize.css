@@ -929,3 +929,9 @@ a.button .dashicons {
 	height: 18px;
 	font-size: 18px;
 }
+
+.tablenav.bottom .button,
+.tablenav.top .button,
+.search-box .button{
+	height: auto;
+}

@@ -838,3 +838,8 @@ p.help {
 	background-color: #d8dee9;
 	color: #2e3440;
 }
+.tablenav.bottom .button,
+.tablenav.top .button,
+.search-box .button{
+	height: auto;
+}
