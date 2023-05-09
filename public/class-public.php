@@ -35,8 +35,8 @@ class Calculator_Builder_Public {
 			$form  = $result->form;
 
 			$form = preg_replace( '#<div class="action-elements">(.*?)</div>#s', ' ', $form );
-			$form = str_replace( [ ' ui-sortable-handle', 'has-result', 'has-required' ],
-				[ '', 'has-result is-hidden', 'required' ], $form );
+			$form = str_replace( [ ' ui-sortable-handle', 'has-result', 'has-required', 'has-alert' ],
+				[ '', 'has-result is-hidden', 'required', 'has-alert is-hidden' ], $form );
 
 			$out = '<form action="' . esc_url( get_permalink() ) . '" name="formbox" class="formbox" id="calculator_' . absint( $id ) . '">';
 			$out .= apply_filters( 'calhub_calculator_form', $form, $id );
@@ -72,9 +72,10 @@ class Calculator_Builder_Public {
 
 			wp_enqueue_script( CALCHUB_PLUGIN_SLUG);
 
-			$data = "function calculator_{$id}(x, fieldset, field, label){ let y = [];
+			$data = "function calculator_{$id}(x, fieldset, field, label, calc){ let calcAlert = ''; let y = []; 
 				" . wp_specialchars_decode( $result->formula, ENT_QUOTES ) . "
-				return y;}";
+				
+				return checkCalcVariable(y, calcAlert);}";
 
 			if ( ! empty( $param['obfuscation'] ) ) {
 				$packer = new JavaScriptPacker( $data );

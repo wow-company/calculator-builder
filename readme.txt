@@ -5,7 +5,7 @@ Tags: calculator, calculator builder, online calculator, calculator maker, calcu
 Requires at least: 5.0
 Tested up to: 6.2
 Requires PHP: 7.4
-Stable tag: 1.4
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -202,6 +202,9 @@ If you have any questions concerning the plugin ask us at the [WordPress forum](
 5. Frontend - calculator on frontend
 
 == Changelog ==
+
+= 1.5 =
+* Added: function for alert for error calculation [read more](https://calchub.xyz/notes/how-to-add-error-alert-in-calculator)
 
 = 1.4 =
 * Added: submit button in the bottom of the form

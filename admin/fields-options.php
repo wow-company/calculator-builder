@@ -78,6 +78,9 @@ defined( 'ABSPATH' ) || exit;
 											<option value="range">
 												<?php esc_attr_e( 'Range', 'calculator-builder' ); ?>
 											</option>
+											<option value="alert">
+												<?php esc_attr_e( 'Alert', 'calculator-builder' ); ?>
+											</option>
 										</select>
 									</div>
 								</div>

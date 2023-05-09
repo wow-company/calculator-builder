@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
             Variables.createLabel();
             Variables.createFields();
             Variables.createFieldsets();
+            Variables.createAlerts();
 
         }
 
@@ -128,6 +129,16 @@ document.addEventListener('DOMContentLoaded', function () {
             Variables.hover(vars, fieldsets);
         }
 
+        static createAlerts() {
+            const fieldsets = document.querySelector('#calculator fieldset.has-alert');
+            let fieldset = '';
+            if(fieldsets) {
+                fieldset += '<span class="variable calc-alert">calcAlert = "";</span>';
+            }
+
+            document.getElementById('calc-alert-bottom').innerHTML = fieldset;
+        }
+
         static hover(variables, fields) {
 
             variables.forEach((el, index) => {
@@ -161,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const classes = param.extraClasses;
             const class_group = (param.type === 'number-select') ? ' has-group' : '';
             const class_result = (param.type === 'result') ? ' has-result' : '';
+            const class_alert = (param.type === 'alert') ? ' has-alert' : '';
             let content = '';
 
             if (param.type === 'title') {
@@ -206,6 +218,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     case 'range':
                         content += Field.range(param);
                         break;
+                    case 'alert':
+                        content += Field.alert(param);
+                        break;
 
                 }
 
@@ -222,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let dataVal = elements.form.getAttribute('data-field-index');
 
             if (dataVal === '') {
-                let out = `<fieldset class="formbox__container${class_result} ${classes}">${content}</fieldset>`;
+                let out = `<fieldset class="formbox__container${class_result}${class_alert} ${classes}">${content}</fieldset>`;
                 elements.calc.insertAdjacentHTML('beforeend', out);
             } else {
                 dataVal = Number(dataVal);
@@ -232,6 +247,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 allContainer[dataVal].classList.add('formbox__container', 'ui-sortable-handle');
                 if (class_result !== '') {
                     allContainer[dataVal].classList.add(class_result.trim());
+                }
+                if(class_alert !== '') {
+                    allContainer[dataVal].classList.add(class_alert.trim());
                 }
                 let extraClasses = classes.split(' ');
                 if (extraClasses.length > 0) {
@@ -426,6 +444,12 @@ document.addEventListener('DOMContentLoaded', function () {
             return content;
         }
 
+        static alert(param) {
+            let content = '<div class="formbox__field-alert">';
+            content += '</div>';
+            return content;
+        }
+
         static getParams(form) {
             const data = new FormData(form);
             let params = {};
@@ -556,6 +580,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (container.classList.contains('has-result')) {
                 type = 'result';
+            } else if(container.classList.contains('has-alert')) {
+                type = 'alert';
             } else if (container.querySelector('.has-group')) {
                 type = 'number-select';
             } else if (container.querySelector('input[type="number"]')) {
@@ -726,7 +752,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const classes = container.classList;
             if (classes.length > 0) {
                 for (let i = 0; i < classes.length; i++) {
-                    if (classes[i] !== 'formbox__container' && classes[i] !== 'ui-sortable-handle' && classes[i] !== 'has-result') {
+                    if (classes[i] !== 'formbox__container' && classes[i] !== 'ui-sortable-handle' && classes[i] !== 'has-result' && classes[i] !== 'has-alert') {
                         extraClasses += classes[i];
                         extraClasses += ' ';
                     }
@@ -800,6 +826,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     break;
                 case 'range':
                     Builder.showElements(els.title, els.number, els.options);
+                    break;
+                case 'alert':
+                    Builder.showElements(els.title);
                     break;
             }
 

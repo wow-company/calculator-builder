@@ -18,8 +18,9 @@
 	--formbox-field-border-width: 1px;
 	--formbox-field-background: transparent;
 	--formbox-field-color: inherit;
-	--formbox-field-border-hcolor: #dbdbdb;
+	--formbox-field-border-hcolor: #007AFF;
 	--form-field-height: 2.75em;
+	--formbox-field-alert-color: #ff0000;
 	--formbox-field-readonly-background: transparent;
 	--formbox-field-readonly-color: inherit;
 	--formbox-addon-color: inherit;
@@ -344,13 +345,13 @@
 .formbox__btn button {
 	justify-content: center;
 	height: var(--form-field-height);
-	padding: 0.75em 1em;
+	padding-inline: 1em;
 	border: var(--formbox-field-border-width) solid transparent;
 	border-radius: var(--formbox-radius);
 	cursor: pointer;
 	user-select: none;
 	text-align: center;
-	font-size: 1em;
+	font-size: var(--formbox-font-size);
 	font-weight: var(--formbox-btn-calc-weight);
 	white-space: nowrap;
 }
@@ -383,6 +384,10 @@
 	background-color: var(--formbox-result-addon-background);
 	border-color: var(--formbox-field-border-result-color);
 	color: var(--formbox-result-addon-color);
+}
+
+.formbox__field-alert {
+	color: var(--formbox-field-alert-color);
 }
 
 @font-face {
@@ -419,4 +424,3 @@
 .formbox__counter-btn {
 	color: currentColor;
 }
-

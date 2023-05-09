@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 			<div class="operators-line is-hidden variables-bottom">
 				<h4><?php
 					esc_html_e( 'Variables', 'calculator-builder' ); ?>:</h4>
-				<div id="variables-bottom"></div>
+				<div id="variables-bottom"></div><div id="calc-alert-bottom"></div>
 			</div>
 
 			<div class="operators-line tags">
@@ -152,6 +152,8 @@ defined( 'ABSPATH' ) || exit;
 			<span class="operator tag">.addAttr('name', 'value')</span>
 			<span class="operator tag">.removeAttr('name')</span>
 			<span class="operator tag">.text('text')</span>
+			<span class="operator tag">.text('text')</span>
+			<span class="operator tag">calc.alert('Error Massage')</span>
 		</p>
 		<p><a href="https://calchub.xyz/doc/variables-and-functions/" target="_blank">Read More</a></p>
 
